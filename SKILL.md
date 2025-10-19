@@ -36,10 +36,9 @@ Think deeply about the user's request and the logic needed to fulfill it. Ask fo
 - Project Management (Asana, Trello, Jira)
 - And 2,500+ more services!
 
-**Search available nodes:**
+**Reference cached node types** from `references/complete_node_types.md` for the full library of 40+ standard nodes organized by category. Use search only for specific lookups:
 ```javascript
 agenticflow_search_node_types({name: 'keyword'})
-agenticflow_list_node_types({limit: 200})
 ```
 
 **Consider MCP actions** from the extensive catalog for any external service integration. See `references/mcp_integrations.md` for popular MCP actions by category.
@@ -162,6 +161,17 @@ https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/bui
 ## Resources
 
 This skill includes reference documentation to guide workflow creation:
+
+### references/complete_node_types.md
+**Cached complete node type library** with 40+ standard AgenticFlow nodes organized by category:
+- AI & LLM Processing (llm, claude_ask, openai_ask_chat_gpt, etc.)
+- Web Research & Search (perplexity_search, google_search, tavily_search)
+- Image/Video Generation & Processing (generate_image, text_to_video, etc.)
+- Communication & Social Media (send_email, telegram_*, tiktok_*, youtube_*)
+- Data Management & APIs (api_call, mcp_run_action, export_data_to_file)
+- Connection requirements and cost information
+
+**Load this first** to understand available standard nodes before considering MCP integrations.
 
 ### references/workflow_guide.md
 Comprehensive workflow design patterns including:

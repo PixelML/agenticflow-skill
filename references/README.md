@@ -122,11 +122,11 @@ Pre-built AI agent configurations for common business roles.
 - ✅ Patterns → `workflow_guide.md`
 
 **Only Use API When:**
-- Creating workflow → `agenticflow_create_workflow()` - REQUIRED
-- Validating workflow → `agenticflow_validate_workflow()` - Optional
+- Validating workflow → `agenticflow_validate_workflow()` - REQUIRED (call 1)
+- Creating workflow → `agenticflow_create_workflow()` - REQUIRED (call 2, after validation)
 - Health check → `agenticflow_health_check()` - Optional (first time only)
 
-**Result:** Typically only 1 API call per workflow! 🚀
+**Result:** Typically 2 API calls per workflow (validate + create) - prevents broken workflows! 🚀
 
 ## 🎯 Quick Start Guide
 
@@ -138,7 +138,8 @@ Pre-built AI agent configurations for common business roles.
 4. **See examples:** Check `examples/workflows/` for similar use cases (LOCAL)
 5. **Add MCP:** Reference `mcp_integrations.md` for external service needs (LOCAL)
 6. **Follow patterns:** Use `workflow_guide.md` for architecture best practices (LOCAL)
-7. **Create once:** Call `agenticflow_create_workflow()` (1 API CALL)
+7. **Validate first:** Call `agenticflow_validate_workflow()` (API CALL 1 - REQUIRED)
+8. **Create after validation:** Call `agenticflow_create_workflow()` (API CALL 2 - ONLY after validation passes)
 
 ### For Creating Agents
 

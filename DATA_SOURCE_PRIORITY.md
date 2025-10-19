@@ -82,7 +82,19 @@ This skill contains **ALL** node data, workflow examples, and documentation loca
 
 ## ⚠️ Use API Calls For (When Required)
 
-### Creating Workflows (REQUIRED)
+### Validating Workflows (REQUIRED - MUST DO FIRST)
+```javascript
+✅ REQUIRED FIRST: agenticflow_validate_workflow({
+  name: "Workflow Name",
+  nodes: [...],
+  input_schema: {...},
+  output_mapping: {...}
+})
+```
+
+**Why:** MUST validate before creating to prevent broken workflows from cluttering workspace.
+
+### Creating Workflows (REQUIRED - ONLY AFTER VALIDATION PASSES)
 ```javascript
 ✅ Required: agenticflow_create_workflow({
   name: "Workflow Name",
@@ -92,14 +104,7 @@ This skill contains **ALL** node data, workflow examples, and documentation loca
 })
 ```
 
-**Why:** Must call API to actually create the workflow.
-
-### Validating Workflows (OPTIONAL)
-```javascript
-⚠️ Optional: agenticflow_validate_workflow({...})
-```
-
-**Why:** Can validate structure locally, but API provides official validation.
+**Why:** Must call API to actually create the workflow. NEVER call this without validating first!
 
 ### Health Check (OPTIONAL - Rare)
 ```javascript
@@ -137,15 +142,17 @@ This skill contains **ALL** node data, workflow examples, and documentation loca
 Total: 5 API calls
 ```
 
-### Optimized Approach (1 API Call)
+### Optimized Approach (2 API Calls)
 ```
 1. Load references/node_types.md ← Local file
 2. Load references/examples/workflows/similar.json ← Local file
 3. Load guides/02_node_selection_strategy.md ← Local file
 4. Design workflow using local data ← No API
-5. agenticflow_create_workflow({...}) ← 1 API call
+5. agenticflow_validate_workflow({...}) ← API call 1 (REQUIRED)
+6. Fix any validation errors if needed
+7. agenticflow_create_workflow({...}) ← API call 2 (Only after validation)
 
-Total: 1 API call (80% reduction!)
+Total: 2 API calls (60% reduction!)
 ```
 
 ---
@@ -161,8 +168,8 @@ Total: 1 API call (80% reduction!)
 | Understand patterns | ✅ `workflow_guide.md` | ❌ |
 | Validate connection | ❌ | ⚠️ Optional |
 | Search specific node | ✅ Search local first | ⚠️ Fallback |
-| Validate workflow | ✅ Check locally | ⚠️ Optional |
-| Create workflow | ❌ | ✅ Required |
+| Validate workflow | ❌ | ✅ Required (before create) |
+| Create workflow | ❌ | ✅ Required (after validate) |
 
 ---
 
@@ -191,15 +198,16 @@ Only call `agenticflow_health_check()` if:
 ## 🎯 Success Metrics
 
 **Ideal Workflow Creation:**
-- API Calls: 1 (just `agenticflow_create_workflow`)
+- API Calls: 2 (validate + create - both REQUIRED)
 - Local File Loads: 2-4 (guides + references as needed)
-- Time Saved: ~80% reduction in API latency
-- User Experience: Faster workflow creation
+- Time Saved: ~60% reduction in API latency
+- User Experience: Faster workflow creation + prevents broken workflows
 
 **What to Avoid:**
 - ❌ Calling `agenticflow_list_node_types()` for every workflow
 - ❌ Searching nodes via API when local data available
 - ❌ Health check for every workflow
+- ❌ Creating without validating first (CRITICAL - prevents broken workflows!)
 - ❌ Multiple redundant API calls
 
 ---
@@ -225,14 +233,18 @@ Agent Process:
 
 5. Design complete workflow JSON using local data
 
-6. agenticflow_create_workflow({...}) (API - 1 call)
-   → Create workflow
+6. agenticflow_validate_workflow({...}) (API - Call 1)
+   → REQUIRED validation check
+   → Fix any errors if needed
 
-7. Return workflow link to user
+7. agenticflow_create_workflow({...}) (API - Call 2)
+   → Create workflow only after validation passes
 
-Total API Calls: 1
+8. Return workflow link to user
+
+Total API Calls: 2 (validate + create)
 Total Local Loads: 4
-Performance: Optimal ✅
+Performance: Optimal ✅ (Prevents broken workflows!)
 ```
 
 ---
@@ -256,7 +268,7 @@ Create Workflow (API)
 Result: ~5 API calls, slower
 ```
 
-### Fast Approach (1 API call)
+### Fast Approach (2 API calls)
 ```
 User Request
   ↓
@@ -268,9 +280,13 @@ Load Local Examples
   ↓
 Design Complete Workflow
   ↓
-Create Workflow (API - only call)
+Validate Workflow (API - call 1) ← REQUIRED
   ↓
-Result: 1 API call, much faster ✅
+Fix Errors if Needed
+  ↓
+Create Workflow (API - call 2) ← Only after validation
+  ↓
+Result: 2 API calls, prevents broken workflows ✅
 ```
 
 ---
@@ -279,16 +295,18 @@ Result: 1 API call, much faster ✅
 
 **Golden Rules:**
 1. Local files contain ALL data you need
-2. Only call API to CREATE or VALIDATE
-3. Skip health check unless needed
-4. Search locally before calling API
-5. Batch your work - design locally, create once
+2. ALWAYS validate before creating (prevents broken workflows!)
+3. Only call API to VALIDATE and CREATE
+4. Skip health check unless needed
+5. Search locally before calling API
+6. Batch your work - design locally, validate, then create
 
 **Benefits:**
-- ⚡ 80% faster workflow creation
+- ⚡ 60% faster workflow creation
 - 💰 Reduced API costs
 - 🎯 Better user experience
 - 🔒 More reliable (less network dependency)
+- ✅ Prevents broken workflows from cluttering workspace
 
 ---
 

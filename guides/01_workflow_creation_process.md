@@ -244,7 +244,26 @@ User Input → Web Scraping → AI Analysis → External Service → Output
    - Check node type names are exact
    - Ensure proper data types
 
-2. **Node Structure Requirements:**
+2. **REQUIRED: Validate First:**
+```javascript
+// ALWAYS validate before creating
+const validationResult = agenticflow_validate_workflow({
+  name: "Workflow Name",
+  description: "Workflow description",
+  nodes: [...],
+  input_schema: {...},
+  output_mapping: {...}
+})
+```
+
+**Check Validation Results:**
+- ✅ If validation passes → Proceed to creation
+- ❌ If validation fails → Fix errors and validate again
+- ⚠️ If warnings → Review and decide whether to fix
+
+**Never skip validation!** This prevents creating broken workflows that clutter the user's workspace.
+
+3. **Node Structure Requirements:**
 ```javascript
 {
   "name": "node_name",           // Required: string
@@ -257,14 +276,15 @@ User Input → Web Scraping → AI Analysis → External Service → Output
 }
 ```
 
-3. **Critical Fixes:**
+4. **Critical Fixes:**
    - Never use `null` for `output_mapping` → use `{}`
    - Never use `null` for `connection` → use `""`
    - Always include all required fields
    - Use exact node type names
 
-4. **Create Workflow:**
+5. **Only After Validation Passes - Create Workflow:**
 ```javascript
+// Only call this after agenticflow_validate_workflow() succeeds
 agenticflow_create_workflow({
   name: "Workflow Name",
   description: "Workflow description",
@@ -274,29 +294,34 @@ agenticflow_create_workflow({
 })
 ```
 
-5. **Provide Direct Link:**
+**CRITICAL:** Never create without validating first!
+
+6. **Provide Direct Link:**
 ```
 https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/build
 ```
 
 ---
 
-### Phase 7: Validation & Documentation
+### Phase 7: Post-Creation Documentation
 
-**Goal:** Ensure workflow works correctly and user understands setup.
+**Goal:** Provide user with complete setup and usage information.
 
-**Validation Steps:**
+**Note:** Validation is done in Phase 6 BEFORE creation, not after!
 
-1. **Workflow Structure:**
-   - All nodes properly connected
-   - Data flow makes logical sense
-   - No circular dependencies
-   - Template variables reference existing nodes
+**Documentation Steps:**
 
-2. **Field Validation:**
-   - All required fields included
-   - Correct data types used
-   - UI metadata properly structured
+1. **Workflow Summary:**
+   - Confirm workflow was created successfully
+   - Provide direct link to workflow
+   - Explain what the workflow does
+   - Share validation results (already completed)
+
+2. **Validation Confirmation (Already Done):**
+   - Workflow structure validated ✓
+   - All fields properly configured ✓
+   - Data flow verified ✓
+   - Template variables correct ✓
 
 3. **MCP Connection Check:**
    - All MCP actions have connections specified

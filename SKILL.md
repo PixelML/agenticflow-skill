@@ -46,8 +46,8 @@ Use this skill when users want to:
 - ✅ Learning workflow patterns → `references/workflow_guide.md`
 
 **USE API CALLS (Only when required):**
-- ⚠️ Creating workflow → `agenticflow_create_workflow()` - REQUIRED
-- ⚠️ Validating workflow → `agenticflow_validate_workflow()` - Optional
+- ⚠️ **Validating workflow → `agenticflow_validate_workflow()` - REQUIRED before creation**
+- ⚠️ **Creating workflow → `agenticflow_create_workflow()` - Only after validation passes**
 - ⚠️ Health check → `agenticflow_health_check()` - Optional
 - ⚠️ Searching nodes → `agenticflow_search_node_types()` - Only if local search insufficient
 
@@ -62,12 +62,16 @@ Design complete workflow using local data
      ↓
 Build workflow JSON structure
      ↓
-API CALL: agenticflow_create_workflow() ← ONLY API call needed!
+API CALL 1: agenticflow_validate_workflow() ← REQUIRED validation
+     ↓
+Validation passed? → Yes → Continue
+     ↓ No → Fix errors and validate again
+API CALL 2: agenticflow_create_workflow() ← Create after validation
      ↓
 Return workflow link to user
 ```
 
-**Result:** Typically only 1 API call needed per workflow creation!
+**Result:** Typically 2 API calls needed (validate + create) - Prevents broken workflows!
 
 ---
 
@@ -183,9 +187,13 @@ agenticflow_health_check() // OPTIONAL - only if validating connection
 4. Document MCP connections needed
 
 #### Phase 6: Building
-1. Create workflow using `agenticflow_create_workflow()`
-2. Provide direct workflow URL
-3. Include clear setup instructions
+1. **REQUIRED:** Validate workflow first using `agenticflow_validate_workflow()`
+2. **Check validation results** - Fix any errors before proceeding
+3. **Only after successful validation:** Create workflow using `agenticflow_create_workflow()`
+4. Provide direct workflow URL
+5. Include clear setup instructions
+
+**CRITICAL:** Never create a workflow without validating first! This prevents creating broken workflows.
 
 #### Phase 7: Validation & Documentation
 1. Validate workflow structure
@@ -336,8 +344,13 @@ Use this for every workflow:
 - [ ] No null values (use {} for objects, "" for strings)
 - [ ] Node names unique and descriptive
 
+**Before Creating (REQUIRED):**
+- [ ] **Validation API called** - `agenticflow_validate_workflow()`
+- [ ] **Validation passed** - No errors or warnings
+- [ ] **Errors fixed** - If validation failed, fix and re-validate
+
 **After Building:**
-- [ ] Workflow created successfully
+- [ ] Workflow created successfully (only after validation)
 - [ ] Direct link provided to user
 - [ ] MCP setup documented
 - [ ] Usage instructions clear
@@ -407,8 +420,8 @@ A successful workflow should:
 - Health check: `agenticflow_health_check()` - OPTIONAL, only if validating connection
 - Search nodes: Use `references/node_types.md` first, API search only if needed
 - List nodes: Use `references/official_node_types.json` - all 139 nodes locally available
-- Create workflow: `agenticflow_create_workflow({...})` - REQUIRED for creation
-- Validate workflow: `agenticflow_validate_workflow({...})` - OPTIONAL before creation
+- **Validate workflow: `agenticflow_validate_workflow({...})` - REQUIRED before creation**
+- **Create workflow: `agenticflow_create_workflow({...})` - Only after successful validation**
 
 **Data Source Priority:**
 1. **LOCAL FIRST** - Use references/* files (saves API calls)

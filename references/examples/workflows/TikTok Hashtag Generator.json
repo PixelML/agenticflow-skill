@@ -1,0 +1,89 @@
+{
+  "id": "f33af57c-1478-49fe-a1ca-b11bd019354b",
+  "name": "TikTok Hashtag Generator",
+  "description": "Generate hashtags for your TikTok post with AI.",
+  "created_at": "2024-05-23T16:25:34.760117",
+  "updated_at": "2025-01-22T16:37:43.593976",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Generate a mix of popular hashtags (100k-1M+ views) and niche hashtags (10k-100k views) relevant to {{tiktok_caption}} , {{keywords}} , {{target_audience}}. Focus on hashtags that encourage engagement",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "tiktok_caption",
+      "keywords",
+      "target_audience"
+    ],
+    "properties": {
+      "keywords": {
+        "type": "string",
+        "title": "Keywords",
+        "description": "Words that describe the main elements, theme, or action in your TikTok video",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "#AI #Avatar #Personalized #Unique #VirtualYou  ",
+          "placeholder": ""
+        }
+      },
+      "tiktok_caption": {
+        "type": "string",
+        "title": "Long Text",
+        "description": "",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 1,
+          "value": "Ever wanted to be an anime character, a cartoon version of yourself, or have wings?!  Now you can with AI-powered avatars!  Show me yours in the comments using #MyAIAvatar!  \u27a1\ufe0f Link in bio to create your own! ",
+          "placeholder": ""
+        }
+      },
+      "target_audience": {
+        "type": "string",
+        "title": "Long Text",
+        "description": "",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 2,
+          "value": "People interested in social media, technology, and expressing themselves creatively.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 29,
+  "num_views": 14,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/62cc5b06-5ebc-47ac-a149-fa2273881d4f/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

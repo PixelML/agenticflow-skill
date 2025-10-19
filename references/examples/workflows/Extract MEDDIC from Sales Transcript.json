@@ -1,0 +1,167 @@
+{
+  "id": "be9f079d-a81c-481e-89f3-1e9515e46427",
+  "name": " Extract MEDDIC from Sales Transcript",
+  "description": "Extracts Metrics, Economic buyer, Decision criteria, Decision process, Identify pain, and Champion information from a sales transcript using the MEDDIC framework.",
+  "created_at": "2024-05-23T16:25:34.760771",
+  "updated_at": "2025-01-22T16:42:04.003600",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "extract_meddic",
+        "title": "Extract Meddic",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Sales transcript: {{sales_transcripts}} \nAnswer all the MEDDIC information from the sales transcript. If unsure, reply with \"Not sure\".",
+          "system_message": null,
+          "chat_history_id": "Your job is to extract information from the given context. Only output what is expected, nothing else."
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extract_metrics",
+        "title": "Extract Metrics",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_meddic.content}} \nExtract the Metrics information and return just the text after \"Metrics:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extract_economic_buyer",
+        "title": "Extract Economic Buyer",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_meddic.content}} \nExtract the Economic Buyer information and return just the text after \"Economic Buyer:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extrac_decision_criteria",
+        "title": "Extract Decision Criteria",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_metrics.content}} \nExtract the Decision Criteria information and return just the text after \"Decision Criteria:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extract_decision_process",
+        "title": "Extract Decision Process",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_metrics.content}} \nExtract the Decision Process information and return just the text after \"Decision Process:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extract_identify_pain",
+        "title": "Extract Identify Pain",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_metrics.content}} \nExtract the Identify Pain information and return just the text after \"Identify Pain:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "extract_champion",
+        "title": "Extract Champion",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "MEDDIC information: {{extract_meddic.content}} \nExtract the Champion information and return just the text after \"Champion:\", nothing else.",
+          "system_message": "Your job is to extract information from the given context. Only output what is expected, nothing else.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "sales_transcripts"
+    ],
+    "properties": {
+      "sales_transcripts": {
+        "type": "string",
+        "title": "Sales Transcript",
+        "description": "Sales Transcript",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "Scenario: David, a salesperson for a cloud-based HR software company, is on a discovery call with Sarah, the HR Manager at a rapidly growing tech startup.\n\nDavid (Salesperson): Hi Sarah, thanks for taking the time to chat today.  To kick things off, can you tell me a little bit about [Company Name] and the current size of your HR team? (Metrics)\n\nSarah (Prospect): Hi David, thanks for reaching out. We're a growing startup with about 150 employees, but that number is expected to double in the next year.  Right now, it's just me and an assistant handling all HR duties.\n\nDavid: Interesting.  With that kind of growth, I imagine keeping up with onboarding, payroll, and benefits administration can be challenging.  Have you encountered any specific issues in managing HR for a growing team? (Economic Buyer)\n\nSarah: Absolutely.  Everything is very manual right now, and it's getting difficult to keep track of employee records and ensure compliance.  Payroll processing takes a lot of time and leaves room for errors.\n\nDavid: That makes sense.  Can you tell me more about the impact these challenges have on your business?  For example, are there any delays in onboarding new hires, or have there been any compliance issues? (Implication)\n\nSarah: Fortunately, no compliance issues yet, but onboarding is definitely taking longer than ideal.  New hires get frustrated waiting for access to systems and benefits information.\n\nDavid:  I understand.  [Software Name] can help streamline your HR processes by automating tasks like onboarding, payroll, and benefits administration.  Our cloud-based platform allows you to manage everything in one place, saving you valuable time and resources. (Decision Criteria)\n\nSarah: That sounds promising.  Who else within the company would be involved in the decision-making process for a new HR software solution? (Decision Process)\n\nDavid: Typically, the CFO and CEO would also be involved, along with any department heads who rely on HR data for reporting purposes.\n\nDavid:  Would you be open to a demo next week where I can show you how [Software Name] can address your specific needs and help you manage your growing team more efficiently? (Champion)\n\nSarah: Sure, that sounds like a good next step.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 11,
+  "num_views": 6,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/182aeae2-b666-4d3c-ae36-1904c35bca53/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

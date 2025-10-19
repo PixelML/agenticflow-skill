@@ -1,0 +1,95 @@
+{
+  "id": "e6315cfd-49f9-41e1-a57c-7bd5cf566624",
+  "name": "Interactive Photo Composition ",
+  "description": "Create visually compelling photographs by experimenting with different compositions.",
+  "created_at": "2024-05-23T16:25:34.759917",
+  "updated_at": "2025-01-22T16:36:12.170588",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "generate_image",
+        "title": "Generate Image",
+        "description": "Generate image with SD3",
+        "node_type_name": "generate_image",
+        "input_config": {
+          "prompt": "Generates design concepts, Keep the {{object}} {{file_url}} of the photo intact, create a new photo based on the following factors {{background}} {{foreground}} {{composition}} {{style}}",
+          "provider": "Runware",
+          "aspect_ratio": "16:9",
+          "negative_prompt": "not bad"
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "style": {
+        "type": "string",
+        "title": "Style",
+        "description": "This defines the overall aesthetic of the photo",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Realistic with a touch of painterly quality.",
+          "placeholder": ""
+        }
+      },
+      "background": {
+        "type": "string",
+        "title": "Background",
+        "description": "The environment where the object will be placed",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "A lush green mountain range with snow-capped peaks under a clear blue sky with wispy clouds.",
+          "placeholder": ""
+        }
+      },
+      "foreground": {
+        "type": "string",
+        "title": "Foreground Elements",
+        "description": "Additional elements that can add depth and interest to the composition",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "A small wooden cabin with smoke rising from the chimney. A hiker standing on a rocky outcrop, admiring the view (user upload of a specific person optional).",
+          "placeholder": ""
+        }
+      },
+      "composition": {
+        "type": "string",
+        "title": "Composition",
+        "description": "Arranging the elements within the frame",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "Apply the rule of thirds for both the background and foreground elements. Use the winding path leading up the mountainside as a leading line drawing the viewer's eye towards the cabin. Position the hiker slightly off-center to the right, looking towards the left side of the frame (opposite the mountains).",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 26,
+  "num_views": 8,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/c8f81a0e-0532-4b41-b9fa-3918e0be2d02/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

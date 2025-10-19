@@ -1,0 +1,92 @@
+{
+  "id": "98ca371b-0884-4fbe-b663-b4699c067869",
+  "name": "MEME - Emotionalize objects with emoji ",
+  "description": "Generate a emotional character from emoji",
+  "created_at": "2024-12-05T15:52:26.255718",
+  "updated_at": "2025-04-17T09:04:03.394925",
+  "user_id": "6565baaab1e81262ad5b8339",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "emoji_to_text",
+        "title": "Emoji to Text",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "Anthropic Claude 3 Haiku",
+          "temperature": 0.1,
+          "human_message": "write a meme about object {{object}} with the emotion of the emoji {{facial_expression}}, \njust write one sentence text\n- do not show ''",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "generate_image",
+        "title": "Generate Image",
+        "description": "Use AI to generate images from your imagination. Simply describe what you want to see, and watch the AI bring it to life.",
+        "node_type_name": "generate_image",
+        "input_config": {
+          "lora": null,
+          "prompt": "an image about{{object}} with the emotion of the icon {{facial_expression}}, text {{emoji_to_text.content}}, cartoon style",
+          "model_id": null,
+          "provider": "Runware",
+          "aspect_ratio": "9:16_HD",
+          "negative_prompt": "NSFW"
+        },
+        "output_mapping": null,
+        "connection": "{{__app_connections__['2988a64d-dbb3-410e-b9db-55bb6e81dc9b']}}",
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "object": {
+        "type": "string",
+        "title": "Main character",
+        "description": "The object you want to emotionalize",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "\ud83c\udf4c",
+          "placeholder": "Enter random object symbol here"
+        }
+      },
+      "facial_expression": {
+        "type": "string",
+        "title": "Emoticons",
+        "description": "Facial Expression",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "\ud83d\ude02",
+          "placeholder": "Enter random emoji here"
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "30f2b04d-294f-4110-bf7e-4d405f2bea0c",
+  "project_id": "01K7DYE3SZNRJ5QEHYZZGAZK3V",
+  "public_runnable": true,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 62,
+  "num_views": 31,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/69960fe3-1771-4d07-b7b2-4c8ab94312e8/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

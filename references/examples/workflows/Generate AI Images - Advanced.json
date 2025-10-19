@@ -1,0 +1,108 @@
+{
+  "id": "948c5097-616d-411e-b764-b924eaa346b7",
+  "name": "Generate AI Images - Advanced",
+  "description": "A tool to generate any AI image",
+  "created_at": "2025-01-31T14:50:47.843078",
+  "updated_at": "2025-09-12T07:48:43.433861",
+  "user_id": "6488a5b5a145a320e7a0bb0c",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "generate_image",
+        "title": "generate_image",
+        "description": "Use AI to generate images from your imagination. Simply describe what you want to see, and watch the AI bring it to life.",
+        "node_type_name": "generate_image",
+        "input_config": {
+          "lora": null,
+          "prompt": "{{prompt}}",
+          "model_id": "{{model_id}}",
+          "provider": "Runware",
+          "aspect_ratio": "{{aspect_ratio}}",
+          "negative_prompt": "{{negative_prompt}}"
+        },
+        "output_mapping": null,
+        "connection": "{{__app_connections__['f098d4a6-485b-4eb4-8316-d1b5ad9e7e90']}}",
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "prompt": {
+        "type": "string",
+        "title": "Prompt",
+        "description": "Prompt",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "a cute cat",
+          "placeholder": "Prompt"
+        }
+      },
+      "lora_id": {
+        "type": "string",
+        "title": "Lora ID",
+        "description": "Lora ID",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "",
+          "placeholder": "Lora ID"
+        }
+      },
+      "model_id": {
+        "type": "string",
+        "title": "Model ID",
+        "description": "Model ID",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "runware:101@1",
+          "placeholder": "Model ID"
+        }
+      },
+      "aspect_ratio": {
+        "type": "string",
+        "title": "Aspect Ratio",
+        "description": "Aspect Ratio",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "1:1",
+          "placeholder": "Aspect Ratio"
+        }
+      },
+      "negative_prompt": {
+        "type": "string",
+        "title": "Negative Prompt",
+        "description": "Negative Prompt",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 1,
+          "value": "",
+          "placeholder": "Negative Prompt"
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 4968,
+  "num_views": 24,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/9653563f-316a-43ba-b022-d19dccefc3c3/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

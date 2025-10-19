@@ -1,0 +1,145 @@
+{
+  "id": "90c88567-0863-4d0a-b358-ac53616d6628",
+  "name": "Write Blog Post with Brand Voice",
+  "description": "Transforms a content brief into a blog post, title, and meta description",
+  "created_at": "2024-05-23T16:25:34.759787",
+  "updated_at": "2025-01-22T16:35:36.015442",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "generate_blog_post",
+        "title": "Generate Blog Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Create a long-form blog post using the provided content brief {{content_brief}} and brand voice {{brand_voice}} . The blog should be structured into 10-15 sections.\nThe post should be comprehensive, covering all key highlights, customer testimonials, company milestones, campaign announcements, and other relevant details from the brief. Include relevant headings, subheadings, and bullet points to organize the information effectively.",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "brainstorm_title",
+        "title": "Brainstorm Title",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Content Brief: {{content_brief}}\nRead through the content brief and suggest 3 creative, engaging titles that would draw readers in and accurately represent the content using the brand voice: {{brand_voice}}",
+          "system_message": "You are an experienced blog writer skilled at crafting compelling titles that capture readers' attention.\n\nAn effective blog title structure is:\n\n- Short and punchy\n\n- Contains relevant keywords\n\n- Creates curiosity",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "brainstorm_meta_description",
+        "title": "Brainstorm Meta Description",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Content Brief: {{content_brief}} \nWrite a meta description for this blog post that follows best practices for SEO and conversion optimization. Focus on accurately summarizing the content and highlighting important keywords. Keep it under 160 characters. Using the brand voice: {{brand_voice}}",
+          "system_message": "You are an SEO expert skilled at writing compelling meta descriptions for blog posts.\n\nThe structure of a good meta description is:\n\n- Accurately summarizes blog post content\n\n- Includes relevant keywords\n\n- Is under 160 characters",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "featured_image_prompt",
+        "title": "Brainstorm Featured Image prompt",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Meta Description: {{brainstorm_meta_description.content}}",
+          "system_message": "# Image Prompt Generation Instructions\nYou are a prompt generation AI. Your task is to convert marketing descriptions, hashtags, or concept descriptions into detailed visual prompts. Extract key themes and visualize them as concrete imagery.\n## Example Conversions:\nInput: \"Discover how AI's deep learning transforms event planning by analyzing attendee preferences and behaviors for personalized experiences. #EventTech #AI\"\nAnalysis:\n- Core concept: AI and event planning\n- Key elements: data analysis, personalization\n- Visual themes: technology, events, interaction\n- Mood: futuristic, professional\nOutput:\nFuturistic AI interface with glowing neural network patterns and holographic attendee profiles, displayed in a modern event planning control room, illuminated by soft blue ambient lighting, with data streams and preference analysis visualizations floating in the air, cyberpunk-inspired digital art style, ultra detailed, photorealistic rendering, 8k resolution\nMore Examples:\nInput: \"Empower your growth mindset with our revolutionary learning platform. #EdTech #Innovation\"\nOutput:\nLuminous digital tree of knowledge with branches made of interconnected light pathways and glowing wisdom nodes, emerging from a sleek tablet device in a minimalist study space, bathed in warm inspirational lighting, floating educational symbols and progress indicators shimmer in the air, modern digital art style, ultra detailed, volumetric lighting, 8k resolution\nInput: \"Experience nature's power through sustainable energy innovation. #CleanTech #Renewable\"\nOutput:\nElegant wind turbine with flowing organic curves and bioluminescent accents, standing tall against a dramatic sunset sky, rays of golden light filtering through passing clouds, with floating data visualizations showing energy flow, surrounded by wildflower meadow, eco-futuristic art style, photorealistic detail, atmospheric lighting, 8k resolution\n## Guidelines\n1. Identify key themes from input:\n- Main subject/concept\n- Core activities\n- Target mood/feeling\n- Industry context\n2. Transform abstract concepts into visual elements:\n- Convert data into floating displays\n- Show processes as flowing energy/light\n- Represent connections as networks/patterns\n- Use color to convey mood\n3. Structure prompt with:\n- Central visual element\n- Environmental context\n- Lighting and atmosphere\n- Style and technical specifications\n4. Always include:\n- Concrete visual details\n- Modern tech elements\n- Atmospheric effects\n- Professional finish markers\nRemember: Create visually striking scenes that capture the essence of the marketing message while maintaining professional and technological themes.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "generate_image",
+        "title": "Generate featured image for blog post",
+        "description": "Generate image with SD3",
+        "node_type_name": "generate_image",
+        "input_config": {
+          "lora": [],
+          "prompt": "{{featured_image_prompt.content}}",
+          "model_id": "",
+          "provider": "Runware",
+          "aspect_ratio": "16:9_HD",
+          "negative_prompt": "NSFW"
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "content_brief"
+    ],
+    "properties": {
+      "brand_voice": {
+        "type": "string",
+        "title": "Brand Voice",
+        "description": "Modify the brand voice",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "Bold, disruptive, customer-centric, and innovative. GXS Bank's voice is a daring challenger in the banking industry, unafraid to question the status quo and push boundaries. Their tone is confident and empowering, speaking directly to everyday consumers and businesses who are tired of traditional banking conventions. The brand's style is conversational yet professional, with a strong focus on collaboration and community. When writing for GXS Bank, be brave and bold in your assertions. Challenge the norm, question conventions, and always put the customer first. Use clear, direct language to communicate complex banking concepts in a way that's easily understood by the everyday consumer. Be sure to highlight the innovative and disruptive nature of the brand, and don't shy away from showcasing its commitment to making banking better for all.",
+          "placeholder": ""
+        }
+      },
+      "content_brief": {
+        "type": "string",
+        "title": "Content Brief",
+        "description": "Add content brief to generate blog post",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 1,
+          "value": "Content Brief: GXS FlexiLoan Customers Save $4 Million in Interest\nTitle: GXS FlexiLoan Customers Save $4 Million in Interest in Past 12 Months\n\nDate: 3 April 2024\n\nKey Highlights:\n\nTotal Savings: GXS FlexiLoan customers have saved a cumulative total of S$4 million in interest over the past year.\nLaunch Date and Disbursement: The GXS FlexiLoan was launched in April 2023, and more than 100,000 loans have been disbursed within this period.\nInterest Calculation: Interest is calculated daily on the outstanding balance from the previous day, offering immediate interest savings for early repayments.\nUnique Selling Point: GXS is the only bank in Singapore to offer daily interest calculations on personal instalment loans, unlike the prevailing monthly interest calculations by other banks.\nNo Early Repayment Fees: Unlike other loans in the market, GXS FlexiLoan does not charge an early repayment fee, encouraging customers to pay down their loans sooner.\nCustomer Testimonials:\n\nDaniel Tan, 48, Commercial Pilot: Appreciates the daily interest calculation and flexibility in choosing repayment dates. He uses the loan for personal purchases and benefits from the lack of early repayment fees.\nChen Weiming, 42, Real Estate Agent: Values the financial flexibility and safety net provided by the loan, helping him manage both business and personal finances without upfront fees or mandatory monthly repayments.\nCompany Milestones:\n\nAwards and Recognition: GXS won two awards at the CX Asia Excellence Awards 2023 for Best Customer Experience Teams and Best Omni-Channel Experience.\nPartnerships and Ecosystem: GXS leverages its partnerships with Grab and Singtel to enhance customer offerings without additional costs, such as awarding GrabRewards points.\nCampaign Announcement:\n\nFirst Anniversary Campaign: From 3 April to 30 June, GXS FlexiLoan customers can participate in a lucky draw to win travel experiences, home appliances, or an iPhone 15 with a Singtel plan. New customers stand a chance to receive $50 Grab vouchers.\nEligibility: Customers need to take a minimum loan of $3,000 with at least a six-month tenure to be eligible for the campaign.\nAbout GXS Bank:\n\nMission: To improve banking for everyday consumers and small businesses in Singapore, focusing on financial inclusion and ethical use of technology.\nLicensing: Holds a banking license from the Monetary Authority of Singapore.\nBacking: Supported by Grab Holdings Inc. and Singtel, but operates as a separate entity.\nContact Information: [Provide specific contact details for media inquiries]\n\nCall to Action:\n\nVisit www.gxs.com.sg/flexiloan for more details on the campaign and terms and conditions.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 23,
+  "num_views": 15,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/b4594d69-eb3f-4d3b-ac03-3241dc5887e6/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

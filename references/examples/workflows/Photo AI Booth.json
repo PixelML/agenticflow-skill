@@ -1,0 +1,297 @@
+{
+  "id": "47ad4650-f2cf-4be1-87c3-fe4f81846047",
+  "name": "Photo AI Booth",
+  "description": "Photo AI",
+  "created_at": "2024-09-13T05:35:15.412352",
+  "updated_at": "2024-12-11T01:53:37.812881",
+  "user_id": "64892703cf797ba34960a8f0",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "face_swap",
+        "title": "Face Swap",
+        "description": "Face Swap node.",
+        "node_type_name": "face_swap",
+        "input_config": {
+          "frame_image_url": "https://pixelml-dev.s3.amazonaws.com/social-frame/aws-cloud-day/frame-cloud-day.png",
+          "input_image_url": "{{input_image}}",
+          "source_image_url": "{{source_image}}"
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "input_image",
+      "source_image"
+    ],
+    "properties": {
+      "input_image": {
+        "type": "string",
+        "title": "Templates",
+        "description": "Explore different styles to find your favorite",
+        "ui_metadata": {
+          "type": "media_url",
+          "order": 0,
+          "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/40d49cc7-5109-45f8-ba1e-4491c07a16d2/male-3.png",
+          "options": [
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/034c399e-6af4-4b11-9046-36cad54dde95/female-1.png",
+              "label": "Formula - Female 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/034c399e-6af4-4b11-9046-36cad54dde95/female-1.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/d9a4de6a-6aff-4278-be36-ffba0a8492cf/female-2.png",
+              "label": "Formula - Female 2",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/712710d7-bcf7-448b-821e-c7cd6c402664/female-2.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/02b42d56-e060-402d-918d-f0ecf486bf6e/female-3.png",
+              "label": "Formula - Female 3",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/6b5c4bd3-85c2-46bc-915f-6a978f201c1b/female-3.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ca72229b-f1a2-40bc-9f3f-992ccd184e5a/female-4.png",
+              "label": "Formula - Female 4",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/2699a7fb-99a4-4746-9102-a33e2da2fdb2/female-4.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/67c0ebc3-d74a-4b77-8e13-c68d94658f6b/female-5.png",
+              "label": "Formula - Female 5",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/1f75325b-1a70-443d-9dde-5de60448a0c4/female-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/6c40f796-1892-4e81-ad3b-a3f35cbb14e3/male-1.png",
+              "label": "Formula - Male 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/cb85b970-b1e4-4030-9c84-8303e6a39927/male-1.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ca2f166e-bd1e-423a-81cc-25f8d1ad8af4/male-2.png",
+              "label": "Formula - Male 2",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ca2f166e-bd1e-423a-81cc-25f8d1ad8af4/male-2.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/40d49cc7-5109-45f8-ba1e-4491c07a16d2/male-3.png",
+              "label": "Formula - Male 3",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/40d49cc7-5109-45f8-ba1e-4491c07a16d2/male-3.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Formula/male-4.png",
+              "label": "Formula - Male 4",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Formula/male-4.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Formula/male-5.png",
+              "label": "Formula - Male 5",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Formula/male-5.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-1.png",
+              "label": "Sustainability - Female 1",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-1.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-2.png",
+              "label": "Sustainability - Female 2",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-2.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/a92f093f-d0c4-4a9b-84fc-9061a498a0bd/female-3.png",
+              "label": "Sustainability - Female 3",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/d3ffd798-26a8-4410-a5d8-945fc9f393f5/female-3.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-4.png",
+              "label": "Sustainability - Female 4",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-4.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-5.png",
+              "label": "Sustainability - Female 5",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/female-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/f4d32199-9ca2-41b7-99e8-1a20c0a123df/male-1.png",
+              "label": "Sustainability - Male 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/3dea0f53-5c78-4ed8-ada7-1d599942637b/male-1.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/91ed05ed-7382-4539-9619-57f3a467b613/male-2.png",
+              "label": "Sustainability - Male 2",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/508867ed-c8c2-4967-8b08-a38e7956cb4e/male-2.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/male-3.png",
+              "label": "Sustainability - Male 3",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Sustainability/male-3.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/3d6a8327-1d86-436e-aee9-4314846f8748/male-4.png",
+              "label": "Sustainability - Male 4",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/2815a53e-981d-4179-851a-a1263e29b29f/male-4.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/39e787d3-9720-46cf-8ecd-d0f0966567ea/male-5.png",
+              "label": "Sustainability - Male 5",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/c68506de-ee07-45e8-9516-f8fc3c6dcf00/male-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/93e0267c-764e-4d1e-b17d-1658ee61c3ea/female-1.png",
+              "label": "Innovative - Female 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/e0f52982-ad2b-4611-92eb-646196ec16c1/female-1.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-2.png",
+              "label": "Innovative - Female 2",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-2.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-3.png",
+              "label": "Innovative - Female 3",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-3.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-4.png",
+              "label": "Innovative - Female 4",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-4.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/male-1.png",
+              "label": "Innovative - Male 1",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/male-1.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/male-2.png",
+              "label": "Innovative - Male 2",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/male-2.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/2c6477ac-0ae9-4167-b656-472abc091cc9/male-4.png",
+              "label": "Innovative - Male 4",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/5d08f9b4-e6bf-4244-8b66-458244d132a6/male-3.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/a6b20286-1761-4f93-95cc-c47e51b1e744/male-5.png",
+              "label": "Innovative - Male 5",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/2f88eae7-79e8-476c-84c6-d29eac133d78/male-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/2d645c55-5646-474c-8e54-0bfa512c10df/image-508.png",
+              "label": "Viet Nam - Female 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/a8d03f12-7ade-4efe-905f-001870e52293/image-508.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/4b0f3197-6d18-43ba-962e-f75f1d5b0540/PixelML__0031.png",
+              "label": "Viet Nam - Female 2",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/0e680ae6-0deb-4f6f-afdc-645fc759553c/PixelML__0031.png"
+            },
+            {
+              "image": "https://pixelml-dev.s3.amazonaws.com/face-swap/VietNam/female-3.png",
+              "label": "Viet Nam - Female 3",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/VietNam/female-3.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/23507aef-23fd-420d-876f-20c868e06e13/Viet-Nam-4.png",
+              "label": "Viet Nam - Female 4",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/bcf64451-2582-464d-9311-61fd0cc4435c/Viet-Nam-4.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/c152af85-1990-42f8-8d73-8b687be99312/Viet-Nam-5.png",
+              "label": "Viet Nam - Female 5",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/60ca11f6-8351-41cb-aff6-a88ca55690d2/Viet-Nam-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/356b1623-e698-4081-8522-f14582e2b7e2/Viet-Nam-6.png",
+              "label": "Viet Nam - Male 1",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/8c6dca24-5733-4733-8ddd-cd72de3bf995/Viet-Nam-6.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/4d1dfaca-8a5b-49b7-9172-97e3598c8655/Viet-Nam-7.png",
+              "label": "Viet Nam - Male 2",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/3a7818cd-c6b9-4bdb-997a-daafa34171fe/Viet-Nam-7.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/4b9a46f4-413f-46b6-a26a-e557f98301fc/Viet-Nam-8.png",
+              "label": "Viet Nam - Male 3",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ec22cca6-85b2-4ade-af01-8e6a7c42d49d/Viet-Nam-8.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/bfeea83c-83a4-44ef-b2e6-cb3fc960fc55/Viet-Nam-9.png",
+              "label": "Viet Nam - Male 4",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/855a176e-f6b5-4005-9d53-860faa2477c1/Viet-Nam-9.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/77c8c84b-0b9b-4e4d-9947-55427eb53dca/Viet-Nam-10.png",
+              "label": "Viet Nam - Male 5",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/b1fc6b51-952b-48f6-8ae7-0a30dcb3f528/Viet-Nam-10.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/3780aef0-58ec-43a0-9a37-6ccd5d38a83f/female-5.png",
+              "label": "Innovative - Female 5",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/female-5.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/058232d0-71be-4a38-844c-c06d1f333e3d/Innovative-male-3.png",
+              "label": "Innovative - Male 3",
+              "value": "https://pixelml-dev.s3.amazonaws.com/face-swap/Innovative/male-3.png"
+            },
+            {
+              "image": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/7393d023-0a83-46d1-9339-97537c58bb2f/cb91ced7-339c-44fe-ab37-7509da3f968a.webp",
+              "label": "Test",
+              "value": "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/74b4e45e-7589-48b7-bda9-f39f2bf66005/cb91ced7-339c-44fe-ab37-7509da3f968a.webp"
+            }
+          ],
+          "max_size": null,
+          "min_size": null,
+          "max_width": null,
+          "min_width": null,
+          "ref_image": null,
+          "max_height": null,
+          "media_type": null,
+          "min_height": null,
+          "allowed_mime_types": null
+        }
+      },
+      "source_image": {
+        "type": "string",
+        "title": "Upload Image",
+        "description": "Upload a portrait of yourself",
+        "ui_metadata": {
+          "type": "media_url",
+          "order": 0,
+          "max_size": null,
+          "min_size": null,
+          "max_width": null,
+          "min_width": null,
+          "ref_image": null,
+          "max_height": null,
+          "media_type": "image",
+          "min_height": null,
+          "allowed_mime_types": null
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 330,
+  "num_views": 6,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/4b4bc773-3ad9-4f6a-abca-62e42d2854c9/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

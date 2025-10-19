@@ -1,0 +1,85 @@
+{
+  "id": "3aa817c5-d33e-4203-aec4-827e28c5bce4",
+  "name": "Survey generator",
+  "description": "Generate survey questions based on specific criteria.",
+  "created_at": "2024-05-23T16:25:34.760160",
+  "updated_at": "2025-01-22T16:38:04.511523",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Context: {{context}} \nGoal: {{goal}} \nBased on the above context and goal generate {{number_of_questions}} of survey questions:",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "goal": {
+        "type": "string",
+        "title": "Goal",
+        "description": "What is the goal of the survey? E.g. to measure engagement, get feedback or more.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "To understand the use cases for customer experience and their priorities.",
+          "placeholder": ""
+        }
+      },
+      "context": {
+        "type": "string",
+        "title": "Context",
+        "description": "Set the context of what kind of product/event/research is the survey for.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "To survey customer experience leaders on what use cases they would like to enhance with AI.",
+          "placeholder": ""
+        }
+      },
+      "number_of_questions": {
+        "type": "string",
+        "title": "Number of survey questions",
+        "description": "How many survey questions would you like the AI to generate?",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "4",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 25,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/0ff58950-7716-426d-9e64-910c9d840510/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

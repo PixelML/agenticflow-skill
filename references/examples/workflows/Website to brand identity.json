@@ -1,0 +1,94 @@
+{
+  "id": "105c1860-2167-48c6-9ebb-f29cdfc1ede6",
+  "name": "Website to brand identity",
+  "description": "Get a company's brand identity from their website including their brand voice & tone, messaging, audience, content themes and value proposition",
+  "created_at": "2024-05-23T16:25:34.758805",
+  "updated_at": "2025-01-22T16:30:49.676958",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "web_scraping",
+        "title": "Extract the Website Content",
+        "description": "Scrape and access website content",
+        "node_type_name": "web_scraping",
+        "input_config": {
+          "web_url": "{{website_url}}",
+          "max_tokens": 10000,
+          "scraping_type": "Text",
+          "tags_to_extract": [
+            "span",
+            "p",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "a",
+            "meta",
+            "title",
+            "head"
+          ]
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "brand_identity",
+        "title": "Brand Identity",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "This is a list of content related to {{website_url}} {{web_scraping.scraped_content}} \nReverse engineer the branding guidelines of the website above. The brand guidelines should be informative & useful. You should include:\n1. Brand voice & tone\n2. Brand messaging\n3. Audience\n4. Value proposition\n5. Content themes\nBrand guidelines:",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "website_url"
+    ],
+    "properties": {
+      "website_url": {
+        "type": "string",
+        "title": "Website URL",
+        "description": "The URL of the website you want to get a brand identify of",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "https://pixelml.com/",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 94,
+  "num_views": 12,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/325f6d9a-9b71-432f-997e-dd8ea92ab713/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "6cc9cdba-766a-4cfb-9eca-d5c125739cb9",
+  "name": "Developing Event Timeline",
+  "description": "Creating a step-by-step timeline to keep your event planning organized and on track.",
+  "created_at": "2024-05-23T16:25:34.761921",
+  "updated_at": "2025-01-22T16:46:18.237285",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Develop a timeline for the [event name] {{event_name}}, style of the event {{type}}, from [start date] last in {{estimalted_duration}} . Include and {{key_stages}} of milestones and each milestone's details.",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "date": {
+        "type": "string",
+        "title": "Event Date",
+        "description": "The date your event will take place.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Saturday, October 26th, 2024,  ",
+          "placeholder": ""
+        }
+      },
+      "type": {
+        "type": "string",
+        "title": "Event Type (Optional)",
+        "description": "Select the event type (e.g., conference, workshop, webinar) to pre-populate common tasks based on that format.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Workshop",
+          "placeholder": ""
+        }
+      },
+      "event_name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "The Future of Food Summit",
+          "placeholder": ""
+        }
+      },
+      "key_stages": {
+        "type": "string",
+        "title": "Major Event Stages (Optional)",
+        "description": "List the key stages of your event (e.g., pre-event planning, event setup, event execution, post-event follow-up).  ",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "Pre-event planning",
+          "placeholder": ""
+        }
+      },
+      "estimalted_duration": {
+        "type": "string",
+        "title": "Estimated Duration (Optional)",
+        "description": "Provide an estimated length of the event (e.g., one day, multi-day) to help gauge the timeline scope.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "One Day (10:00 AM - 5:00 PM PST)",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 7,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/5d5eb071-1e43-4c1a-a81b-72b93eee3533/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

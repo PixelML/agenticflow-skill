@@ -1,0 +1,184 @@
+{
+  "id": "9b498cf4-1a81-4062-8a25-9d2e31e46947",
+  "name": "Write Linkedin Posts",
+  "description": "Generate LinkedIn posts from a brief using various formulas",
+  "created_at": "2024-05-23T16:25:34.759279",
+  "updated_at": "2025-01-22T16:32:09.920510",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "AIDA",
+        "title": "Write AIDA Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}}\nWrite a compelling LinkedIn post about this topic following the AIDA (Attention, Interest, Desire, Action) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the AIDA formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "BISCUIT",
+        "title": "Write BISCUIT Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the BISCUIT (Brief, Interest, Story, Conclusion, Unique, Invitation, Target) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the BISCUIT formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "PAS",
+        "title": "Write PAS Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the PAS (Problem, Agitate, Solve) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the PAS formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "ACCA",
+        "title": "Write ACCA Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the ACCA (Awareness, Comprehension, Conviction, Action) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the ACCA formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "QUEST",
+        "title": "Write QUEST Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the QUEST (Question, Unique, Explain, Story, Tie-back) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the QUEST formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "star_chain_hook",
+        "title": "Write Star Chain Hook Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the Star-Chain-Hook formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the Star-Chain-Hook formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "SLAP",
+        "title": "Write SLAP Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the SLAP (Startling Fact, Link to Audience, Application, Punchline) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the SLAP formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "BAB",
+        "title": "Write BAB Post",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Topic/Brief: {{text}} \nWrite a compelling LinkedIn post about this topic following the BAB (Before, After, Bridge) formula.",
+          "system_message": "You are a LinkedIn post writer. Your job is to write compelling posts that get engagement. For this post, use the BAB formula.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "text"
+    ],
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Topic Brief",
+        "description": "Topic Brief",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "Nvidia\u2019s tiny $3,000 computer for AI developers steals the show at CES\nUnlike Nvidia\u2019s traditional GPUs for gaming, Project Digits isn\u2019t targeting consumers. Instead, it\u2019s aimed at machine-learning researchers, smaller companies, and universities that want to develop advanced AI but don\u2019t have billions of dollars to build massive data centers or buy enough cloud credits.\n\n\u201cThere\u2019s a gaping hole for data scientists and ML researchers and who are actively working, who are actively building something,\u201d Huang said. \u201cMaybe you don\u2019t need a giant cluster. You\u2019re just developing the early versions of the model, and you\u2019re iterating constantly. You could do it in the cloud, but it just costs a lot more money.\u201d\n\nThe supercomputer will cost about $3,000 when it hits the market in May, Nvidia said, and it will be available from the company itself as well as some of its manufacturing partners. Huang said Project Digits is a placeholder name, indicating it may change by the time the computer goes on sale.\n\n\u201cIf you have a good name for it, reach out to us,\u201d Huang said.",
+          "placeholder": "Topic Brief"
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 28,
+  "num_views": 14,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ac68efc3-dda9-4d7a-b6e6-195fa8a26c18/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

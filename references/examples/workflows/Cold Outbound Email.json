@@ -1,0 +1,151 @@
+{
+  "id": "c5c14468-02a5-4807-baf3-ebd17eb0be19",
+  "name": "Cold Outbound Email",
+  "description": "Generate a cold email from a LinkedIn profile",
+  "created_at": "2024-05-23T16:25:34.759232",
+  "updated_at": "2025-01-22T16:31:17.609571",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm_1",
+        "title": "Write Cold Email",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Write a cold email based on information: {{recipient_name}}{{recipient_tilte}}, {{recipient_company}}, {{recipient_context}}, {{recipient_company_context}} {{sender_company}} {{sender_company_value_prop}}, {{sender_name}} {{sender_title}} {{sender_company}} \nExample \nHey John, With your eye on an engineering leadership role, I imagine you're under immense pressure to deliver innovative products on tight timelines while upholding quality. As deadlines loom, cutting corners on quality is tempting. Acme's AI solutions automate repetitive coding tasks so your team can focus on high-value work while our tools ensure quality and best practices are met. Want to chat about how we can help you deliver innovative products without compromise? Jane Doe, Software Engineer Recruiter Acme Technologies",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "sender_name": {
+        "type": "string",
+        "title": "SENDER NAME ",
+        "description": "Sender Name",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Jane Doe",
+          "placeholder": ""
+        }
+      },
+      "sender_title": {
+        "type": "string",
+        "title": "SENDER TITLE",
+        "description": "Sender Title",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Software Engineer Recruiter",
+          "placeholder": ""
+        }
+      },
+      "recipient_name": {
+        "type": "string",
+        "title": "Recipient Name",
+        "description": "Recipient Name",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "John Doe",
+          "placeholder": ""
+        }
+      },
+      "sender_company": {
+        "type": "string",
+        "title": "SENDER COMPANY",
+        "description": "Sender Company",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "Acme Technologies",
+          "placeholder": ""
+        }
+      },
+      "recipient_tilte": {
+        "type": "string",
+        "title": "RECIPIENT TITLE",
+        "description": "Recipient Title",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "Software Engineer",
+          "placeholder": ""
+        }
+      },
+      "recipient_company": {
+        "type": "string",
+        "title": "RECIPIENT COMPANY",
+        "description": "Recipient Company Name",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "Google",
+          "placeholder": ""
+        }
+      },
+      "recipient_context": {
+        "type": "string",
+        "title": "RECIPIENT CONTEXT",
+        "description": "Some Context About The Recipient Work History Recent Interviews Linked In Post Etc",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 6,
+          "value": " John is a Software Engineer with 5+ years of experience based on his LinkedIn profile. He recently participated in interviews for various senior software engineer positions.  pen_spark",
+          "placeholder": ""
+        }
+      },
+      "recipient_company_context": {
+        "type": "string",
+        "title": "RECIPIENT COMPANY CONTEXT",
+        "description": "Relevant Information About The Company Where The Recipient Works",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 7,
+          "value": "Google is a leading tech company known for its innovative products and work culture.",
+          "placeholder": ""
+        }
+      },
+      "sender_company_value_prop": {
+        "type": "string",
+        "title": "SENDER COMPANY VALUE PROP",
+        "description": "Sender Company Value Proposition",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 8,
+          "value": "Acme Technologies is a fast-growing startup developing cutting-edge AI solutions. We offer a collaborative work environment, competitive salaries, and the chance to work on projects that make a real impact.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 14,
+  "num_views": 9,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/6c933e84-d0c5-4f53-8e7d-2a17b1fe5717/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

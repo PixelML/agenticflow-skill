@@ -1,0 +1,85 @@
+{
+  "id": "46fbef84-cd35-4767-94fb-296124f6bc62",
+  "name": "Event survey questions for attendees",
+  "description": "Design a survey to gather feedback from your event attendees.",
+  "created_at": "2024-05-23T16:25:34.760673",
+  "updated_at": "2025-01-22T16:41:04.039738",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Develop an event survey with 8-10 questions to assess {{event_name}} {{survey_questions}} {{optional}} and its impact on the attendees.\nExample:\nSure! Here is a sample event survey with 8 questions to assess [event name] and its impact on the attendees:\nHow likely are you to recommend [event name] to a friend or colleague?\nVery likely\nLikely\nNeutral\nUnlikely\nVery unlikely\nHow would you rate the overall organization and logistics of [event name]?\nExcellent\nGood\nAverage\nPoor\nVery poor\nDid [event name] meet your expectations?\nYes, it exceeded my expectations\nYes, it met my expectations\nNo, it did not meet my expectations\nWhat was the highlight of [event name] for you?\nFree text response\nDid you find the content presented during the event relevant and valuable?\nVery relevant and valuable\nRelevant and valuable\nNeutral\nNot very relevant and valuable\nNot relevant and valuable at all\nHow would you rate the quality of the speakers at [event name]?\nExcellent\nGood\nAverage\nPoor\nVery poor\nWhat did you like most about [event name]?\nFree text response\nHow likely are you to attend [event name] next year?\nVery likely\nLikely\nNeutral\nUnlikely\nVery unlikely",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "optional": {
+        "type": "string",
+        "title": "Optional",
+        "description": "You can also specify the order you want the questions to appear and any answer choices for multiple-choice questions.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Open Ended: What is one key takeaway you will implement in your own social media marketing strategy?",
+          "placeholder": ""
+        }
+      },
+      "event_name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": " Social Media Marketing Masterclass",
+          "placeholder": ""
+        }
+      },
+      "survey_questions": {
+        "type": "string",
+        "title": " Survey Questions",
+        "description": " A list of questions you want to ask attendees about their experience (multiple choice, open ended, or rating scale)",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "Multiple Choice",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 4,
+  "num_views": 5,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/66cbf6a5-e334-4624-83e9-2b9c6f47eb73/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

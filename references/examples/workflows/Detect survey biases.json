@@ -1,0 +1,63 @@
+{
+  "id": "739909d5-61fe-444f-a5f6-1a22fd024ebe",
+  "name": "Detect survey biases\t",
+  "description": "Use AI to detect inherent biases in survey questions.",
+  "created_at": "2024-05-23T16:25:34.759575",
+  "updated_at": "2025-01-22T16:34:40.736832",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answer",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Survey question: {{survey_question}} \nIf the survey question contains any form of survey biases explain and identify the types of survey biases.\nExample:\nThere are no obvious survey biases in the given survey questions. However, there is a potential for response bias in the Likert scale question about satisfaction with new products launched by a favorite brand. Respondents may be more likely to give positive ratings due to their loyalty or affinity towards the brand, leading to an overestimation of satisfaction levels. Additionally, there may be a social desirability bias in the dichotomous question about gift preferences, as respondents may feel pressured to choose the socially acceptable option.",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "survey_question": {
+        "type": "string",
+        "title": "Survey question",
+        "description": "The survey question you wish to examine for possible biases.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "If you could have one superpower, what would it be?  Invisibility Flight Superhuman Strength Teleportation Mind Reading Other (please specify) Open Ended: What is your favorite hidden gem (restaurant, park, activity) in your local area?  Likert Scale: How satisfied are you with the variety of new products launched by your favorite brand in the past year? (Very Dissatisfied - Somewhat Dissatisfied - Neutral - Somewhat Satisfied - Very Satisfied)  Dichotomous (Yes/No): Would you prefer to receive a small gift every month or one large gift for your birthday?  Rank Order: Please rank the following features of a music streaming service in order of importance to you (1 = most important, 5 = least important):  Song Library Size Audio Quality Personalized Recommendations Offline Listening Capability Price",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 11,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/0ed2117f-c447-41cf-8110-369ec227d752/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

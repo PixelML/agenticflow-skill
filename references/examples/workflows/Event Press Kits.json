@@ -1,0 +1,118 @@
+{
+  "id": "717f6e21-3093-4583-be97-1fab8e2bbf77",
+  "name": "Event Press Kits",
+  "description": "Assemble a comprehensive press kit packed with information to inform media coverage of your event.",
+  "created_at": "2024-05-23T16:25:34.759876",
+  "updated_at": "2025-01-22T16:35:51.766045",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Create an event press kit for {{name}} including details of the location, date, and time. Relevant information: \nPress Release {{release}} \nEvent Description {{description}}\nSpeaker Bios {{speakers}} \nSocial Media Links {{link}} \nContact Information {{contact}}",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "link": {
+        "type": "string",
+        "title": "Social Media Links (Optional)",
+        "description": "Include links to your event's social media pages (e.g., Facebook, Twitter) to encourage media engagement.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Facebook: [Future of Food Summit Facebook Page] Twitter: [@FutureFoodSummit] ",
+          "placeholder": ""
+        }
+      },
+      "name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": " Future of Food Summit Press Kit",
+          "placeholder": ""
+        }
+      },
+      "contact": {
+        "type": "string",
+        "title": "Contact Information",
+        "description": "Specify the name, email address, and phone number of a media contact person for inquiries.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "Media Contact: Sarah Jones Email: [email address removed] Phone: (310) 555-1234",
+          "placeholder": ""
+        }
+      },
+      "release": {
+        "type": "string",
+        "title": "Press Release (Optional)",
+        "description": "Upload the press release you created using a separate workflow (e.g., \"Drafting Event Press Release\").",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "A copy of the press release titled \"The Future of Food Summit\" can be found here.",
+          "placeholder": ""
+        }
+      },
+      "speakers": {
+        "type": "string",
+        "title": "Speaker Bios",
+        "description": "Provide detailed biographies for your keynote speakers, panelists, or other prominent figures involved in the event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "Dr. Amelia Green: A world-renowned food scientist and author of the acclaimed book \"Nourishing the Planet,\" Dr. Green is a leading voice in the conversation around sustainable and equitable food systems. Her research focuses on developing innovative solutions for future food production challenges. Mr. Carlos Sanchez: As the CEO of GreenWave, a pioneering vertical farming company, Mr. Sanchez is at the forefront of the urban agriculture movement. His expertise lies in developing and implementing high-yield vertical farming systems that can increase food production in urban environments. Ms. Maya Rodriguez: The founder of the Urban Growers Collective, Ms. Rodriguez is a passionate advocate for community-based food production. The Collective empowers individuals and communities to grow their own food through educational programs and resource sharing initiatives.",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "string",
+        "title": "Event Description (Detailed)",
+        "description": "A comprehensive overview of the event's purpose, target audience, agenda, key speakers/presentations, and any unique aspects.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "The Future of Food Summit is a one-day event designed to convene a diverse range of stakeholders to explore the critical issues shaping the future of our food system.  This gathering aims to spark thought-provoking discussions, ignite innovation, and foster collaboration around building a more secure, sustainable, and just food system for all.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 4,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/33f23dcf-0b7e-4a9a-849c-a0e5bb3bf9ae/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

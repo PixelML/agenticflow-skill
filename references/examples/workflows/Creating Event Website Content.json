@@ -1,0 +1,118 @@
+{
+  "id": "1f2cce93-ed99-47b3-90a7-08e926d7c758",
+  "name": "Creating Event Website Content",
+  "description": "Craft compelling content for your event website, attracting attendees and keeping them informed.",
+  "created_at": "2024-05-23T16:25:34.761049",
+  "updated_at": "2025-01-22T16:44:14.764820",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Write a compelling event website page for [event name] {{event_name}}, highlighting the main advantages and special features of attending the event {{description}}, speakers {{speakers}} , Benefits of Attending{{benefits}} , Registration Information{{registration}} and FAQs {{FAQS}} . Include multimedia content like pictures and videos to make the page more engaging.",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "FAQS": {
+        "type": "string",
+        "title": "FAQs (Optional)",
+        "description": "Include any frequently asked questions attendees might have about the event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "What is the event format? The Future of Food Summit is a one-day in-person event featuring keynote addresses, panel discussions, interactive workshops, and networking opportunities. (Modify if the event is online or has a different format) Who should attend? This event is designed for anyone passionate about food and building a better future. Food scientists, agricultural professionals, entrepreneurs, policymakers, sustainability advocates, and everyday citizens are all welcome. What is the cost of attendance? We offer tiered pricing options to suit your needs. Visit our registration page for details. How can I register? Registration is easy! Click here to visit our registration page. (Insert link)",
+          "placeholder": ""
+        }
+      },
+      "benefits": {
+        "type": "string",
+        "title": "Benefits of Attending",
+        "description": "List the key benefits attendees can expect from participating in your event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Gain insights from leading experts in food science, agriculture, and sustainability. Engage in interactive workshops and learn practical skills for building a more resilient food system. Connect with a passionate community working to transform the way we grow, distribute, and consume food. Be part of the conversation shaping the future of food for all.",
+          "placeholder": ""
+        }
+      },
+      "speakers": {
+        "type": "string",
+        "title": "Speakers/Presenters (Optional)",
+        "description": "Provide information about your event's speakers, including bios, photos, and session titles.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "Dr. Amelia Green, world-renowned food scientist and author (with a short bio, photo, and session title). Mr. Carlos Sanchez, CEO of GreenWave, a leading vertical farming company (with a short bio, photo, and session title). Ms. Maya Rodriguez, Founder of the Urban Growers Collective (with a short bio, photo, and session title).",
+          "placeholder": ""
+        }
+      },
+      "event_name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "The Future of Food Summit ",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "string",
+        "title": "Event Description",
+        "description": "A concise overview of your event's purpose, target audience, and key highlights.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "The Future of Food Summit convenes a diverse range of stakeholders, including scientists, entrepreneurs, policymakers, and everyday citizens, to explore the most pressing issues facing our food system and co-create solutions for a more secure, sustainable, and just food future.",
+          "placeholder": ""
+        }
+      },
+      "registration": {
+        "type": "string",
+        "title": "Registration Information",
+        "description": "Specify where attendees can register for the event (link, instructions).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "The Future of Food Summit",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 35,
+  "num_views": 8,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/ed6eb3b0-9577-404e-9c34-c8a50439c198/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

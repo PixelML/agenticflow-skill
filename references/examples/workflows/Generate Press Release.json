@@ -1,0 +1,65 @@
+{
+  "id": "31e1b709-d69f-4221-a469-bf73193886d9",
+  "name": "Generate Press Release",
+  "description": "Generates a press release from a document",
+  "created_at": "2024-05-23T16:25:34.759398",
+  "updated_at": "2025-01-22T16:32:47.126168",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "press_release",
+        "title": "Generate Press Release",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Document text: {{document}} \nWrite a press release based on the key information in the document text. Make sure to follow the standard press release structure.",
+          "system_message": "You are an experienced press release writer who excels at summarizing key information from documents into compelling press releases.\n\nYour press releases follow these guidelines:\n\nStrong headline: The title should capture attention immediately, setting the tone and generating interest for the reader.\n\nClear introduction: The introduction clearly outlines the main points.\n\nDetails: The press release extensively describes the details of the press release.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "document"
+    ],
+    "properties": {
+      "document": {
+        "type": "string",
+        "title": "Document Text",
+        "description": "The raw text of the document",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "Marketing is the lifeblood of any business. It's the process of creating, communicating, delivering, and exchanging offerings that hold value for your customers, stakeholders, and society as a whole. In simpler terms, it's about understanding your target audience, promoting your product or service, and ultimately driving sales and customer satisfaction.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 6,
+  "num_views": 9,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/7c11c956-8316-44d4-8b14-ef7bbddd072e/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "265998c8-e6f3-4155-a75b-975a02fde8cb",
+  "name": "MEME - STORY THROUGH EMOJI ",
+  "description": "Generate a meme from emoji",
+  "created_at": "2024-12-05T16:27:15.959226",
+  "updated_at": "2025-05-08T08:11:03.779903",
+  "user_id": "6565baaab1e81262ad5b8339",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "emoji_to_text",
+        "title": "Emoji To Text",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Translate emoji: {{object}} in short story\nWrite a fun meme about that\ndo not show ''Here's a fun meme based on the emoji: \ud83d\udc69\u200d\ud83d\udcbb\ud83d\udcb8\ud83d\udc40\ud83d\udd25''",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "generate_image_1",
+        "title": "Generate Image",
+        "description": "Use AI to generate images from your imagination. Simply describe what you want to see, and watch the AI bring it to life.",
+        "node_type_name": "generate_image",
+        "input_config": {
+          "lora": null,
+          "prompt": "An image about{{object}} with text {{emoji_to_text.content}} in cartoon style",
+          "model_id": null,
+          "provider": "Runware",
+          "aspect_ratio": "9:16_HD",
+          "negative_prompt": "NSFW"
+        },
+        "output_mapping": null,
+        "connection": "{{__app_connections__['2988a64d-dbb3-410e-b9db-55bb6e81dc9b']}}",
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "object": {
+        "type": "string",
+        "title": "Meme",
+        "description": "The emoji you like",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "\ud83d\udc69\u200d\ud83d\udcbb\ud83d\udcb8\ud83d\udc40\ud83d\udd25",
+          "placeholder": "Enter random emoji here"
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "30f2b04d-294f-4110-bf7e-4d405f2bea0c",
+  "project_id": "01K7DYE3SZNRJ5QEHYZZGAZK3V",
+  "public_runnable": true,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 68,
+  "num_views": 31,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/5d64b9ce-4a40-4c88-a745-bc1f8949d82c/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

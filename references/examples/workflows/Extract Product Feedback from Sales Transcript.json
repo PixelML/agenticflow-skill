@@ -1,0 +1,65 @@
+{
+  "id": "f3618bdd-8889-4478-966d-778565b50c24",
+  "name": "Extract Product Feedback from Sales Transcript ",
+  "description": "Summarizes a sales transcript into a bulleted list",
+  "created_at": "2024-05-23T16:25:34.758825",
+  "updated_at": "2025-01-22T16:31:01.440427",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Summarize Transcript",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Sales transcript text: {{sale_transcript_text}}\nRead the sales transcript and summarize the key details and takeaways into a bulleted list that I can share with the product team.",
+          "system_message": "You are a skilled sales transcript summarizer who works for a product team. You excel at extracting the most important details from sales transcripts and summarizing them into concise bullet points that the product team can easily review.\nThe structure of your summary should be:\nCompany Name: [Insert Company's Name]\nRole (N/A if unsure): [Insert Role, if known]\nExecutive Summary\n[Provide a brief overview of the call including the key points discussed, issues addressed, and actions taken or suggestions made.]\nPain Points\n[List out the challenges or problems the client/company is facing.]\n- [Bullet point 1]\n- [Bullet point 2]\n- [Bullet point 3, 4, ... etc.]\nProduct Feedback\n[Note down any feedback related to your product/service. It could be a mix of positive reviews, negative points, or areas of improvement mentioned by the client.]\n- [Bullet point 1]\n- [Bullet point 2]\n- [Bullet point 3, 4, ... etc.]\nUse Cases / Value Propositions\n[Highlight how your product/service can address the pain points and how it adds value to their processes.]\n[Bullet point 1]\n[Bullet point 2]\n[Bullet point 3, 4, ... etc.]\nKey Takeaways / Action Items\n[Record the conclusions of the call, any commitments made, or follow-ups required.]\n[Bullet point 1]\n[Bullet point 2]\n[Bullet point 3, 4, ... etc.]\n\nExample:\nCompany Name: [Insert Company's Name]\nRole (N/A if unsure): [Insert Role, if known]\nExecutive Summary:\nThe client is highly impressed with the software's ability to process data quickly and its stability compared to previous solutions which frequently crashed.\nThey highlighted a steep learning curve for new users and suggested the addition of more tutorials or in-app guides.\nThe client also mentioned the high cost of the software but acknowledged its value in saving time and reducing frustration.\nFeedback on customer support was negative, particularly regarding long wait times, with a suggestion to introduce an online chat feature.\nInterest was expressed in a potential mobile version of the software.\nPain Points:\nSteep learning curve for new users.\nHigh cost of the software.\nLong wait times on customer support lines.\nProduct Feedback:\nFast and stable performance, no crashes.\nNeed for more user-friendly features such as tutorials or guides for new users.\nHigh price point noted as a concern.\nPoor customer support experience due to long wait times.\nUse Cases / Value Propositions:\nEnhances productivity by quickly processing data and preventing system crashes.\nPotential for increased user adoption with improved onboarding materials and support.\nMobile app version could significantly enhance accessibility and convenience for users.\nKey Takeaways / Action Items:\nConsider developing additional tutorials or in-app guides to help new users.\nExplore pricing strategies or payment plans that might make the software more accessible.\nImprove customer support by possibly introducing an online chat feature.\nAssess the feasibility and demand for a mobile version of the software.",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [
+      "sale_transcript_text"
+    ],
+    "properties": {
+      "sale_transcript_text": {
+        "type": "string",
+        "title": "Sales Transcript Text",
+        "description": "Sales transcript text",
+        "ui_metadata": {
+          "type": "long_text",
+          "order": 0,
+          "value": "Whoa, this software is like a magic trick! It crunches numbers faster than I can say \"spreadsheet overload.\" Seriously, it's saving me tons of time already.  And the best part?  No more crashes!  knocks on wood That used to drive me nuts with the old program.  One thing though, the learning curve is a bit of a cliff.  Took me a while to figure out all the bells and whistles.  Maybe some more tutorials or in-app guides would be helpful for newbies like me.  Speaking of bells and whistles, have you considered adding a mind-reading feature?  Just kidding... mostly.   Seriously though, a feature that suggests things I might need next would be awesome.  Oh, and the price?  Yeah, a little on the ouch side.  But hey, if it keeps saving me time and headaches, maybe it's worth it.  Speaking of headaches, the customer support line could use some aspirin.  Hold time was brutal the other day.  Maybe an online chat option would be faster?  Overall, this software is pretty slick.  A few tweaks here and there, and it'd be a total winner.  Oh, and one last thing - did someone say mobile app?  Because a mobile version of this software would be the ultimate power move.  Just sayin'. ",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 9,
+  "num_views": 11,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/672a6fb6-27c9-4ac0-9899-d6c6537fe1ae/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

@@ -1,202 +1,421 @@
 ---
 name: agenticflow
-description: This skill should be used when users want to design, build, or validate AgenticFlow automation workflows. Use this skill when users mention AgenticFlow, automation workflows, or want to integrate external services (Gmail, Slack, Shopify, CRM systems, etc.) into automated processes.
-license: MIT License - See LICENSE file for complete terms
+description: This skill enables you to design, build, and validate AgenticFlow automation workflows from natural language requirements. Use this when users mention AgenticFlow, automation workflows, or want to integrate external services (Gmail, Slack, Shopify, CRM systems, etc.) into automated processes. You can transform user requirements into production-ready workflows with both standard nodes and MCP integrations.
+license: Complete terms in LICENSE.txt
 ---
 
-# AgenticFlow
+# AgenticFlow Workflow Builder
 
-## Overview
+## 🎯 When to use this skill
 
-This skill enables design, building, and validation of AgenticFlow automation workflows using both standard nodes and the extensive MCP ecosystem of 2,500+ integrations. AgenticFlow is an AI automation platform that can connect to virtually any service to create sophisticated automation workflows.
+Use this skill when users want to:
+- Create automation workflows from natural language descriptions
+- Integrate external services (Gmail, Slack, HubSpot, Shopify, Google Sheets, etc.)
+- Build AI-powered automation with web scraping, data extraction, or content generation
+- Automate business processes across multiple platforms
+- Design workflows mixing standard nodes with 2,500+ MCP integrations
 
-## Core Workflow Process
+**Key Capability:** You can transform natural language like "I need to monitor competitor prices and alert my team on Slack" into a complete, production-ready workflow.
 
-When working with AgenticFlow, follow this systematic process:
+---
 
-### 1. Health Check & Discovery
+## ⚡ Performance Optimization - Use Local Files First!
 
-**ALWAYS start** new conversations with:
-```javascript
-agenticflow_health_check()
+**CRITICAL:** This skill contains ALL necessary data locally. Minimize API calls to improve performance.
+
+### 📁 Complete Local Data Available
+
+**Node Type Data (139 nodes):**
+- `references/official_node_types.json` - Complete API data, ready to parse
+- `references/node_types.md` - Human-readable, categorized by function
+- `references/complete_node_types.md` - Full schemas with all fields
+
+**Workflow Examples (78 templates):**
+- `references/examples/workflows/*.json` - Real production workflows
+
+**Agent Examples (8 templates):**
+- `references/examples/agents/*.json` - Pre-built agent configurations
+
+### 🎯 When to Use API vs Local Files
+
+**USE LOCAL FILES (No API call needed):**
+- ✅ Browsing available nodes → `references/node_types.md`
+- ✅ Getting node field details → `references/complete_node_types.md`
+- ✅ Finding similar workflows → `references/examples/workflows/`
+- ✅ Understanding MCP actions → `references/mcp_integrations.md`
+- ✅ Learning workflow patterns → `references/workflow_guide.md`
+
+**USE API CALLS (Only when required):**
+- ⚠️ Creating workflow → `agenticflow_create_workflow()` - REQUIRED
+- ⚠️ Validating workflow → `agenticflow_validate_workflow()` - Optional
+- ⚠️ Health check → `agenticflow_health_check()` - Optional
+- ⚠️ Searching nodes → `agenticflow_search_node_types()` - Only if local search insufficient
+
+### 💡 Recommended Workflow
+
+```
+User Request
+     ↓
+Load LOCAL guides & references (NO API calls)
+     ↓
+Design complete workflow using local data
+     ↓
+Build workflow JSON structure
+     ↓
+API CALL: agenticflow_create_workflow() ← ONLY API call needed!
+     ↓
+Return workflow link to user
 ```
 
-This verifies API connectivity and available features.
+**Result:** Typically only 1 API call needed per workflow creation!
 
-### 2. Discovery Phase
+---
 
-Think deeply about the user's request and the logic needed to fulfill it. Ask follow-up questions to clarify intent if something is unclear.
+## 📚 Complete Documentation Structure
 
-**CRITICAL**: Don't limit to standard nodes! Consider MCP integrations for:
-- CRM operations (HubSpot, Salesforce, Pipedrive)
-- Communication (Gmail, Slack, Teams, WhatsApp)
-- E-commerce (Shopify, WooCommerce, Stripe)
-- Productivity (Google Sheets, Notion, Airtable)
-- Marketing (Mailchimp, Facebook, LinkedIn)
-- Project Management (Asana, Trello, Jira)
-- And 2,500+ more services!
+This skill provides a comprehensive system for building workflows:
 
-**Reference cached node types** from `references/complete_node_types.md` for the full library of 40+ standard nodes organized by category. Use search only for specific lookups:
+### Core Guides (Start Here)
+
+1. **`guides/01_workflow_creation_process.md`** - Complete 7-phase workflow creation process
+   - Health check → Discovery → MCP Integration → Configuration → Pre-building → Building → Validation
+   - Step-by-step instructions for each phase
+   - Visual workflow diagrams and patterns
+   - **Load this first** when user requests a new workflow
+
+2. **`guides/02_node_selection_strategy.md`** - Choose the right nodes for any requirement
+   - All 139 nodes organized by use case
+   - Decision flow charts
+   - Connection requirements and cost considerations
+   - Output field reference
+   - **Load when** deciding which nodes to use
+
+3. **`guides/03_mcp_integration_guide.md`** - Complete MCP integration reference
+   - 2,500+ service integrations
+   - Action patterns by category (CRM, Communication, E-commerce, etc.)
+   - Hybrid workflow patterns
+   - Connection setup instructions
+   - **Load when** user mentions external services
+
+4. **`guides/04_technical_requirements.md`** - Field requirements and common fixes
+   - Complete node structure requirements
+   - Common errors and solutions
+   - Template variable syntax
+   - Validation checklist
+   - **Load when** building or debugging workflows
+
+### Reference Documentation
+
+5. **`references/node_types.md`** - Quick reference for 139 node types
+   - Organized by 12 functional categories
+   - Descriptions and key fields
+   - **Load for** quick node browsing
+
+6. **`references/complete_node_types.md`** - Full API schemas
+   - Complete input/output schemas for all nodes
+   - Exact field requirements
+   - **Load for** detailed field information
+
+7. **`references/mcp_integrations.md`** - MCP service catalog
+   - Popular actions by category
+   - Integration patterns
+   - **Load for** MCP integration details
+
+8. **`references/workflow_guide.md`** - Design patterns and best practices
+   - Hybrid workflow patterns
+   - Parallel processing
+   - Input schema design
+   - **Load for** workflow architecture patterns
+
+### Examples
+
+9. **`references/examples/workflows/`** - 78 real workflow templates
+   - Content creation, marketing, research, e-commerce, events
+   - **Load for** similar workflow examples
+
+10. **`references/examples/agents/`** - 8 pre-built agent templates
+    - Social media, sales, e-commerce, SEO, events, design, support, research
+    - **Load for** agent configuration examples
+
+---
+
+## 🚀 Quick Start: Natural Language to Workflow
+
+### The 7-Phase Process
+
+Follow this systematic approach for every workflow:
+
+#### Phase 1: Health Check
 ```javascript
-agenticflow_search_node_types({name: 'keyword'})
+// Only call API if needed (e.g., validating connection or checking workspace)
+// Otherwise skip to save API calls - all node data is in local files
+agenticflow_health_check() // OPTIONAL - only if validating connection
 ```
 
-**Consider MCP actions** from the extensive catalog for any external service integration. See `references/mcp_integrations.md` for popular MCP actions by category.
+#### Phase 2: Discovery
+1. Analyze user's natural language request
+2. Ask clarifying questions if needed
+3. **Use LOCAL files first** - NO API calls needed:
+   - Load `guides/02_node_selection_strategy.md` for node selection
+   - Reference `references/node_types.md` for browsing nodes
+   - Check `references/examples/workflows/` for similar patterns
+4. **Only use API calls** when:
+   - Searching for specific node type: `agenticflow_search_node_types()`
+   - Need absolute latest node list: `agenticflow_list_node_types()`
+   - Creating/validating workflow: Required for these operations
 
-### 3. MCP Integration Analysis
+#### Phase 3: MCP Integration Analysis
+1. Identify external services mentioned
+2. Check if MCP integration needed
+3. Load `guides/03_mcp_integration_guide.md` if using MCP
+4. Plan action names and instructions
 
-When user needs external services:
-- Check if functionality exists in standard nodes
-- If not, identify the appropriate MCP service (Gmail, Sheets, Slack, etc.)
-- Plan the MCP action name (e.g., "GOOGLE_DOCS-GET-DOCUMENT", "PINTEREST-CREATE-PIN")
-- Design the instruction parameter that tells the AI what to do
-- Note required MCP connections that user will need to set up
+#### Phase 4: Configuration Planning
+1. Design data flow between nodes
+2. Map template variables
+3. Plan input schema with UI metadata
+4. Show visual workflow diagram to user
 
-### 4. Configuration Phase
+#### Phase 5: Pre-Building
+1. Structure complete workflow JSON
+2. Validate all required fields
+3. Load `guides/04_technical_requirements.md` for validation
+4. Document MCP connections needed
 
-Plan node configurations:
+#### Phase 6: Building
+1. Create workflow using `agenticflow_create_workflow()`
+2. Provide direct workflow URL
+3. Include clear setup instructions
 
-**For standard nodes:** Analyze required fields from node type definitions
+#### Phase 7: Validation & Documentation
+1. Validate workflow structure
+2. Document MCP setup requirements
+3. Provide usage instructions
+4. Note limitations and best practices
 
-**For MCP nodes:** Structure the `mcp_run_action` node:
+**Detailed instructions for each phase:** Load `guides/01_workflow_creation_process.md`
+
+---
+
+## 💡 Core Principles
+
+### Think Expansively
+AgenticFlow connects to **2,500+ services** through MCP, not just built-in nodes. When users ask about automation:
+1. Consider standard nodes AND MCP integrations
+2. Design hybrid solutions when needed
+3. Never limit yourself to just standard nodes
+
+**Example:**
+- User: "Monitor competitor prices and alert team"
+- Solution: `web_scraping` → `llm` (analysis) → `SLACK-SEND-MESSAGE` (MCP)
+
+### Hybrid Workflow Design
+Mix standard nodes with MCP for powerful automations:
+- **Standard nodes** for: AI processing, web scraping, data extraction
+- **MCP integrations** for: Gmail, Slack, HubSpot, Shopify, Google Sheets, etc.
+
+### Natural Language First
+Transform user requirements directly into workflows:
+1. Understand the goal
+2. Break into logical steps
+3. Select appropriate nodes
+4. Connect data flow
+5. Build and validate
+
+---
+
+## 🎨 Common Workflow Patterns
+
+### Pattern 1: Data Collection + AI Processing + Distribution
+```
+Web Scraping → LLM Analysis → Multi-Channel Output
+    ↓               ↓                 ↓
+  Research    Extract Insights    Email + Slack + Sheets
+```
+
+### Pattern 2: External Service Integration
+```
+MCP Data Source → AI Processing → MCP Action
+      ↓                ↓               ↓
+  HubSpot CRM    Analyze Leads    Send Campaigns
+```
+
+### Pattern 3: Content Generation Pipeline
+```
+User Input → LLM Generation → Image Creation → Multi-Platform Publishing
+               ↓                    ↓                    ↓
+         Text Content        Visual Assets     LinkedIn + Twitter + FB
+```
+
+**Full patterns with code:** Load `references/workflow_guide.md`
+
+---
+
+## 📖 Resource Loading Strategy
+
+Load documentation strategically based on current phase:
+
+### Planning Phase
+1. `guides/01_workflow_creation_process.md` - Overall process
+2. `guides/02_node_selection_strategy.md` - Choose nodes
+3. `references/node_types.md` - Browse available nodes
+
+### MCP Integration Phase
+1. `guides/03_mcp_integration_guide.md` - MCP setup
+2. `references/mcp_integrations.md` - Service catalog
+
+### Building Phase
+1. `guides/04_technical_requirements.md` - Field requirements
+2. `references/complete_node_types.md` - Detailed schemas
+
+### Learning from Examples
+1. `references/examples/workflows/` - Similar workflows
+2. `references/examples/agents/` - Agent configurations
+
+**Don't load everything at once** - Load based on what you need for the current phase.
+
+---
+
+## 🔧 Key Technical Points
+
+### Node Structure (CRITICAL)
 ```javascript
 {
-  "name": "descriptive_name",
-  "node_type_name": "mcp_run_action",
-  "input_config": {
-    "action": "SERVICE-ACTION-NAME",  // e.g., "GMAIL-SEND-EMAIL"
-    "input_params": {
-      "instruction": "Detailed instruction for the AI to execute the action with context from {{previous_nodes}}"
-    }
-  },
-  "connection": "{{__app_connections__['connection-id']}}"
+  "name": "node_name",              // Required: unique string
+  "node_type_name": "exact_type",    // Required: exact from API
+  "input_config": {},                // Required: object (never null)
+  "output_mapping": {},              // Required: {} not null
+  "connection": ""                   // Required: "" not null
 }
 ```
 
-Use template variables for data flow between all node types. Show a visual representation of the workflow architecture to the user.
-
-### 5. Pre-Building Phase
-
-Structure the comprehensive workflow:
-- Design input_schema with proper UI metadata
-- Plan execution order mixing standard nodes and MCP actions
-- Map data flow using `{{node_name.field}}` syntax
-- Configure output_mapping for final results
-- Document which MCP connections user needs to set up
-
-### 6. Building Phase
-
-Create the enhanced workflow:
-
-Mix and match node types for optimal results:
-- Use LLM nodes for AI processing
-- Use MCP nodes for external service integration
-- Use web scraping for data collection
-- Use data extraction for structuring
-
-Build the workflow in an artifact for easy editing. Include clear documentation about MCP connections needed.
-
-### 7. Validation & Documentation Phase
-
-- Validate workflow structure using `agenticflow_validate_workflow()`
-- Document all MCP connections required
-- Provide setup instructions for MCP providers
-- Test workflow logic flow
-- Note any limitations or prerequisites
-
-## Workflow Design Best Practices
-
-1. **Start with Requirements**: Understand what external services are needed
-2. **Mix Node Types**: Combine standard nodes with MCP for powerful workflows
-3. **Chain Operations**: Use output from one service as input to another
-4. **Error Handling**: Plan for MCP action failures
-5. **Documentation**: Always document required MCP connections
-6. **Parallel Processing**: Design workflows with parallel execution when possible (see `references/workflow_guide.md`)
-
-## Key Mindset Shift
-
-**OLD**: "Here are the available node types: LLM, web_scraping, image_generation..."
-**NEW**: "AgenticFlow can connect to 2,500+ services. What would you like to automate?"
-
-Do not limit to built-in nodes. Access to virtually any API or service is available through MCP. Think expansively about what's possible, not restrictively about node types.
-
-## Response Framework
-
-When users ask "Can AgenticFlow do X?", follow this thought process:
-1. Check if standard nodes can do it
-2. Check if MCP integration exists for the service
-3. Design a hybrid solution if needed
-4. Never limit to just standard nodes
-
-Example: "Can AgenticFlow send emails?"
-- Standard way: Use `send_email` node (basic)
-- MCP way: Use `GMAIL-SEND-EMAIL` or `SENDGRID-SEND-EMAIL` (advanced features)
-- Best practice: Choose based on user's needs
-
-## Workflow URL Generation
-
-Always provide direct workflow links after creation:
-```
-https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/build
+### Template Variables
+```javascript
+{{node_name.content}}              // LLM output
+{{node_name.response}}             // Search/API output
+{{node_name.scraped_content}}      // Web scraping output
+{{node_name.output}}               // MCP action output
+{{input_parameter}}                // User input
+{{__app_connections__['uuid']}}    // MCP connection
 ```
 
-## Example User Interactions
+### MCP Action Format
+```javascript
+{
+  "node_type_name": "mcp_run_action",
+  "input_config": {
+    "action": "SERVICE-ACTION-NAME",     // All caps with hyphens
+    "input_params": {
+      "instruction": "Clear instruction with {{variables}}"
+    }
+  },
+  "connection": "{{__app_connections__['connection-uuid']}}"
+}
+```
 
-**User**: "I need to sync Shopify orders to Google Sheets and send Slack notifications"
+**Complete technical details:** Load `guides/04_technical_requirements.md`
 
-**Approach**:
-- Use `mcp_run_action` with `SHOPIFY-GET-ORDERS`
-- Use `mcp_run_action` with `GOOGLE_SHEETS-APPEND-ROW`
-- Use `mcp_run_action` with `SLACK-SEND-MESSAGE`
-- Connect with LLM nodes for intelligent processing
+---
 
-**User**: "Can AgenticFlow manage my Instagram posts?"
+## ✅ Workflow Creation Checklist
 
-**Approach**:
-- Check for Instagram MCP actions
-- Combine with `generate_image` for content creation
-- Use LLM for caption generation
-- Design complete social media workflow
+Use this for every workflow:
 
-## Resources
+**Before Building:**
+- [ ] Health check completed (`agenticflow_health_check()`)
+- [ ] Requirements fully understood (asked clarifying questions)
+- [ ] Node types identified (checked available nodes)
+- [ ] MCP services planned (documented which connections needed)
+- [ ] Data flow mapped (template variables planned)
+- [ ] Input schema designed (with UI metadata)
 
-This skill includes reference documentation to guide workflow creation:
+**During Building:**
+- [ ] All required fields included
+- [ ] Template variables correct ({{node_name.field}})
+- [ ] Connection fields proper format ("" or UUID)
+- [ ] No null values (use {} for objects, "" for strings)
+- [ ] Node names unique and descriptive
 
-### references/complete_node_types.md
-**Cached complete node type library** with 40+ standard AgenticFlow nodes organized by category:
-- AI & LLM Processing (llm, claude_ask, openai_ask_chat_gpt, etc.)
-- Web Research & Search (perplexity_search, google_search, tavily_search)
-- Image/Video Generation & Processing (generate_image, text_to_video, etc.)
-- Communication & Social Media (send_email, telegram_*, tiktok_*, youtube_*)
-- Data Management & APIs (api_call, mcp_run_action, export_data_to_file)
-- Connection requirements and cost information
+**After Building:**
+- [ ] Workflow created successfully
+- [ ] Direct link provided to user
+- [ ] MCP setup documented
+- [ ] Usage instructions clear
+- [ ] Limitations noted
 
-**Load this first** to understand available standard nodes before considering MCP integrations.
+---
 
-### references/workflow_guide.md
-Comprehensive workflow design patterns including:
-- Hybrid workflow patterns (Data Collection + AI Processing + Distribution)
-- Web Scraping + External Service Integration patterns
-- Parallel processing patterns for efficiency
+## 🎓 Learning Path
 
-Load this when designing complex workflows or when user needs workflow architecture guidance.
+### For Simple Workflows (1-3 nodes)
+1. Load `guides/01_workflow_creation_process.md`
+2. Follow Phases 1-7
+3. Reference `guides/02_node_selection_strategy.md` for nodes
+4. Check `references/examples/workflows/` for similar examples
 
-### references/mcp_integrations.md
-Complete MCP integration reference including:
-- MCP node structure and syntax
-- Popular MCP actions by category (CRM, Communication, E-commerce, Productivity, Marketing)
-- MCP integration rules and best practices
-- Instruction design guidelines
-- Connection management details
+### For MCP Workflows (External Services)
+1. Load `guides/01_workflow_creation_process.md`
+2. Load `guides/03_mcp_integration_guide.md`
+3. Review MCP action patterns for the service category
+4. Follow connection setup instructions
 
-Load this when user needs MCP integrations or external service connectivity.
+### For Complex Workflows (5+ nodes)
+1. Load `guides/01_workflow_creation_process.md`
+2. Load `references/workflow_guide.md` for patterns
+3. Design data flow carefully with template variables
+4. Use `guides/04_technical_requirements.md` for validation
 
-### references/node_types.md
-Node type selection guide including:
-- Node types for web research (perplexity_search, openai_search, google_search)
-- Node types for AI processing (llm, claude_ask, openai_ask_chat_gpt)
-- Node types for data extraction and web scraping
-- Field requirements and common fixes
-- Template variable syntax and usage
+---
 
-Load this when selecting appropriate node types or troubleshooting node configuration issues.
+## 🚨 Common Pitfalls to Avoid
+
+1. **Don't use `null`**: Use `{}` for objects, `""` for strings
+2. **Exact node type names**: Must match API exactly (case-sensitive)
+3. **Template variables**: Use `{{node.field}}` not `${node.field}`
+4. **Output fields**: Different nodes have different output fields (.content, .response, .output)
+5. **Required fields**: Check `references/complete_node_types.md` for each node type
+6. **MCP connections**: Document setup requirements for users
+
+---
+
+## 🎯 Success Criteria
+
+A successful workflow should:
+- ✅ Transform user's natural language request into working automation
+- ✅ Have all required fields properly configured
+- ✅ Use template variables correctly for data flow
+- ✅ Include clear setup instructions (especially for MCP)
+- ✅ Provide direct workflow link
+- ✅ Document any limitations or prerequisites
+
+---
+
+## 📞 Quick Reference
+
+**Most Important Files:**
+- `guides/01_workflow_creation_process.md` - THE process
+- `guides/02_node_selection_strategy.md` - Choose nodes
+- `guides/03_mcp_integration_guide.md` - MCP integrations
+- `guides/04_technical_requirements.md` - Field requirements
+
+**Most Useful References:**
+- `references/node_types.md` - Node browsing
+- `references/complete_node_types.md` - Field details
+- `references/examples/workflows/` - Real examples
+
+**Quick Actions:**
+- Health check: `agenticflow_health_check()` - OPTIONAL, only if validating connection
+- Search nodes: Use `references/node_types.md` first, API search only if needed
+- List nodes: Use `references/official_node_types.json` - all 139 nodes locally available
+- Create workflow: `agenticflow_create_workflow({...})` - REQUIRED for creation
+- Validate workflow: `agenticflow_validate_workflow({...})` - OPTIONAL before creation
+
+**Data Source Priority:**
+1. **LOCAL FIRST** - Use references/* files (saves API calls)
+2. **API ONLY WHEN** - Creating, validating, or need latest data
+
+---
+
+## Keywords
+
+AgenticFlow, automation workflows, workflow design, MCP integrations, external services, API automation, workflow validation, workflow building, natural language to workflow, AI automation, Gmail integration, Slack integration, HubSpot integration, Shopify automation, web scraping, data extraction, content generation

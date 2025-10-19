@@ -1,0 +1,149 @@
+{
+  "id": "06b328aa-b038-4abb-b4c5-9cbf205d3c8d",
+  "name": "Advanced - Quick QR Art",
+  "description": "Generate QR Art With Advanced Prompts",
+  "created_at": "2024-05-31T09:10:21.132689",
+  "updated_at": "2025-08-07T14:33:09.737272",
+  "user_id": "6565baaab1e81262ad5b8339",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "prompt",
+        "title": "Prompts",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Based on information \nTheme: {{theme}}\nObject: {{object}}\nBackground: {{background}} \nLayout: {{layout}} \nColor: {{color}}\nStyle: {{style}} \nWrite a concise prompt maximum 150 words to generate image. \nExample: \nLong Prompt: Reaching for the Stars (Flat Design)\nConcept: This flat design illustration captures the excitement and ambition of humanity's pursuit of new frontiers in technology. A powerful rocket ship blasts off into a vast starry sky, symbolizing the journey towards a future filled with endless possibilities.\nForeground:\nRocket Ship:\nDesign: Modern and sleek, with a streamlined body and powerful engines.\nDetails:\nGlowing exhaust flames at the base, signifying the rocket's launch.\nBold geometric shapes and contrasting colors (e.g., white body with red accents) for a dynamic appearance.\nWindows with bright lights inside, hinting at the crew or equipment on board.\nLaunch Pad: A minimalist platform with geometric shapes, sturdy enough to handle the rocket's force.\nBackground:\nStarry Sky:\nBase Color: Dark blue or black.\nStars: Abundant, in various sizes and brightnesses, creating a sense of depth and vastness.\nOptional Details:\nNebulae: Swirling clouds of gas and dust in vibrant colors like purple, pink, and blue, adding visual interest without overwhelming the flat design style.\nShooting Stars: Streaks of light across the sky symbolizing fleeting moments of inspiration and breakthroughs.\nHorizon: A subtle suggestion of a planet or moon peeking over the horizon, possibly humanity's home base or the target destination.\nColor Palette:\nBold and Eye-Catching:\nPrimary Colors: Consider a combination of white for the rocket ship, red or orange for the launch flames and accents, and blue for the starry sky.\nSecondary Colors: Introduce contrasting or complementary colors in the nebulae, shooting stars, or horizon details (e.g., purple, green, yellow).\nBalance: Maintain a balance between the excitement of bold colors and the clean lines of the flat design aesthetic.\nOverall Tone:\nUplifting and Energetic: The image should evoke a sense of optimism and excitement about the future of technological exploration.\nDynamic and Inspiring: The composition and color palette should create a sense of movement and inspire viewers to dream big.",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "q_r_art_v6",
+        "title": "QR Art V6",
+        "description": "Unleash Artistic QR Codes: Generate stunning AI-powered QR art with Quick QR Art V6 (powered by https://quickqr.art)",
+        "node_type_name": "qr_art_v6",
+        "input_config": {
+          "prompt": "{{prompt.content}}",
+          "qr_content": "{{url}}",
+          "qr_pattern": "s1",
+          "resolution": "HD",
+          "qr_position": "center",
+          "qr_strength": 1.6,
+          "aspect_ratio": "1:1",
+          "negative_prompt": "NSFW"
+        },
+        "output_mapping": null,
+        "connection": "{{__app_connections__['2988a64d-dbb3-410e-b9db-55bb6e81dc9b']}}",
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "url": {
+        "type": "string",
+        "title": "URL",
+        "description": "Website/Company/Event Link",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "https://quickqr.art/",
+          "placeholder": ""
+        }
+      },
+      "color": {
+        "type": "string",
+        "title": "Color Palette",
+        "description": "Select a color scheme that sets the mood (e.g., vibrant, monochromatic, pastel) or choose specific colors you want to include.  ",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Bold and eye-catching",
+          "placeholder": ""
+        }
+      },
+      "style": {
+        "type": "string",
+        "title": "Style",
+        "description": "Choose from pre-designed styles (abstract, geometric, watercolor)",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": " Flat Design",
+          "placeholder": ""
+        }
+      },
+      "theme": {
+        "type": "string",
+        "title": "Topic/Theme",
+        "description": "General theme or topic for the design (e.g., sports, technology).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "Innovation",
+          "placeholder": ""
+        }
+      },
+      "layout": {
+        "type": "string",
+        "title": "Layout",
+        "description": "Specify the arrangement of elements (e.g., centered object, rule of thirds composition).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "Centered Object",
+          "placeholder": ""
+        }
+      },
+      "object": {
+        "type": "string",
+        "title": "Object",
+        "description": " Specify an object you'd like incorporated into the art (e.g., flower, animal, geometric shape).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "A rocket ship blasting off into a starry sky, representing the pursuit of new frontiers in technology.",
+          "placeholder": ""
+        }
+      },
+      "background": {
+        "type": "string",
+        "title": "Background",
+        "description": "Describe the background setting for your image (e.g., beach, mountain range, outer space, clean white background).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 6,
+          "value": " Show other celestial bodies like planets with rings or moons in various phases.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 391,
+  "num_views": 10,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/aadc9ef0-227d-4120-8433-b83eb7c40901/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

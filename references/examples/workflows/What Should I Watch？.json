@@ -1,0 +1,85 @@
+{
+  "id": "5f8630aa-1dba-4221-b0e7-dfd1adabc74f",
+  "name": "What Should I Watch\uff1f ",
+  "description": "Find movies and TV Shows to watch based on your taste and preferences.",
+  "created_at": "2024-05-23T16:25:34.760900",
+  "updated_at": "2025-01-22T16:42:45.282321",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "\"Find movies similar to {{movies}} \n\"Recommend movies in the same genre as {{mood}} \n\"Find movies by the director/actor of {{actor}}",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "mood": {
+        "type": "string",
+        "title": "Your Mood",
+        "description": "What genre are you in the mood for?",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Love",
+          "placeholder": ""
+        }
+      },
+      "actor": {
+        "type": "string",
+        "title": "Your Favorite Actors",
+        "description": "Which actors do you love watching?",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Mery Streep",
+          "placeholder": ""
+        }
+      },
+      "movies": {
+        "type": "string",
+        "title": "Your favorite movies.",
+        "description": "List your top 5 favorite movies.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "The Shawshank Redemption (1994)  The Godfather (1972)  Dark Knight (2008) The Lord of the Rings: The Return of the King (2003)  Pulp Fiction (1994) ",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 17,
+  "num_views": 9,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/d63a8c09-3d1b-4755-a5d4-322bb90e49c4/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

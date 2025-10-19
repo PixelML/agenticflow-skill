@@ -1,0 +1,74 @@
+{
+  "id": "880a4b3f-175e-48ce-9105-c7a97e77e38c",
+  "name": "Writing Reactiviation Campaigns",
+  "description": "Craft engaging email campaigns to win back inactive users and rekindle their interest in your product or service.",
+  "created_at": "2024-05-23T16:25:34.762329",
+  "updated_at": "2025-01-22T16:47:30.750529",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Email list: {{email_list}} \nAction to encourage: {{action}} \nWrite a reactivation email campaign for the provided email list that encourages the specified action. Include a creative subject line, 4-6 sentence body.",
+          "system_message": "You are an experienced email marketing specialist skilled at writing compelling reactivation campaigns.\nYour reactivation emails follow this structure:\n- Attention grabbing subject line\n- 4-6 sentence body that reminds them of past value and encourages taking a specific action\n- Clear call-to-action (CTA)",
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "action": {
+        "type": "string",
+        "title": "Offer/Incentive",
+        "description": "Define a compelling offer or incentive to entice users to re-engage (e.g., discount code, exclusive content, free trial).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Free Month of Premium Features! ",
+          "placeholder": ""
+        }
+      },
+      "email_list": {
+        "type": "string",
+        "title": "Email List",
+        "description": "Email List",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "John Smith, Jane Doe, Michael Brown, Emily Garcia, David Lee",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 4,
+  "num_views": 6,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/5b851afd-921c-46c4-9682-a964f3e9192d/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

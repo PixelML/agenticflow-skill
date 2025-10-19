@@ -1,0 +1,68 @@
+{
+  "id": "74c907d1-4c01-4d13-91de-d65218bc105b",
+  "name": "Google Search",
+  "description": "Search the internet for the latest information about a topic",
+  "created_at": "2024-05-23T16:25:34.759892",
+  "updated_at": "2025-01-22T16:29:48.114906",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "google_search",
+        "title": "Google Search",
+        "description": "Google Search a query",
+        "node_type_name": "google_search",
+        "input_config": {
+          "top_k": 5,
+          "search_query": "{{text}}"
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "text": {
+        "type": "string",
+        "title": "Google Search Query",
+        "description": "A really high quality google search prompt",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Revolutionize Your Marketing with AI-Driven Creativity Unleash the power of generative AI to transform your brand's marketing and advertising strategies",
+          "max_size": null,
+          "min_size": null,
+          "max_width": null,
+          "min_width": null,
+          "ref_image": null,
+          "max_height": null,
+          "media_type": null,
+          "min_height": null,
+          "allowed_mime_types": null
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 70,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/e4671bc3-15c1-46c3-8dbc-953df90d3e5f/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

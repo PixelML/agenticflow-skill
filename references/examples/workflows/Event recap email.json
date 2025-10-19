@@ -1,0 +1,140 @@
+{
+  "id": "cb7474e3-cb70-4c2a-9339-c5fb5c65b551",
+  "name": "Event recap email",
+  "description": "Automatically send an email summarizing your event",
+  "created_at": "2024-05-23T16:25:34.760076",
+  "updated_at": "2025-01-22T16:37:35.431507",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Write an event recap email to {{attendee_email}} about the {{event_name}} event {{date}} . \nInclude key highlights from the event {{speaker_topic}} {{highlights}}, feedback from participants {{survey_link}} , and next steps. Example: Subject: Recap of the [Event Name] Event - Thank You for Attending! Dear [Attendees], I hope this email finds you well! On behalf of the organizing team, I would like to express our sincere gratitude for attending the [Event Name] event. It was truly a pleasure to have you join us. Here is a recap of the key highlights from the event: Opening remarks: The event kicked off with an inspiring speech from [Keynote Speaker]. Their insights and experiences set the tone for the day, leaving everyone motivated and engaged. Panel discussions: Our panel of industry experts shared valuable knowledge and engaged in thought-provoking discussions on various topics, including [Topic 1], [Topic 2], and [Topic 3]. The diverse perspectives offered great insights and allowed for an interactive and engaging session. Networking sessions: The event provided ample opportunities for attendees to connect with fellow professionals in the industry. The networking sessions were well-received, as participants appreciated the chance to exchange ideas, forge new relationships, and even explore potential collaborations. Workshop sessions: The hands-on workshop sessions proved to be a crowd favorite. Participants had the opportunity to enhance their skills in [Workshop Topic 1], [Workshop Topic 2], and [Workshop Topic 3]. The interactive nature of these sessions allowed for a more immersive learning experience. We are thrilled to share that the event received overwhelmingly positive feedback from participants. Here are a few comments we received: \"The event was incredibly informative and well-organized. Thank you for providing such valuable content!\" \"I thoroughly enjoyed the panel discussions. The speakers were knowledgeable and engaging.\" \"The networking sessions were a great way to build connections and learn from others in the industry.\" \"The workshop sessions helped me gain practical skills that I can apply in my work immediately.\" In terms of next steps, we have taken your feedback into consideration and are in the process of planning our next event. We will keep you informed about the dates, topics, and registration details via email and our website. Once again, thank you for making the [Event Name] event a resounding success. We appreciate your participation and look forward to seeing you at future events. Should you have any further questions or suggestions, please do not hesitate to reach out to us. Best regards, [Your Name] {{your_name}} [Your Title/Organization] {{your_tilte}}",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "date": {
+        "type": "string",
+        "title": "Date of Event",
+        "description": " The day of the week the event took place",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": " October 15th - October 22nd, 2024 (one week)",
+          "placeholder": ""
+        }
+      },
+      "your_name": {
+        "type": "string",
+        "title": "Your Name",
+        "description": "Name of the email sender",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Sarah Thompson",
+          "placeholder": ""
+        }
+      },
+      "event_name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "Marketing Strategies for the Modern Era",
+          "placeholder": ""
+        }
+      },
+      "highlights": {
+        "type": "string",
+        "title": "Presentation/Activity Highlights",
+        "description": "A brief description of any presentations or activities that were well-received",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "The keynote by industry expert, Lisa Jones, on \"Content Marketing Trends in 2024\" generated a lot of buzz and engagement. The breakout session on \"Social Media Strategies for B2B Businesses\" was highly interactive and sparked lively discussions.Your Title/Organization: Marketing Manager, ABC Company Survey Link (Optional): https://www.surveymonkey.com/ (Replace with your actual survey link) Speaker Names & Topics: Keynote: Lisa Jones - Content Marketing Trends in 2024 Breakout Session 1: David Lee - Social Media Strategies for B2B Businesses Breakout Session 2: Maria Garcia - Building a Strong Brand Identity in the Digital",
+          "placeholder": ""
+        }
+      },
+      "your_tilte": {
+        "type": "string",
+        "title": "Your Title/Organization",
+        "description": "Title of the email sender",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "Event Manager",
+          "placeholder": ""
+        }
+      },
+      "survey_link": {
+        "type": "string",
+        "title": "Survey Link (Optional)",
+        "description": "If you have a survey for feedback, you can include the link here.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "https://quickqr.art/",
+          "placeholder": ""
+        }
+      },
+      "speaker_topic": {
+        "type": "string",
+        "title": "Speaker Names & Topics",
+        "description": "Names and topics of speakers for the keynote and any breakout sessions you want to highlight",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 6,
+          "value": "Sarah Rodriguez -The Power of Storytelling in Modern Marketing",
+          "placeholder": ""
+        }
+      },
+      "attendee_email": {
+        "type": "string",
+        "title": "Attendee Email ",
+        "description": "Attendees will receive the email",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 7,
+          "value": "Wendy M",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 5,
+  "num_views": 14,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/8117d384-c1f4-46b1-9a21-277d8dd032eb/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

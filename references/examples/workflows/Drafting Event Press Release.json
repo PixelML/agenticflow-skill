@@ -1,0 +1,129 @@
+{
+  "id": "0d0ed4f6-6f30-44de-96a1-7542ef65e2b7",
+  "name": "Drafting Event Press Release",
+  "description": "Creating a newsworthy press release to announce your upcoming event.",
+  "created_at": "2024-05-23T16:25:34.762016",
+  "updated_at": "2025-01-22T16:46:34.759110",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Draft an event press release for [event name] which includes the following: [list of key elements to include].\nEvent Date & Time {{date_time}} \nEvent Location {{location}} \nEvent Description (Brief) {{description}} \nSpeaker Information {{speaker}} \nRegistration Information {{registration}} \nQuotes {{quotes}}",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Event Name",
+        "description": "The name of your event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "The Future of Food Summit",
+          "placeholder": ""
+        }
+      },
+      "quotes": {
+        "type": "string",
+        "title": "Quotes (Optional)",
+        "description": "You can include a pre-written quote about the event from yourself or a speaker to add credibility.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "\"The Future of Food Summit is a pivotal moment to explore innovative solutions that will shape a more sustainable and equitable food system for all.\" - Dr. Amelia Green, keynote speaker and renowned food scientist.",
+          "placeholder": ""
+        }
+      },
+      "speaker": {
+        "type": "string",
+        "title": "Speaker Infomation (Optional)",
+        "description": "Names, titles, and brief bios of any keynote speakers or prominent figures attending the event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 2,
+          "value": "Dr. Amelia Green, world-renowned food scientist and author of \"Nourishing the Planet.\" Mr. Carlos Sanchez, CEO of GreenWave, a leading vertical farming company. Ms. Maya Rodriguez, Founder of the Urban Growers Collective.",
+          "placeholder": ""
+        }
+      },
+      "location": {
+        "type": "string",
+        "title": "Event Location (Optional)",
+        "description": " The physical location or online platform where the event will be held (if applicable).",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 3,
+          "value": "Santa Monica Convention Center, Santa Monica, CA  (or) Online via a dedicated event platform (depending on the format chosen).",
+          "placeholder": ""
+        }
+      },
+      "date_time": {
+        "type": "string",
+        "title": "Event Date & Time",
+        "description": "The date and time your event will take place.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 4,
+          "value": "Saturday, October 26th, 2024, from 10:00 AM to 5:00 PM PST.",
+          "placeholder": ""
+        }
+      },
+      "description": {
+        "type": "string",
+        "title": "Event Description (Brief)",
+        "description": " A concise overview of the event's purpose, target audience, and key highlights.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 5,
+          "value": "The Future of Food Summit is a one-day event designed to spark critical conversations and ignite innovation around the future of our food system.  This gathering will convene leading scientists, entrepreneurs, policymakers, and everyday citizens to explore emerging technologies, sustainable practices, and social initiatives that are transforming the way we grow, distribute, and consume food. The summit offers a unique platform for attendees to gain insights from industry experts, engage in interactive workshops, and connect with a passionate community working to build a more secure and nourishing future for all.",
+          "placeholder": ""
+        }
+      },
+      "registration": {
+        "type": "string",
+        "title": "Registration Information (Optional)",
+        "description": "A website link or instructions on how people can register for the event.",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 6,
+          "value": "For more information and to register for the Future of Food Summit, please visit our website: [Future of Food Summit Website] (you can replace this with a placeholder for where the registration link will be).",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 7,
+  "num_views": 7,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/5fe6df7e-da2f-47b4-9d2d-67fe64a0f246/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

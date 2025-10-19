@@ -1,0 +1,88 @@
+{
+  "id": "14a12db2-a66d-4861-894a-bc6030eea824",
+  "name": "Industry Research",
+  "description": "Enrich your data with the top 5 industry trends from Google search. ",
+  "created_at": "2024-05-23T16:25:34.761161",
+  "updated_at": "2025-01-22T16:44:25.681909",
+  "user_id": "084f955b-df48-4368-8dd2-7e5ab5062ee3",
+  "nodes": {
+    "nodes": [
+      {
+        "name": "google_search_results",
+        "title": "Google Search",
+        "description": "Google Search a query",
+        "node_type_name": "google_search",
+        "input_config": {
+          "top_k": 5,
+          "search_query": "{{industry_name}}"
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      },
+      {
+        "name": "llm",
+        "title": "Answers",
+        "description": "Answer a question using a large language model. Chat history can be used to maintain context between messages.",
+        "node_type_name": "llm",
+        "input_config": {
+          "model": "DeepSeek V3",
+          "temperature": 0.5,
+          "human_message": "Google search results of the top\n{{industry_name}} \ntrends:\n\"\"\"\n{{google_search_results.search_results}} \n\"\"\"\nGive me a maximum 100-word summary of the above google search result. I will use this summary to personalise my cold outreach to employees of a company that belongs to the\n{{industry_name}} industry.\nYour summary should be highly relevant to my product and service. Highlight potential challenges and opportunities in the industry where my product and service could offer significant value. Focus on trigger events that signal relevant industry changes.\nCONTEXT ABOUT MY PRODUCT:\n\"\"\"\n{{product_context}} \n\"\"\"",
+          "system_message": null,
+          "chat_history_id": null
+        },
+        "output_mapping": null,
+        "connection": null,
+        "cost": null,
+        "metadata": null
+      }
+    ]
+  },
+  "output_mapping": {},
+  "input_schema": {
+    "type": "object",
+    "title": "User inputs",
+    "required": [],
+    "properties": {
+      "industry_name": {
+        "type": "string",
+        "title": "Industry Name",
+        "description": "Industry Name",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 0,
+          "value": "Insurance ",
+          "placeholder": ""
+        }
+      },
+      "product_context": {
+        "type": "string",
+        "title": "Context about my product and service",
+        "description": "Product and service",
+        "ui_metadata": {
+          "type": "short_text",
+          "order": 1,
+          "value": "Agenticflowai is a 3 year old award-winning AI company that developed a no-code AI platform that allows users to create ther own, powerful AI Tools within minutes, without writing any code.   ChatGPT and other large languege models lack security and may expose your data to other users as it trains itself with it. It isn\u2019t trained on your personal data, has a character limit, and it\u2019s difficult to reuse your prompts. It's also quite manual, as you can't automate processes with it.  We've created a user-friendly solution to all these challenges.  These AI apps you can create with Relevance AI can automate the human-dependent aspects of almost *any* process.  Using this solution, you can combine Large Language Models and any other AI technologies on your own data.  We're stepping into the era of customizable, autonomous AI agents for task automation, without needing any coding knowledge. This can increase the productivity of businesses by 50x.   ChatGPT and other large languege models lack security and may expose your data to other users as it trains itself with it. It isn\u2019t trained on your personal data, has a character limit, and it\u2019s difficult to reuse your prompts. It's also quite manual, as you can't automate processes with it.  We've created a user-friendly solution to all these challenges.",
+          "placeholder": ""
+        }
+      }
+    },
+    "description": "User inputs for the workflow"
+  },
+  "workspace_id": "bdc27839-fb5b-4a79-b7b3-851222711731",
+  "project_id": "01K7DZ55VEN3A678N873RBM17Y",
+  "public_runnable": false,
+  "public_clone": true,
+  "num_likes": 0,
+  "num_runs": 23,
+  "num_views": 5,
+  "images": [
+    "https://photoshot-us.s3.us-east-1.amazonaws.com/next-s3-uploads/a5ae9fd0-7957-435d-8a8d-7271311868e4/cropped_image.JPEG"
+  ],
+  "dataset_id": null,
+  "workflow_metadata": {
+    "image_url": null
+  }
+}

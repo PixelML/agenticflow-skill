@@ -27,16 +27,23 @@ jobs:
       - name: Fetch upstream skills
         run: |
           # Clone the source repo (shallow clone for speed)
-          git clone --depth 1 --filter=blob:none --sparse \
-            https://github.com/PixelML/skills.git temp-skills
+          git clone --depth 1 https://github.com/PixelML/skills.git temp-skills
           
-          cd temp-skills
-          git sparse-checkout set agenticflow-skills
-          cd ..
+          # Debug: Check what's in the repo
+          echo "Contents of temp-skills:"
+          ls -la temp-skills/
           
       - name: Sync content
         run: |
-          # Remove current content except git and backups
+          # Check if the directory exists
+          if [ ! -d "temp-skills/agenticflow-skills" ]; then
+            echo "Error: agenticflow-skills directory not found!"
+            echo "Available directories:"
+            ls -la temp-skills/
+            exit 1
+          fi
+          
+          # Remove current content except git, github, and backups
           find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name '.' -exec rm -rf {} +
           
           # Copy new content from upstream

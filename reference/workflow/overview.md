@@ -309,6 +309,19 @@ Additional workflow properties:
 
 ---
 
+## Web UI URLs
+
+| Page | URL Pattern |
+|------|-------------|
+| Workflow List | `https://agenticflow.ai/app/workspaces/{workspace_id}/workflows` |
+| Workflow Details | `https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/build` |
+| Workflow Run Details | `https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/logs/{workflow_run_id}` |
+
+---
+
 ## Related Documentation
 
-- [Node Types Reference](./node-types.md) - Detailed node configurations
+- [How to Build a Workflow](./how-to-build.md) - Step-by-step guide to creating workflows
+- [How to Run a Workflow](./how-to-run.md) - Execute and manage workflow runs
+- [Node Types Reference](./node-types.md) - Detailed node type configurations
+- [Connections](./connections.md) - Available connection providers

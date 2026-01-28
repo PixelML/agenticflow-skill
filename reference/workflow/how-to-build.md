@@ -43,6 +43,9 @@ What data does your workflow need from users?
 Use MCP tools to discover available nodes:
 
 ```
+# List all available node types
+agenticflow_list_node_types()
+
 # Search for what you need
 agenticflow_search_node_types(query="image generation")
 
@@ -56,6 +59,57 @@ The response includes `input_schema` showing required fields.
 
 ---
 
+## Step 2.1: Handle Dynamic Options (Dropdowns)
+
+Some node fields require fetching options dynamically from the API. These are identified by `ui_metadata` with:
+- `"type": "dropdown"`
+- `"options": null`
+
+**Example field with dynamic options:**
+
+```json
+{
+  "model": {
+    "type": "string",
+    "title": "Model",
+    "ui_metadata": {
+      "type": "dropdown",
+      "options": null,
+      "order": 1,
+      "depends_on": null
+    }
+  }
+}
+```
+
+**Fetch options using:**
+
+```
+agenticflow_get_dynamic_options(
+  node_type_name="claude_ask",
+  field_name="model",
+  connection_id=null  # or valid UUID if node requires connection
+)
+```
+
+**Connection ID rules:**
+- **No required connection**: Pass `connection_id=null`
+- **Required connection**: Must provide a valid `connection_id` (the node type's `connection_type` field indicates this)
+
+**Response example:**
+
+```json
+{
+  "options": [
+    {"label": "Claude 3 Haiku", "value": "claude-3-haiku-20240307"},
+    {"label": "Claude 3 Sonnet", "value": "claude-3-sonnet-20240229"},
+    {"label": "Claude 3 Opus", "value": "claude-3-opus-20240229"}
+  ]
+}
+```
+
+---
+
 ## Step 3: Add Nodes
 
 Create nodes in execution order (top to bottom):
@@ -65,13 +119,17 @@ Create nodes in execution order (top to bottom):
   "nodes": {
     "nodes": [
       {
-        "name": "generate_content",
-        "title": "Generate Content",
-        "node_type_name": "claude_ask",
+        "name": "ask_ai",
+        "title": "Ask AI",
+        "node_type_name": "llm",
         "input_config": {
-          "model": "claude-3-haiku-20240307",
-          "prompt": "Write about {{topic}}"
+          "human_message": "Write about {{topic}}",
+          "system_message": null,
+          "chat_history_id": null,
+          "model": "agenticflow/gemini-2.0-flash",
+          "temperature": 0.5
         },
+        "output_mapping": null,
         "connection": null
       },
       {
@@ -81,12 +139,15 @@ Create nodes in execution order (top to bottom):
         "input_config": {
           "prompt": "Illustration for: {{topic}}"
         },
+        "output_mapping": null,
         "connection": null
       }
     ]
   }
 }
 ```
+
+> **Important**: For optional fields in `input_config` (not in `required` array), use `null` as the value - not `""` or `{}`. This ensures proper API handling.
 
 ---
 
@@ -147,12 +208,21 @@ agenticflow_update_workflow(
 )
 ```
 
+### View in Web UI
+
+After creating or updating, view the workflow at:
+
+```
+https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/build
+```
+
 ---
 
 ## Quick Checklist
 
 - [ ] Input schema defined with required fields
 - [ ] Node types discovered via MCP tools
+- [ ] Dynamic options fetched for dropdown fields (`options: null`)
 - [ ] Nodes ordered correctly (dependencies first)
 - [ ] Connections specified for nodes that need them
 - [ ] Data references use correct `{{...}}` syntax
@@ -163,4 +233,6 @@ agenticflow_update_workflow(
 ## Related
 
 - [Workflow Overview](./overview.md) - Core concepts
-- [Node Types Reference](./node-types.md) - Node schemas
+- [How to Run a Workflow](./how-to-run.md) - Execute and manage workflow runs
+- [Node Types Reference](./node-types.md) - Node type configurations
+- [Connections](./connections.md) - Available connection providers

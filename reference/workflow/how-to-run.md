@@ -4,7 +4,7 @@ Guide to executing workflows and handling results in AgenticFlow.
 
 > **Important**: Workflow execution is always a **2-step process**:
 > 1. Start execution with `agenticflow_execute_workflow`
-> 2. Poll status with `agenticflow_get_execute_workflow_status`
+> 2. Poll status with `agenticflow_get_workflow_run`
 
 ---
 
@@ -75,7 +75,7 @@ A successful run returns:
 **Always** poll for status after starting execution:
 
 ```
-agenticflow_get_execute_workflow_status(workflow_run_id="workflow-run-id")
+agenticflow_get_workflow_run(workflow_run_id="workflow-run-id")
 ```
 
 > **Note**: Keep polling until `status` is `success` or `failed`.
@@ -116,7 +116,19 @@ Common error scenarios:
 
 ---
 
+## View Run in Web UI
+
+View workflow run details at:
+
+```
+https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/logs/{workflow_run_id}
+```
+
+---
+
 ## Related
 
 - [How to Build](./how-to-build.md) - Create workflows
 - [Workflow Overview](./overview.md) - Core concepts
+- [Node Types Reference](./node-types.md) - Node type configurations
+- [Connections](./connections.md) - Available connection providers

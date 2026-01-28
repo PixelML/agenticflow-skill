@@ -24,30 +24,28 @@ jobs:
           cp .gitignore .gitignore.backup
           cp README.md README.md.backup
           
-      - name: Fetch upstream skills
+      - name: Fetch and sync upstream skills
         run: |
           # Clone the source repo (shallow clone for speed)
           git clone --depth 1 https://github.com/PixelML/skills.git temp-skills
           
           # Debug: Check what's in the repo
-          echo "Contents of temp-skills:"
+          echo "=== Contents of temp-skills ==="
           ls -la temp-skills/
+          echo "=== Contents of temp-skills/agenticflow-skills ==="
+          ls -la temp-skills/agenticflow-skills/ || echo "Directory not found!"
           
-      - name: Sync content
-        run: |
           # Check if the directory exists
           if [ ! -d "temp-skills/agenticflow-skills" ]; then
             echo "Error: agenticflow-skills directory not found!"
-            echo "Available directories:"
-            ls -la temp-skills/
             exit 1
           fi
           
           # Remove current content except git, github, and backups
           find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name '.' -exec rm -rf {} +
           
-          # Copy new content from upstream
-          cp -r temp-skills/agenticflow-skills/* .
+          # Copy new content from upstream (use . instead of * to include hidden files)
+          cp -r temp-skills/agenticflow-skills/. .
           
           # Restore preserved files
           mv .gitignore.backup .gitignore
@@ -55,6 +53,10 @@ jobs:
           
           # Cleanup
           rm -rf temp-skills
+          
+          # Show final result
+          echo "=== Final repository contents ==="
+          ls -la
           
       - name: Check for changes
         id: check_changes

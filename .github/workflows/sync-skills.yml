@@ -44,8 +44,8 @@ jobs:
           # Remove current content except git, github, and backups
           find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name '.' -exec rm -rf {} +
           
-          # Copy new content from upstream (use . instead of * to include hidden files)
-          cp -r temp-skills/agenticflow-skills/. .
+          # Copy new content from upstream
+          cp -rT temp-skills/agenticflow-skills .
           
           # Restore preserved files
           mv .gitignore.backup .gitignore

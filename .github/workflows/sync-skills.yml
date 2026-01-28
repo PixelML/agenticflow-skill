@@ -1,0 +1,64 @@
+name: Sync Skills from Upstream
+
+on:
+  # Run manually from GitHub Actions tab
+  workflow_dispatch:
+  
+  # Or run on schedule (e.g., daily at midnight UTC)
+  # schedule:
+  #   - cron: '0 0 * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Backup local files to preserve
+        run: |
+          # Backup files we want to keep
+          cp .gitignore .gitignore.backup
+          cp README.md README.md.backup
+          
+      - name: Fetch upstream skills
+        run: |
+          # Clone the source repo (shallow clone for speed)
+          git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/PixelML/skills.git temp-skills
+          
+          cd temp-skills
+          git sparse-checkout set agenticflow-skills
+          cd ..
+          
+      - name: Sync content
+        run: |
+          # Remove current content except git and backups
+          find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name '.' -exec rm -rf {} +
+          
+          # Copy new content from upstream
+          cp -r temp-skills/agenticflow-skills/* .
+          
+          # Restore preserved files
+          mv .gitignore.backup .gitignore
+          mv README.md.backup README.md
+          
+          # Cleanup
+          rm -rf temp-skills
+          
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet && echo "has_changes=false" >> $GITHUB_OUTPUT || echo "has_changes=true" >> $GITHUB_OUTPUT
+          
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: sync skills from upstream [automated]"
+          git push

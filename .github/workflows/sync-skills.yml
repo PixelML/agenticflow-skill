@@ -41,8 +41,8 @@ jobs:
             exit 1
           fi
           
-          # Remove current content except git, github, and backups
-          find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name '.' -exec rm -rf {} +
+          # Remove current content except git, github, backups, and temp-skills
+          find . -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '*.backup' ! -name 'temp-skills' ! -name '.' -exec rm -rf {} +
           
           # Copy new content from upstream
           cp -rT temp-skills/agenticflow-skills .

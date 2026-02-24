@@ -36,10 +36,11 @@ agenticflow whoami --json
 
 | Variable | Purpose |
 |----------|---------|
-| `AGENTICFLOW_API_KEY` | API key (primary) |
-| `AGENTICFLOW_PUBLIC_API_KEY` | Public API key (fallback) |
+| `AGENTICFLOW_API_KEY` | API key |
 | `AGENTICFLOW_WORKSPACE_ID` | Default workspace ID |
 | `AGENTICFLOW_PROJECT_ID` | Default project ID |
+
+> `AGENTICFLOW_PUBLIC_API_KEY` is accepted as a legacy fallback if `AGENTICFLOW_API_KEY` is not set.
 
 ## Preflight Check
 

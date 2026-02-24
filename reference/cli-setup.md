@@ -6,10 +6,10 @@ One-time setup to use the AgenticFlow CLI.
 
 ```bash
 # Run directly (no install)
-npx agenticflow doctor
+npx @pixelml/agenticflow-cli doctor
 
 # Or install globally
-npm install -g agenticflow
+npm install -g @pixelml/agenticflow-cli
 ```
 
 ## Authentication

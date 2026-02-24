@@ -18,18 +18,29 @@ Three methods, in priority order:
 
 | Method | How | Best for |
 |--------|-----|----------|
+| **Interactive login** | `agenticflow login` | First-time setup |
 | **CLI flag** | `--api-key <key>` | One-off scripts |
 | **Env var** | `export AGENTICFLOW_API_KEY=<key>` | CI/CD, automated agents |
-| **Config file** | `agenticflow auth import-env --file .env` | Persistent dev setup |
+| **Import .env** | `agenticflow auth import-env --file .env` | Batch import |
+
+### Interactive Login (recommended)
+
+```bash
+agenticflow login
+# Prompts for: API Key, Workspace ID, Project ID
+# Saves to ~/.agenticflow/auth.json
+
+# Verify
+agenticflow whoami --json
+
+# Remove credentials
+agenticflow logout
+```
 
 ### Import from .env
 
 ```bash
-# Import API credentials into ~/.agenticflow/auth.json
 agenticflow auth import-env --file /path/to/.env
-
-# Verify
-agenticflow whoami --json
 ```
 
 ### Environment Variables

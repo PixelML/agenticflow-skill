@@ -2,6 +2,8 @@
 
 An **Agent** in AgenticFlow is an AI entity that can reason, use tools, and accomplish tasks autonomously.
 
+For CLI-first operations (create/get/update/stream), see [cli-mode.md](./cli-mode.md).
+
 ## Core Components
 
 | Component | Description |

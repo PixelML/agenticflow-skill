@@ -12,9 +12,14 @@ AgenticFlow is a platform for building AI-powered automation workflows, intellig
 
 | Topic | When to Use | Reference |
 |-------|-------------|-----------|
+| **CLI Setup** | First-time install, auth, env vars | [reference/cli-setup.md](./reference/cli-setup.md) |
 | **Workflow** | Building automation flows with nodes | [workflow/overview.md](./reference/workflow/overview.md) |
+| **Workflow (CLI-first)** | Building/running workflows via CLI | [workflow/cli-mode.md](./reference/workflow/cli-mode.md) |
 | **Agent** | Creating single intelligent agents | [reference/agent/overview.md](./reference/agent/overview.md) |
+| **Agent (CLI-first)** | Creating/testing agents with CLI | [reference/agent/cli-mode.md](./reference/agent/cli-mode.md) |
 | **Workforce** | Orchestrating multiple agents | [reference/workforce/overview.md](./reference/workforce/overview.md) |
+| **Troubleshooting** | Common errors and fixes | [reference/troubleshooting.md](./reference/troubleshooting.md) |
+| **Definition of Done** | Enforcing production acceptance criteria | [reference/quality/acceptance-criteria.md](./reference/quality/acceptance-criteria.md) |
 
 ---
 
@@ -27,6 +32,7 @@ Workflows are linear automation pipelines composed of sequential nodes. Each nod
 | [overview.md](./reference/workflow/overview.md) | Core concepts, schemas, execution model |
 | [how-to-build.md](./reference/workflow/how-to-build.md) | Step-by-step build guide |
 | [how-to-run.md](./reference/workflow/how-to-run.md) | Execute workflows and handle results |
+| [cli-mode.md](./reference/workflow/cli-mode.md) | CLI-first equivalents for MCP workflows |
 | [node-types.md](./reference/workflow/node-types.md) | Node type schemas and discovery |
 | [connections.md](./reference/workflow/connections.md) | Connection providers and setup |
 
@@ -51,6 +57,9 @@ An Agent is an AI entity with specific capabilities, tools, and a defined person
 
 **To learn about agent configuration, load:** [reference/agent/overview.md](./reference/agent/overview.md)
 
+For CLI-first agent operations (create/get/update/stream), load:
+[reference/agent/cli-mode.md](./reference/agent/cli-mode.md)
+
 ---
 
 ## Workforce
@@ -71,3 +80,10 @@ Workforce systems coordinate multiple agents to solve complex tasks collaborativ
 ## Glossary
 
 For terminology and definitions, see [reference/glossary.md](./reference/glossary.md).
+
+---
+
+## Quality Gate
+
+Before declaring any workflow or agent task done, enforce:
+[reference/quality/acceptance-criteria.md](./reference/quality/acceptance-criteria.md)

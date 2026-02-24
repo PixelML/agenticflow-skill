@@ -40,6 +40,8 @@ What data does your workflow need from users?
 
 ## Step 2: Find Node Types
 
+You can do discovery with MCP tools or the AgenticFlow CLI.
+
 Use MCP tools to discover available nodes:
 
 ```
@@ -54,6 +56,19 @@ agenticflow_get_node_type_details(name="generate_image")
 ```
 
 The response includes `input_schema` showing required fields.
+
+### CLI equivalent (no MCP)
+
+```bash
+# List all node types
+agenticflow node-types list
+
+# Search by keyword
+agenticflow node-types search --query "image generation"
+
+# Get full node type details
+agenticflow node-types get --name generate_image
+```
 
 > **Tip**: When two node types have the same functionality, **prefer the one without a required connection**. This simplifies workflow setup and avoids credential management.
 
@@ -216,6 +231,22 @@ After creating or updating, view the workflow at:
 https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/build
 ```
 
+### CLI equivalent (no MCP)
+
+```bash
+# Validate payload before saving
+agenticflow workflow validate --body @workflow.json
+
+# Create
+agenticflow workflow create --workspace-id <workspace_id> --body @workflow.json
+
+# Update
+agenticflow workflow update \
+  --workspace-id <workspace_id> \
+  --workflow-id <workflow_id> \
+  --body @workflow.json
+```
+
 ---
 
 ## Quick Checklist
@@ -228,11 +259,15 @@ https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/bui
 - [ ] Data references use correct `{{...}}` syntax
 - [ ] Output mapping captures desired results
 
+Before marking done, apply semantic acceptance gates:
+[../quality/acceptance-criteria.md](../quality/acceptance-criteria.md)
+
 ---
 
 ## Related
 
 - [Workflow Overview](./overview.md) - Core concepts
 - [How to Run a Workflow](./how-to-run.md) - Execute and manage workflow runs
+- [CLI Mode](./cli-mode.md) - MCP-to-CLI command mapping
 - [Node Types Reference](./node-types.md) - Node type configurations
 - [Connections](./connections.md) - Available connection providers

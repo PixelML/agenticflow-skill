@@ -6,6 +6,18 @@ Guide to executing workflows and handling results in AgenticFlow.
 > 1. Start execution with `agenticflow_execute_workflow`
 > 2. Poll status with `agenticflow_get_workflow_run`
 
+CLI-first equivalent:
+
+```bash
+# 1) Start execution
+agenticflow workflow run \
+  --workflow-id <workflow_id> \
+  --input @workflow-input.json
+
+# 2) Poll run status
+agenticflow workflow run-status --workflow-run-id <workflow_run_id>
+```
+
 ---
 
 ## Step 1: Execute Workflow
@@ -129,6 +141,8 @@ https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/log
 ## Related
 
 - [How to Build](./how-to-build.md) - Create workflows
+- [CLI Mode](./cli-mode.md) - MCP-to-CLI command mapping
 - [Workflow Overview](./overview.md) - Core concepts
 - [Node Types Reference](./node-types.md) - Node type configurations
 - [Connections](./connections.md) - Available connection providers
+- [Definition of Done](../quality/acceptance-criteria.md) - Semantic acceptance gates

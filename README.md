@@ -24,12 +24,16 @@ reference/
 │   ├── overview.md
 │   ├── how-to-build.md
 │   ├── how-to-run.md
+│   ├── cli-mode.md
 │   ├── node-types.md
 │   └── connections.md
 ├── agent/             # Agent configuration
-│   └── overview.md
+│   ├── overview.md
+│   └── cli-mode.md
 ├── workforce/         # Multi-agent orchestration
 │   └── overview.md
+├── quality/           # Definition of done and acceptance gates
+│   └── acceptance-criteria.md
 └── glossary.md        # Terminology reference
 ```
 
@@ -38,8 +42,11 @@ reference/
 | Building... | Start Here |
 |-------------|------------|
 | Automation workflow | [workflow/overview.md](./reference/workflow/overview.md) |
+| CLI-first workflow automation (no MCP) | [workflow/cli-mode.md](./reference/workflow/cli-mode.md) |
 | Single AI agent | [agent/overview.md](./reference/agent/overview.md) |
+| CLI-first agent operations | [agent/cli-mode.md](./reference/agent/cli-mode.md) |
 | Multi-agent system | [workforce/overview.md](./reference/workforce/overview.md) |
+| Production done criteria | [quality/acceptance-criteria.md](./reference/quality/acceptance-criteria.md) |
 
 ## Key Concepts
 

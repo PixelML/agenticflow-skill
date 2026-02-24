@@ -13,6 +13,7 @@ AgenticFlow is a platform for building AI-powered automation workflows, intellig
 | Topic | When to Use | Reference |
 |-------|-------------|-----------|
 | **CLI Setup** | First-time install, auth, env vars | [reference/cli-setup.md](./reference/cli-setup.md) |
+| **Template Bootstrap** | Cold-start sample discovery and duplicate flows | [reference/cli-setup.md](./reference/cli-setup.md#template-bootstrap-cold-start) |
 | **Workflow** | Building automation flows with nodes | [workflow/overview.md](./reference/workflow/overview.md) |
 | **Workflow (CLI-first)** | Building/running workflows via CLI | [workflow/cli-mode.md](./reference/workflow/cli-mode.md) |
 | **Agent** | Creating single intelligent agents | [reference/agent/overview.md](./reference/agent/overview.md) |

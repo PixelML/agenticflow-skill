@@ -29,6 +29,21 @@ agenticflow agent stream --agent-id <agent_id> --body @stream-input.json
 agenticflow agent reference-impact --agent-id <agent_id> --json
 ```
 
+## Template Duplication (Agent + Tool Workflows)
+
+```bash
+# Duplicate an agent template and its referenced workflow templates
+agenticflow templates duplicate agent --template-id <agent_template_id> --json
+
+# Cache-first resolution for referenced workflow templates
+agenticflow templates duplicate agent --template-id <agent_template_id> --cache-dir .agenticflow/templates --json
+
+# Dry-run from local template file
+agenticflow templates duplicate agent --template-file .agenticflow/templates/agent/<file>.json --cache-dir .agenticflow/templates --dry-run --json
+```
+
+Use `--skip-missing-tools` when an agent template references workflow templates that no longer exist.
+
 ## Minimal Agent Payload
 
 ```json

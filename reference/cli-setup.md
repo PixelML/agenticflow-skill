@@ -12,6 +12,15 @@ npx @pixelml/agenticflow-cli doctor
 npm install -g @pixelml/agenticflow-cli
 ```
 
+For zero-context onboarding, run:
+
+```bash
+agenticflow playbook first-touch
+agenticflow discover --json
+agenticflow templates sync --json
+agenticflow templates index --json
+```
+
 ## Authentication
 
 Three methods, in priority order:
@@ -58,12 +67,18 @@ agenticflow auth import-env --file /path/to/.env
 Always run `doctor` first to validate your setup:
 
 ```bash
+# Human-friendly check
 agenticflow doctor --json
+
+# CI-safe check (non-zero exit on required failures)
+agenticflow doctor --json --strict
 ```
 
-Expected output:
+Expected output includes:
+
 ```json
 {
+  "schema": "agenticflow.doctor.v1",
   "config": true,
   "token": true,
   "tokenSource": "config",
@@ -74,7 +89,24 @@ Expected output:
 }
 ```
 
-All fields should be `true`. If `token` is `false`, fix your auth first.
+## Template Bootstrap (Cold-Start)
+
+Use local template cache to reduce trial-and-error for workflows/agents:
+
+```bash
+# Fetch samples from API and serialize locally
+agenticflow templates sync --dir .agenticflow/templates --json
+agenticflow templates index --dir .agenticflow/templates --json
+
+# Duplicate from template ids (cache-first when --cache-dir is set)
+agenticflow templates duplicate workflow --template-id <workflow_template_id> --cache-dir .agenticflow/templates --json
+agenticflow templates duplicate agent --template-id <agent_template_id> --cache-dir .agenticflow/templates --json
+
+# Cache-only dry-run from local template files
+agenticflow templates duplicate agent --template-file .agenticflow/templates/agent/<file>.json --cache-dir .agenticflow/templates --dry-run --json
+```
+
+When `--cache-dir` is provided, duplicate commands resolve workflow templates from local cache first, then fall back to API.
 
 ## Global Options
 
@@ -85,5 +117,8 @@ Every command accepts:
 | `--api-key <key>` | Override API key |
 | `--workspace-id <id>` | Override workspace |
 | `--project-id <id>` | Override project |
-| `--json` | Force JSON output |
 | `--spec-file <path>` | Custom OpenAPI spec |
+| `--no-color` | Disable ANSI color output |
+| `--json` | Force JSON output |
+
+`--dry-run` is available on `agenticflow call` only.

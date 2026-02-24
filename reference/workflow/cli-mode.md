@@ -3,6 +3,7 @@
 CLI-first guide for building, running, and managing workflows without MCP transport.
 
 > **First-time setup?** See [CLI Setup](../cli-setup.md) for install and auth.
+> **Cold start?** Run `agenticflow playbook first-touch` and `agenticflow discover --json` before executing workflow commands.
 
 ---
 
@@ -31,9 +32,9 @@ agenticflow workflow delete --workflow-id <id>
 
 ```bash
 # Run a workflow (with smart connection resolution)
-agenticflow workflow run --workflow-id <id> --input @input.json
+agenticflow workflow run --workflow-id <id> --input @input.json --json
 
-# Check run status (poll until success/failed)
+# Check run status (poll until success/failed/cancelled)
 agenticflow workflow run-status --workflow-run-id <run_id> --json
 
 # List past runs
@@ -46,7 +47,10 @@ agenticflow workflow run-history --workflow-id <id> --limit 10 --json
 ### Workflow Validation & Metadata
 
 ```bash
-# Validate before save
+# Validate before save (local schema only, no API call)
+agenticflow workflow validate --body @workflow.json --local-only
+
+# Validate against API endpoint
 agenticflow workflow validate --body @workflow.json
 
 # Like status
@@ -54,6 +58,19 @@ agenticflow workflow like-status --workflow-id <id> --json
 
 # Reference impact analysis
 agenticflow workflow reference-impact --workflow-id <id> --json
+```
+
+### Template Duplication
+
+```bash
+# Duplicate a workflow template into a new workflow
+agenticflow templates duplicate workflow --template-id <workflow_template_id> --json
+
+# Prefer cache-first resolution in cold/sandbox environments
+agenticflow templates duplicate workflow --template-id <workflow_template_id> --cache-dir .agenticflow/templates --json
+
+# Build payload only (no create)
+agenticflow templates duplicate workflow --template-id <workflow_template_id> --cache-dir .agenticflow/templates --dry-run --json
 ```
 
 ---
@@ -68,7 +85,7 @@ When `workflow run` encounters a missing connection, the CLI automatically:
 4. Prompts you to select a replacement
 5. Updates the workflow and retries
 
-No manual intervention needed — just answer the prompt.
+No manual intervention needed - just answer the prompt.
 
 > If no matching connections exist, create one in the web UI first.
 
@@ -111,14 +128,14 @@ agenticflow connections delete --connection-id <id>
 
 ```bash
 agenticflow node-types get --name google_search --json
-# Look at: connection.connection_category → "pixelml"
+# Look at: connection.connection_category -> "pixelml"
 # Then find connections with that category:
 agenticflow connections list --limit 200 --json | grep pixelml
 ```
 
 ---
 
-## MCP → CLI Mapping
+## MCP -> CLI Mapping
 
 | MCP Tool | CLI Equivalent |
 |----------|---------------|
@@ -143,6 +160,9 @@ agenticflow call \
   --method GET \
   --path /v1/workflows/<id> \
   --json
+
+# Preview any request without executing (call command only)
+agenticflow call --operation-id get_all_v1_agents__get --dry-run --json
 ```
 
 ---
@@ -151,27 +171,32 @@ agenticflow call \
 
 ```bash
 # 1. Preflight
-agenticflow doctor --json
+agenticflow doctor --json --strict
 
-# 2. Discover node types
-agenticflow node-types search --query "gmail"
+# 2. Seed template samples (recommended)
+agenticflow templates sync --dir .agenticflow/templates --json
+agenticflow templates index --dir .agenticflow/templates --json
 
-# 3. Inspect selected node type
+# 3. Discover node types
+agenticflow node-types search --query "gmail" --json
+
+# 4. Inspect selected node type
 agenticflow node-types get --name mcp_run_action --json
 
-# 4. Check available connections
+# 5. Check available connections
 agenticflow connections list --limit 200 --json
 
-# 5. Validate workflow payload
+# 6. Validate workflow payload
+agenticflow workflow validate --body @workflow.json --local-only
 agenticflow workflow validate --body @workflow.json
 
-# 6. Create workflow
+# 7. Create workflow
 agenticflow workflow create --body @workflow.json
 
-# 7. Execute (with smart connection resolution)
-agenticflow workflow run --workflow-id <id> --input @input.json
+# 8. Execute (with smart connection resolution)
+agenticflow workflow run --workflow-id <id> --input @input.json --json
 
-# 8. Poll run status until success/failed
+# 9. Poll run status until success/failed/cancelled
 agenticflow workflow run-status --workflow-run-id <run_id> --json
 ```
 
@@ -184,7 +209,7 @@ A workflow is done only when:
 1. `workflow validate` passes.
 2. `workflow create` (or `update`) passes.
 3. `workflow run` returns a run id.
-4. `workflow run-status` reaches terminal `success`.
+4. `workflow run-status` reaches a terminal state (`success`, `failed`, or `cancelled`).
 5. Output matches intended behavior, not only generic LLM fallback.
 
 For full acceptance gates, see:

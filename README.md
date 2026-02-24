@@ -41,6 +41,7 @@ reference/
 
 | Building... | Start Here |
 |-------------|------------|
+| Cold-start template bootstrap | [reference/cli-setup.md](./reference/cli-setup.md#template-bootstrap-cold-start) |
 | Automation workflow | [workflow/overview.md](./reference/workflow/overview.md) |
 | CLI-first workflow automation (no MCP) | [workflow/cli-mode.md](./reference/workflow/cli-mode.md) |
 | Single AI agent | [agent/overview.md](./reference/agent/overview.md) |

@@ -4,13 +4,14 @@ Common errors and how to fix them.
 
 ## Connection Not Found
 
-```
+```text
 Error: Request failed with status 400: Connection 67ebf4cc-... not found
 ```
 
-**Cause**: The workflow references a connection ID that doesn't exist in this workspace.
+**Cause**: The workflow references a connection ID that does not exist in this workspace.
 
-**Fix**: The CLI has **smart connection resolution** built in. Re-run the workflow and the CLI will:
+**Fix**: The CLI has smart connection resolution built in. Re-run the workflow and the CLI will:
+
 1. Identify which nodes use the missing connection
 2. Look up the required connection category from the node type
 3. List available connections matching that category
@@ -26,7 +27,7 @@ agenticflow workflow run --workflow-id <id> --input @input.json
 #    ✓ Workflow updated. Re-running...
 ```
 
-**Manual fix**: List connections and update the workflow yourself:
+Manual fix path:
 
 ```bash
 # Find connections (use --limit to get all, default is 10)
@@ -34,59 +35,120 @@ agenticflow connections list --limit 200 --json
 
 # Find what category a node needs
 agenticflow node-types get --name google_search --json
-# Look at: connection.connection_category → "pixelml"
+# Look at: connection.connection_category -> "pixelml"
 ```
+
+## operation_not_found
+
+```json
+{
+  "schema": "agenticflow.error.v1",
+  "code": "operation_not_found",
+  "message": "Operation not found: getAgentModel",
+  "hint": "Try one of: get_all_v1_agents__get, ..."
+}
+```
+
+**Cause**: Stale or incorrect OpenAPI operation ID.
+
+**Fix**:
+
+```bash
+agenticflow ops list --public-only --json
+agenticflow ops show <operation_id>
+```
+
+Use one of the suggested IDs from the `hint` field.
+
+## invalid_option_value
+
+```json
+{
+  "schema": "agenticflow.error.v1",
+  "code": "invalid_option_value",
+  "message": "Invalid value for --limit: banana"
+}
+```
+
+**Cause**: Non-integer or out-of-range value passed to numeric flags (`--limit`, `--offset`, `--top`).
+
+**Fix**: Use valid integers (`--limit >= 1`, `--offset >= 0`, `--top >= 1`).
 
 ## 401 Error Decoding Token
 
-```
+```text
 Error: Request failed with status 401: Error decoding token
 ```
 
-**Cause**: Some endpoints require a user session token (JWT), not an API key. Known endpoints:
-- `workflow like` / `unlike` (removed from CLI)
-- `connections categories` / `get-default` (removed from CLI)
+**Cause**: Some endpoints require a user session token (JWT), not an API key. Known examples are UI-only actions.
 
-**Fix**: These commands have been removed. Use the web UI for these operations.
+**Fix**: Use the web UI for those operations.
 
 ## 422 Validation Errors
 
-```
+```text
 Error: Request failed with status 422: [{"type":"missing","loc":["body","nodes"],...}]
 ```
 
-**Cause**: The API payload is missing required fields. The error array shows exactly which fields are missing.
+**Cause**: The payload is missing required fields.
 
 **Fix**: Read the `loc` field to identify missing properties. Common required fields for workflow create/update:
-- `nodes` (at least 1 node)
+
+- `nodes` (at least one node)
 - `output_mapping`
 - `input_schema`
 - `project_id`
 - `public_runnable` (boolean, required for updates)
 
-## Network Request Failed (Timeout)
+## local_schema_validation_failed
 
+```json
+{
+  "schema": "agenticflow.error.v1",
+  "code": "local_schema_validation_failed",
+  "message": "Local schema validation failed for workflow.create payload (2 issues)."
+}
 ```
-Error: Network request failed for https://api.agenticflow.ai/v1/node_types: fetch failed
-```
 
-**Cause**: The response payload is too large for the HTTP client to handle. This happens with `node-types list` which returns 100+ node types.
+**Cause**: CLI local validator rejected payload before network call.
 
-**Fix**: Use targeted commands instead:
+**Fix**: Inspect `details.issues` in JSON output and correct fields. For workflows, run:
 
 ```bash
-# Instead of listing all node types:
-agenticflow node-types get --name <name> --json
+agenticflow workflow validate --body @workflow.json --local-only --json
+```
 
-# Or search by keyword:
+## Network Request Failed
+
+```text
+Error: Network request failed for https://api.agenticflow.ai/...: fetch failed
+```
+
+**Cause**: Network/TLS issues, endpoint reachability problems, or very large responses.
+
+**Fix**:
+
+```bash
+# CI-safe health and config check
+agenticflow doctor --json --strict
+
+# Prefer targeted node-type commands over full lists
+agenticflow node-types get --name <name> --json
 agenticflow node-types search --query "gmail" --json
+```
+
+If template APIs are unavailable, use local cache mode:
+
+```bash
+agenticflow templates duplicate workflow --template-id <id> --cache-dir .agenticflow/templates --dry-run --json
+agenticflow templates duplicate agent --template-file .agenticflow/templates/agent/<file>.json --cache-dir .agenticflow/templates --dry-run --json
 ```
 
 ## Connections List Returns Too Few Results
 
-**Cause**: The API defaults to `limit=10`. Your connection may exist but isn't in the first 10.
+**Cause**: The API defaults to `limit=10`.
 
-**Fix**: Always specify a higher limit:
+**Fix**:
 
 ```bash
 agenticflow connections list --limit 200 --json
@@ -94,9 +156,9 @@ agenticflow connections list --limit 200 --json
 
 ## Workflow Update Shape Mismatch
 
-**Cause**: `workflow get` returns `nodes` as `{ nodes: [...] }` (nested), but `workflow update` expects `nodes` as a flat array `[...]`.
+**Cause**: `workflow get` may return `nodes` nested as `{ nodes: [...] }`, while `workflow update` expects a flat array `[...]`.
 
-**Fix**: When round-tripping a workflow (get → modify → update), unwrap the nodes:
+**Fix**:
 
 ```bash
 # Get workflow

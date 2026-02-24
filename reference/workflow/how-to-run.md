@@ -2,20 +2,19 @@
 
 Guide to executing workflows and handling results in AgenticFlow.
 
-> **Important**: Workflow execution is always a **2-step process**:
-> 1. Start execution with `agenticflow_execute_workflow`
-> 2. Poll status with `agenticflow_get_workflow_run`
-
-CLI-first equivalent:
+> **Important**: Workflow execution is a **2-step process**:
+> 1. Start execution with `agenticflow workflow run`
+> 2. Poll status with `agenticflow workflow run-status`
 
 ```bash
 # 1) Start execution
 agenticflow workflow run \
   --workflow-id <workflow_id> \
-  --input @workflow-input.json
+  --input @workflow-input.json \
+  --json
 
 # 2) Poll run status
-agenticflow workflow run-status --workflow-run-id <workflow_run_id>
+agenticflow workflow run-status --workflow-run-id <workflow_run_id> --json
 ```
 
 ---
@@ -24,21 +23,27 @@ agenticflow workflow run-status --workflow-run-id <workflow_run_id>
 
 Start workflow execution:
 
+```bash
+agenticflow workflow run \
+  --workflow-id workflow-uuid \
+  --input @workflow-input.json \
+  --json
 ```
-agenticflow_execute_workflow(
-  workflow_id="workflow-uuid",
-  input={
-    "topic": "AI automation",
-    "image_to_url": "https://example.com/image.png"
-  }
-)
+
+Example `workflow-input.json`:
+
+```json
+{
+  "topic": "AI automation",
+  "image_to_url": "https://example.com/image.png"
+}
 ```
 
 ---
 
 ## Execution Response
 
-A successful run returns:
+A successful run returns a workflow run object:
 
 ```json
 {
@@ -75,22 +80,22 @@ A successful run returns:
 | Field | Description |
 |-------|-------------|
 | `id` | Workflow run ID (use for status polling) |
-| `status` | `created`, `running`, `success`, `failed` |
+| `status` | `created`, `queued`, `running`, `success`, `failed`, `cancelled` |
 | `output` | Final workflow output (based on `output_mapping`) |
 | `state.nodes_state` | Each node's input, output, status, and timing |
-| `state.error` | Error details if `status` is `failed` |
+| `state.error` | Error details if run fails |
 
 ---
 
 ## Step 2: Get Execution Status
 
-**Always** poll for status after starting execution:
+Always poll for status after starting execution:
 
-```
-agenticflow_get_workflow_run(workflow_run_id="workflow-run-id")
+```bash
+agenticflow workflow run-status --workflow-run-id workflow-run-id --json
 ```
 
-> **Note**: Keep polling until `status` is `success` or `failed`.
+Continue polling until status is a terminal value (`success`, `failed`, or `cancelled`).
 
 ---
 
@@ -122,9 +127,9 @@ Common error scenarios:
 
 ## Tips
 
-- **Test with minimal inputs first** - Verify workflow works before complex data
-- **Check node outputs** - Each node's output is available for debugging
-- **Monitor credit usage** - Each node has a `cost` value
+- Test with minimal inputs first.
+- Check node outputs in `state.nodes_state` for debugging.
+- Monitor usage/cost fields when available.
 
 ---
 
@@ -132,7 +137,7 @@ Common error scenarios:
 
 View workflow run details at:
 
-```
+```text
 https://agenticflow.ai/app/workspaces/{workspace_id}/workflows/{workflow_id}/logs/{workflow_run_id}
 ```
 

@@ -130,3 +130,78 @@ See [Troubleshooting Guide](../troubleshooting.md) for common connection errors.
 
 For complete provider details and setup instructions:
 [Connection Providers Documentation](https://docs.agenticflow.ai/integrations/connection-providers)
+
+---
+
+## Action Workflows (LLM -> mcp_run_action)
+
+Action workflows chain an LLM node (for content generation) with an `mcp_run_action` node (for posting/sending to external services). This is the pattern used by pack workflows like `post-review-to-gbp`.
+
+### Two-Node Pattern
+
+```json
+{
+  "nodes": [
+    {
+      "name": "draft-response",
+      "node_type_name": "llm",
+      "input_config": {
+        "model": "agenticflow/gemma-4-31b-it",
+        "system_message": "You are a professional response writer.",
+        "human_message": "{{input}}"
+      }
+    },
+    {
+      "name": "post-action",
+      "node_type_name": "mcp_run_action",
+      "input_config": {
+        "action": "<service>-<action>",
+        "input_params": {
+          "content": "${draft-response.generated_text}"
+        }
+      }
+    }
+  ]
+}
+```
+
+### Variable Interpolation
+
+| Pattern | Meaning |
+|---------|---------|
+| `{{variable}}` | User input at workflow invocation time |
+| `${node-name.field}` | Output from a previous node (e.g., `${draft-response.generated_text}`) |
+
+The `mcp_run_action` node requires an active MCP connection for the target service. Use `af connections list --limit 200 --json` to verify connections before running.
+
+---
+
+## Connection Pre-Flight Check
+
+Before running any action workflow, verify that required connections are available:
+
+```bash
+af connections list --limit 200 --json
+```
+
+If a required MCP connection is missing, present the `_links.mcp` URL from `af bootstrap --json` output:
+
+```
+"mcp": "https://agenticflow.ai/workspace/<id>/settings/mcp"
+```
+
+Tell user: "Add the required MCP connection at this URL, then retry."
+
+---
+
+## Missing Connection Recovery
+
+When an action workflow fails due to a missing connection:
+
+1. The CLI outputs an error mentioning the missing MCP service
+2. Extract the `_links.mcp` URL from the last `af bootstrap --json` output
+3. Present to user: "This workflow needs [service] MCP connection. Add it at: [_links.mcp URL]"
+4. Offer alternative: "I can still run the LLM-only part of this workflow to generate the content. You can copy-paste it manually. Want me to do that?"
+5. After user adds the connection, verify: `af connections list --limit 200 --json | grep [service]`
+
+**Important:** Never skip connection check silently. Always inform the user which connections are needed and provide the setup URL.

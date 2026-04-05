@@ -62,6 +62,8 @@ agenticflow auth import-env --file /path/to/.env
 
 > `AGENTICFLOW_PUBLIC_API_KEY` is accepted as a legacy fallback if `AGENTICFLOW_API_KEY` is not set.
 
+> **For AI agents (Ishi, Claude):** Prefer `AGENTICFLOW_API_KEY` env var over interactive `af login`. Check auth status with `af whoami --json` first. If unauthenticated, guide the user to run `af login` in their terminal or set the env var.
+
 ## Preflight Check
 
 Always run `doctor` first to validate your setup:
@@ -88,6 +90,92 @@ Expected output includes:
   "operationsLoaded": 73
 }
 ```
+
+## Bootstrap Output Shape
+
+`af bootstrap --json` returns the full workspace context -- use this as the entry point for all operations:
+
+```json
+{
+  "schema": "agenticflow.bootstrap.v1",
+  "auth": {
+    "authenticated": true,
+    "health": true,
+    "workspace_id": "<uuid>",
+    "project_id": "<uuid>"
+  },
+  "agents": [{ "id": "...", "name": "...", "model": "..." }],
+  "schemas": ["agent", "workflow", "..."],
+  "commands": {
+    "run_agent": "af agent run --agent-id <id> --message <msg> --json",
+    "create_agent": "af agent create --body <json> --dry-run --json",
+    "deploy_to_paperclip": "af paperclip init --blueprint <id> --json"
+  },
+  "models": ["agenticflow/gemma-4-31b-it", "agenticflow/gemini-2.0-flash"],
+  "blueprints": [{ "id": "...", "name": "...", "agents": 5 }],
+  "playbooks": ["first-touch"],
+  "whats_new": { "version": "1.3.1", "highlights": ["..."] },
+  "_links": {
+    "workspace": "https://agenticflow.ai/workspace/<id>",
+    "connections": "https://agenticflow.ai/workspace/<id>/settings/connections",
+    "mcp": "https://agenticflow.ai/workspace/<id>/settings/mcp",
+    "settings": "https://agenticflow.ai/workspace/<id>/settings",
+    "datasets": "https://agenticflow.ai/workspace/<id>/datasets"
+  }
+}
+```
+
+**Key fields:**
+- `auth.authenticated` -- check this first; if false, run `af login` or set `AGENTICFLOW_API_KEY`
+- `agents[]` -- existing agents in workspace; use their IDs for `af agent run`
+- `commands` -- copy-paste ready commands for common operations
+- `_links` -- web UI URLs to present to the user after each operation
+- `blueprints[]` -- available company blueprints for `af paperclip init --blueprint <id>`
+
+---
+
+## First-Run Troubleshooting
+
+Common issues when running AgenticFlow CLI for the first time:
+
+### npx install fails
+
+```bash
+# Error: npm ERR! code E404 or network timeout
+# Fix: Install globally instead
+npm install -g @pixelml/agenticflow-cli
+af bootstrap --json
+```
+
+### authenticated: false
+
+```bash
+# The API key is not set. Two options:
+
+# Option A: Interactive login (requires terminal access)
+af login
+
+# Option B: Environment variable (preferred for AI agents)
+export AGENTICFLOW_API_KEY=<key>
+af bootstrap --json
+
+# Get your API key at: https://agenticflow.ai/settings
+```
+
+### health: false
+
+The AgenticFlow API is temporarily unavailable. Wait 1-2 minutes and retry `af bootstrap --json`.
+
+### No agents in workspace
+
+```bash
+# Bootstrap shows agents: [] -- workspace is empty
+# Install a pack to create agents:
+af pack install PixelML/agent-skills/packs/tutor-pack --json
+af paperclip init --blueprint tutor --json
+```
+
+---
 
 ## Template Bootstrap (Cold-Start)
 

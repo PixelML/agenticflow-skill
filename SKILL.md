@@ -1,8 +1,12 @@
 ---
 name: agenticflow-skills
-description: Comprehensive guide for building AI workflows, agents, and workforce systems with AgenticFlow. Use when designing workflows with various node types, configuring single agents, or orchestrating workforce collaboration patterns.
+description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Provides CLI commands, pack recommendations, and deployment guides."
+version: "2.0.0"
 license: MIT
 ---
+
+<!-- Version: 2.0.0 — If you see an older version, update your skill copy. -->
+<!-- Ishi users: if skill content looks outdated, check ~/.config/ishi/skill/ and ~/.ishi/skill/ for stale copies. Remove the stale copy and re-symlink to the latest. -->
 
 # AgenticFlow Skills
 
@@ -42,7 +46,7 @@ Use this to decide WHEN to run each operation:
 | After creating agents | Offer Paperclip deployment (OPTIONAL per user -- always ask first) | `af paperclip init --blueprint <id> --json` |
 | After any agent/workflow operation | Present `_links` URLs to user | Extract from `--json` output |
 | User asks about existing agents | List current agents | `af agent list --json` |
-| User wants to run a task | Use agent run with --json | `af agent run --agent-id <id> --message "<task>" --json` |
+| User wants to run a task | Use agent run with --json | `af agent run --agent-id <id> --message "<task>" --json` (NOTE: use `--agent-id`, not `--id`) |
 
 ### When Things Go Wrong
 
@@ -55,6 +59,7 @@ Use this to decide WHEN to run each operation:
 | Missing MCP connection for action workflow | Present `_links.mcp` URL: "Add [service] connection at: [URL]. LLM-only workflows still work without connections." |
 | `af pack validate` fails | Check error codes: PACK_MISSING_FIELD, PACK_WORKFLOW_MISSING_FIELD. Fix the pack file per error message. |
 | Agent run returns error | Check if agent ID exists: `af agent list --json`. If not, agent may have been deleted. |
+| `--id` flag not recognized | The correct flag is `--agent-id` for all agent commands. Bootstrap output shows `id` field but the CLI flag is `--agent-id`. |
 
 ---
 
@@ -124,17 +129,17 @@ Packs are pre-built business agent kits -- each contains a company blueprint (ag
 
 ### Available Packs
 
-| Pack | Best For |
-|------|----------|
-| `amazon-seller-pack` | Amazon e-commerce sellers (Singapore market) |
-| `tutor-pack` | Tutoring businesses, education professionals |
-| `freelancer-pack` | Freelancers, consultants, independent professionals |
+| Pack | Best For | Agents | Workflows |
+|------|----------|--------|-----------|
+| `amazon-seller-pack` | Amazon e-commerce sellers (Singapore market) | AMZ Listing & SEO Specialist, AMZ PPC Campaign Manager, AMZ Competitor Analyst, AMZ Customer Support, AMZ Pricing Strategist | full-product-launch, competitor-scrape, listing-audit, review-scrape-respond, post-review-to-gbp |
+| `tutor-pack` | Tutoring businesses, education professionals | Curriculum Designer, Quiz & Assessment Creator, Student Progress Tracker, Parent Communication Specialist, Tutor Business Manager | post-lesson-summary, generate-quiz |
+| `freelancer-pack` | Freelancers, consultants, independent professionals | Project Scope Writer, Invoice & Contract Generator, Client Research Analyst, Client Communication Agent, Business Development Manager | send-invoice, client-status-update |
 
 ### Quick Start
 
 ```bash
-# Install a pack
-af pack install PixelML/agent-skills/packs/tutor-pack --json
+# Install from GitHub (note the github: prefix -- required for remote sources)
+af pack install github:PixelML/agent-skills/packs/tutor-pack --json
 
 # Validate structure
 af pack validate ./tutor-pack --json

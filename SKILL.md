@@ -1,7 +1,31 @@
 ---
 name: agenticflow-skills
-description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Provides CLI commands, pack recommendations, and deployment guides."
-version: "2.0.0"
+description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Also use when the user wants to set up, build, or automate a business with agents — including tutoring, freelance, Amazon seller, marketing, sales, support, content, or any domain-specific agent team. Provides CLI commands, pack recommendations, and deployment guides."
+version: "2.0.1"
+triggers:
+  - "agenticflow"
+  - "AF CLI"
+  - "create agents"
+  - "set up agents"
+  - "deploy agents"
+  - "business agents"
+  - "agent workflow"
+  - "automate my business"
+  - "tutoring"
+  - "tutor"
+  - "freelance"
+  - "freelancer"
+  - "amazon seller"
+  - "marketing agency"
+  - "sales team"
+  - "content studio"
+  - "support center"
+  - "dev shop"
+  - "build agents"
+  - "agent pack"
+  - "business pack"
+  - "workforce"
+  - "paperclip"
 license: MIT
 ---
 
@@ -43,7 +67,7 @@ Use this to decide WHEN to run each operation:
 | First mention of AgenticFlow or agents | Bootstrap to discover workspace | `af bootstrap --json` |
 | "Set up my [business type]" | Check pack catalog, recommend matching pack | See [packs.md](./reference/packs.md) |
 | Before running any action workflow | Check connections are available | `af connections list --limit 200 --json` |
-| After creating agents | Offer Paperclip deployment (OPTIONAL per user -- always ask first) | `af paperclip init --blueprint <id> --json` |
+| After creating agents | Offer Paperclip deployment (OPTIONAL per user -- always ask first). **Only built-in blueprints work:** dev-shop, marketing-agency, sales-team, content-studio, support-center, amazon-seller. For packs without a blueprint (tutor-pack, freelancer-pack), use `af agent create` per agent instead. | `af paperclip init --blueprint <id> --json` (built-in only) or `af agent create --json` (custom packs) |
 | After any agent/workflow operation | Present `_links` URLs to user | Extract from `--json` output |
 | User asks about existing agents | List current agents | `af agent list --json` |
 | User wants to run a task | Use agent run with --json | `af agent run --agent-id <id> --message "<task>" --json` (NOTE: use `--agent-id`, not `--id`) |
@@ -144,8 +168,13 @@ af pack install github:PixelML/agent-skills/packs/tutor-pack --json
 # Validate structure
 af pack validate ./tutor-pack --json
 
-# Deploy agents from pack blueprint
-af paperclip init --blueprint tutor --json
+# Deploy agents -- method depends on whether a built-in blueprint exists:
+# Built-in blueprints: dev-shop, marketing-agency, sales-team, content-studio, support-center, amazon-seller
+af paperclip init --blueprint amazon-seller --json
+
+# For packs WITHOUT a built-in blueprint (tutor-pack, freelancer-pack),
+# create agents individually from the pack's company.yaml:
+af agent create --name "Curriculum Designer" --system-prompt "..." --json
 ```
 
 ---

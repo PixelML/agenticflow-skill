@@ -93,12 +93,25 @@ starter_tasks:
 
 ## Deploying via Paperclip
 
-After installing a pack, deploy the company blueprint to Paperclip:
+### Built-in Blueprints
+
+`af paperclip init --blueprint <id>` only works with these built-in blueprints:
+**dev-shop**, **marketing-agency**, **sales-team**, **content-studio**, **support-center**, **amazon-seller**
 
 ```bash
 af paperclip init --blueprint <blueprint-id> --json
 af gateway serve --channels paperclip &
 af paperclip connect --json
+```
+
+### Packs Without a Built-in Blueprint (tutor-pack, freelancer-pack)
+
+These packs do NOT have a matching Paperclip blueprint. Create agents individually from the pack's `company.yaml` instead:
+
+```bash
+# Read agents from company.yaml, then create each one:
+af agent create --name "<Agent Name>" --system-prompt "<prompt from company.yaml>" --json
+# Repeat for each agent in the pack
 ```
 
 After running, present `_links.*` URLs to the user.

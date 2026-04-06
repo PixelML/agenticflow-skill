@@ -14,12 +14,42 @@ Packs are pre-built business agent kits. Each pack contains a `company.yaml` blu
 
 ---
 
+## Pack Contents Detail
+
+### amazon-seller-pack
+**Agents:** AMZ Listing & SEO Specialist (cmo), AMZ PPC Campaign Manager (engineer), AMZ Competitor Analyst (researcher), AMZ Customer Support (general), AMZ Pricing Strategist (ceo)
+**Workflows:** full-product-launch, competitor-scrape, listing-audit, review-scrape-respond, post-review-to-gbp
+**Starter Tasks:** Optimize top 3 product listings, Plan PPC campaigns (SGD 800/month budget), Competitive analysis report, Draft review response templates, Quarterly pricing strategy
+**Connections:** google-business-profile MCP (required for post-review-to-gbp; other workflows are LLM-only)
+
+### tutor-pack
+**Agents:** Curriculum Designer (cmo), Quiz & Assessment Creator (engineer), Student Progress Tracker (researcher), Parent Communication Specialist (general), Tutor Business Manager (ceo)
+**Workflows:** post-lesson-summary (LLM + gmail MCP), generate-quiz (LLM only -- no connection needed)
+**Starter Tasks:** Create 4-week curriculum for Grade 5 Mathematics, Generate 20-question assessment for Grade 5 fractions, Analyze student performance data for Term 1, Draft parent progress report for mid-term, Create pricing packages for tutoring services
+**Connections:** gmail MCP (required for post-lesson-summary email sending; generate-quiz works without connections)
+
+### freelancer-pack
+**Agents:** Project Scope Writer (cmo), Invoice & Contract Generator (engineer), Client Research Analyst (researcher), Client Communication Agent (general), Business Development Manager (ceo)
+**Workflows:** send-invoice (LLM + gmail MCP), client-status-update (LLM + gmail MCP)
+**Starter Tasks:** Write project proposal for web development client, Generate invoice for March project work, Research Acme Corp for new business pitch, Draft follow-up email for proposal sent last week, Set freelance rates for full-stack development
+**Connections:** gmail MCP (required for send-invoice and client-status-update email sending)
+
+---
+
 ## Installing a Pack
 
 ```bash
-af pack install PixelML/agent-skills/packs/<pack-name> --json
-af pack validate ./<pack-name> --json
+# From GitHub (note: github: prefix is REQUIRED for remote sources)
+af pack install github:PixelML/agent-skills/packs/<pack-name> --json
+
+# From a local directory (absolute path)
+af pack install /path/to/agent-skills/packs/<pack-name> --json
+
+# Validate after install
+af pack validate --path ./<pack-name> --json
 ```
+
+**Important:** Bare paths like `PixelML/agent-skills/packs/tutor-pack` (without the `github:` prefix) are treated as LOCAL paths relative to your current directory, which will fail. Always use `github:` for GitHub sources.
 
 After running, present `_links.*` URLs to the user.
 

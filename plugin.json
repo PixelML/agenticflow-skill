@@ -1,7 +1,7 @@
 {
   "name": "agenticflow-plugin",
   "description": "AgenticFlow developer tools \u2014 build AI agents, deploy multi-agent workforces, and automate operations via the `af` CLI",
-  "version": "4.0.0",
+  "version": "4.3.0",
   "author": {
     "name": "PixelML"
   },

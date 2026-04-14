@@ -1,12 +1,46 @@
 # Blueprints
 
-A **blueprint** is a pre-made multi-agent team that AgenticFlow deploys as a workforce DAG in one command. Each blueprint specifies a set of agent slots (roles + titles + suggested marketplace templates) and a set of starter tasks.
+A **blueprint** is a pre-made starter pattern shipped with the CLI. As of CLI v1.8.0 (2026-04-14), blueprints come in two tiers:
 
-`af workforce init --blueprint <id>` creates the workforce, creates one real agent per required slot, and wires them into a DAG (`trigger → coordinator → worker agents → output`) — atomically. If anything fails, every resource created so far is rolled back.
+- **Tier 1** (`tier: 1`) — single agent pre-wired with AgenticFlow-native plugins. No external connections. No MAS Workforce feature required. Deploy with `af agent init --blueprint <id>`.
+- **Tier 3** (`tier: 3`) — multi-agent workforce DAG (`trigger → coordinator → worker agents → output`). Requires MAS Workforce. Deploy with `af workforce init --blueprint <id>` — creates workforce + N agents + wiring atomically with rollback.
 
-> **Migration note (CLI v1.7.0, 2026-04-14):** The legacy `af pack *` surface is deprecated and its three original packs (`amazon-seller-pack`, `tutor-pack`, `freelancer-pack`) are now native blueprints (`amazon-seller`, `tutor`, `freelancer`). Sunset date: 2026-10-14. Prefer `af workforce init --blueprint <id>`.
+`af bootstrap --json > blueprints[]` lists all 11 with their `tier` and a ready-to-run `deploy_command`.
 
-## The 8 built-in blueprints
+> **Migration note (CLI v1.7.0, 2026-04-14):** The legacy `af pack *` surface is deprecated and its three original packs (`amazon-seller-pack`, `tutor-pack`, `freelancer-pack`) are now native Tier 3 blueprints (`amazon-seller`, `tutor`, `freelancer`). Sunset date: 2026-10-14.
+
+## Tier 1 — quick-win single agents (3)
+
+Works in any workspace on day one. Each deploys as a single agent with built-in AgenticFlow plugins attached.
+
+| ID | Best for | Plugins attached |
+| --- | --- | --- |
+| `research-assistant` | Research questions with cited sources | web_search, web_retrieval, api_call, string_to_json |
+| `content-creator` | Blog posts + social drafts with hero images | web_search, web_retrieval, agenticflow_generate_image |
+| `api-helper` | Arbitrary HTTP API calls + JSON parsing | api_call, string_to_json, web_search |
+
+Deploy (takes ~2 seconds — no MAS, no multi-step rollback needed):
+```bash
+af agent init --blueprint research-assistant --dry-run --json   # preview
+af agent init --blueprint research-assistant --json              # deploy
+af agent run --agent-id <id> --message "What's new in X?" --json # smoke-test
+```
+
+## Tier 3 — multi-agent workforces (13)
+
+Require MAS Workforce in the workspace. Each deploys a DAG.
+
+**Batteries-included (plugins pre-attached to every slot — work end-to-end with zero follow-up setup):**
+
+| ID | Agents | Pattern |
+| --- | --- | --- |
+| `research-pair` | 2 | Planner → Researcher (web_search + web_retrieval) |
+| `content-duo` | 2 | Writer (web_search) → Illustrator (generate_image) |
+| `api-pipeline` | 2 | Fetcher (api_call) → Analyst |
+| `fact-check-loop` | 2 | Writer → Fact Checker (web verifies claims) |
+| `parallel-research` | 4 | Coordinator → 2 Researchers (parallel) → Synthesizer |
+
+**Vertical teams** (generic agents — attach your own MCP tools after deploy):
 
 | ID | Best for | Required slots | Optional |
 | --- | --- | --- | --- |

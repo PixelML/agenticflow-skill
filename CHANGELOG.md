@@ -1,5 +1,68 @@
 # Changelog
 
+## 4.3.0 — 2026-04-14
+
+Composition ladder — align with platform primitives.
+
+CLI v1.10.0 surfaces the workflow/agent/workforce primitives as a 7-rung **composition ladder**. The skill + docs are updated so AI routing picks the LOWEST rung that solves the user's problem — not the most sophisticated one.
+
+### Added
+- Root `SKILL.md` "Composition Ladder" section with the full rung table + routing rule.
+- New Quick Start "Rung 0 (simplest workflow)" section showing `af workflow init --blueprint llm-hello` end-to-end.
+- `reference/ready-prompts.md` rewritten with **one prompt per rung** (rung 0 through rung 6) so users can demonstrate the progression without over-engineering.
+
+### Updated
+- Blueprint count: 16 → 20 (4 new workflow blueprints: `llm-hello`, `llm-chain`, `summarize-url`, `api-summary`).
+- "Tier 1" and "Tier 3" section headers replaced with "Rung 3: Agent blueprints" and "Rung 6: Workforce blueprints" for direct ladder alignment.
+- All 8 plugin manifests bumped 4.2.0 → 4.3.0.
+
+### CLI alignment
+- Matches `@pixelml/agenticflow-cli@1.10.0`. Blueprints now expose `kind` (workflow|agent|workforce) + `complexity` (0-6) alongside legacy `tier`.
+- `af playbook composition-ladder` added as the canonical routing rule source.
+- `af workforce run` now emits a clear 3-step workaround when the backend rejects API-key auth on that path (known limitation).
+- Tool-calling rule hardened for all workforce slots with plugins (PDCA caught a case where a worker slot with web_search didn't fire tools).
+
+## 4.2.0 — 2026-04-14
+
+Plugin-equipped Tier 3 blueprints + ready-prompt catalog.
+
+CLI v1.9.0 added 5 **batteries-included Tier 3 blueprints** (`research-pair`, `content-duo`, `api-pipeline`, `fact-check-loop`, `parallel-research`) where every agent has AgenticFlow-native plugins pre-attached. They work end-to-end with zero follow-up setup — contrast with the 8 legacy vertical teams (`dev-shop` etc.) where slots get generic descriptions and users attach their own MCP tools post-deploy.
+
+### Added
+- Root `SKILL.md` Blueprints section now splits Tier 3 into "batteries-included" and "vertical teams" sub-tables.
+- `reference/blueprints.md` expanded accordingly.
+- `reference/ready-prompts.md` — 8 copy-paste user prompts for common scenarios (research, content + image, parallel research, API pipeline, fact-check, marketplace browse, vertical team, ambiguous newcomer). Each is deliberately minimal so the AI has to discover via `af bootstrap` + `af blueprints list`.
+
+### Updated
+- Blueprint count across docs: 11 → 16 (3 Tier 1 + 13 Tier 3).
+- All 8 plugin manifests bumped 4.1.0 → 4.2.0.
+- Root `SKILL.md` frontmatter `version: "4.1.0"` → `"4.2.0"`.
+
+### CLI alignment
+- Matches `@pixelml/agenticflow-cli@1.9.0`. Added new synthesizer topology (`AgentSlot.isSynthesizer`) so fan-out → fan-in patterns like `parallel-research` actually route the synthesizer's final answer to the output node.
+- Deprecated commands (`af pack`, `af paperclip`, `af company`) now hidden from default `af --help` — reduces first-touch cognitive load. Still functional. Unhide via `AF_SHOW_DEPRECATED=1`.
+
+## 4.1.0 — 2026-04-14
+
+Blueprints go tiered + marketplace surfaced.
+
+**Blueprints now have tiers.** CLI v1.8.0 ships 3 new **Tier 1 blueprints** (`research-assistant`, `content-creator`, `api-helper`) that deploy as a SINGLE agent with AgenticFlow-native plugins attached — works in any workspace, no MAS Workforce feature required. Existing 8 blueprints are tagged Tier 3.
+
+**Marketplace is now first-class.** CLI v1.8.0 added `af marketplace *` (`list`, `get`, `try`) that talks to the live backend catalog — user- and admin-curated agent / workflow / MAS templates. Complements blueprints; doesn't replace them.
+
+### Added
+- Root `SKILL.md` Blueprints section rewritten with Tier 1 vs Tier 3 tables. Tier 1 gets its own Quick Start with `af agent init --blueprint <id>`.
+- `reference/marketplace.md` — full comparison of blueprint vs marketplace, cross-workspace caveats for MAS templates, command reference.
+- Root `SKILL.md` triggers: added `marketplace`, `template catalog`, `tier 1`, `quick agent` hints (implicit).
+
+### Updated
+- Blueprint list in root `SKILL.md` and `reference/blueprints.md` grew 8 → 11 (3 Tier 1 + 8 Tier 3).
+- Deploy command per blueprint now driven by tier: Tier 1 → `af agent init`, Tier 3 → `af workforce init`.
+
+### Compat
+- All v4.0.0 routing still works; the `paperclip` deprecation timeline is unchanged (sunset 2026-10-14).
+- Existing `af templates duplicate agent` / `workflow` keep working; new `templates duplicate workforce` added for parity with the marketplace try flow.
+
 ## 4.0.0 — 2026-04-14
 
 Concept consolidation — **"pack" is gone**.

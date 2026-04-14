@@ -1,7 +1,7 @@
 ---
 name: agenticflow-skills
 description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Also use when the user wants to set up, build, or automate a business with agents — including tutoring, freelance, Amazon seller, marketing, sales, support, content, coaching, consulting, legal, real-estate, or any domain-specific agent team. Provides CLI commands, pack recommendations, and deployment guides."
-version: "4.0.0"
+version: "4.3.0"
 triggers:
   - "agenticflow"
   - "AF CLI"
@@ -149,15 +149,70 @@ For CLI-first agent operations (create/get/update/stream), load:
 
 ---
 
+## The composition ladder
+
+AgenticFlow's three primitives — **workflow**, **agent**, **workforce** — are rungs on a complexity ladder. **Start at the lowest rung that solves the user's problem.** Each rung composes from the rungs below.
+
+| Rung | Kind | Description | Deploy |
+| --- | --- | --- | --- |
+| 0 | workflow | trigger → llm → output (hello world) | `af workflow init --blueprint llm-hello` |
+| 1 | workflow | llm_plan → llm_execute (chained reasoning) | `af workflow init --blueprint llm-chain` |
+| 2 | workflow | web_retrieval → llm (enriched deterministic) | `af workflow init --blueprint summarize-url` |
+| 3 | agent | single agent + node plugins (flexible) | `af agent init --blueprint research-assistant` |
+| 4 | agent | agent + workflow-as-tool (roadmap) | — |
+| 5 | agent | agent + sub-agents (lite MAS, roadmap) | — |
+| 6 | workforce | multi-agent DAG with coordination | `af workforce init --blueprint parallel-research` |
+
+Routing rule for AI operators: **if the user's need is deterministic and stepwise, pick workflow. If it needs tool-picking flexibility, pick agent. If it needs explicit multi-agent coordination, pick workforce.**
+
+`af blueprints list [--kind <k>] [--complexity <n>] --json` returns every shipped blueprint with its rung. `af bootstrap --json > blueprints[]` surfaces the same data inline.
+
 ## Blueprints
 
-A **blueprint** is a pre-made multi-agent team (a workforce DAG: trigger → coordinator → worker agents → output). One command deploys the whole thing — workforce + agents + wiring — with atomic rollback on failure.
+A **blueprint** is a pre-made starter pattern. As of CLI v1.10.0 (2026-04-14) blueprints span the full ladder (rungs 0-3, 6):
 
 **To see blueprint details, load:** [reference/blueprints.md](./reference/blueprints.md)
 
-> 🕰️ **Heads-up on the "pack" concept:** AgenticFlow used to ship a separate `af pack *` surface for pre-built business kits. As of CLI v1.7.0 (2026-04-14), the three original packs are all available as blueprints, and `af pack *` is deprecated with a 2026-10-14 sunset. If you see a user reach for `af pack install`, redirect them to `af workforce init --blueprint <id>` — same content, one verb, one catalog.
+> 🕰️ **Heads-up on the "pack" concept:** AgenticFlow used to ship a separate `af pack *` surface for pre-built business kits. As of CLI v1.7.0 (2026-04-14), the three original packs are all available as blueprints, and `af pack *` is deprecated with a 2026-10-14 sunset. If you see a user reach for `af pack install`, redirect them to `af workforce init --blueprint <id>` (or `af agent init --blueprint <id>` for Tier 1) — same content, one verb, one catalog.
 
-### Available Blueprints (8)
+### Available Blueprints (20 — across rungs 0-3 and 6)
+
+**Rungs 0-2: Workflow blueprints — deterministic chains. Need one LLM-provider connection (auto-discovered):**
+
+| Blueprint | Rung | Nodes | Best for |
+| --- | --- | --- | --- |
+| `llm-hello` | 0 | llm | The simplest possible workflow — one LLM call |
+| `llm-chain` | 1 | llm_plan → llm_execute | Plan-then-execute reasoning |
+| `summarize-url` | 2 | web_retrieval → llm | Digesting an article URL |
+| `api-summary` | 2 | api_call → llm | Explaining an unfamiliar JSON API response |
+
+Deploy: `af workflow init --blueprint <id>`.
+
+**Rung 3: Agent blueprints — single agent with built-in plugins (work in any workspace):**
+
+| Blueprint | Best for | Plugins attached |
+| --- | --- | --- |
+| `research-assistant` | Research questions with cited sources | web_search, web_retrieval, api_call, string_to_json |
+| `content-creator` | Blog posts + social drafts with hero images | web_search, web_retrieval, agenticflow_generate_image |
+| `api-helper` | Arbitrary HTTP API calls + JSON parsing | api_call, string_to_json, web_search |
+
+Deploy: `af agent init --blueprint <id>`.
+
+**Rung 6: Workforce blueprints — multi-agent DAGs.**
+
+Batteries-included (plugins pre-attached — work end-to-end with zero setup):
+
+| Blueprint | Agents | Pattern |
+| --- | --- | --- |
+| `research-pair` | 2 | Planner → Researcher (web_search + web_retrieval) |
+| `content-duo` | 2 | Writer (web_search) → Illustrator (generate_image) |
+| `api-pipeline` | 2 | Fetcher (api_call) → Analyst |
+| `fact-check-loop` | 2 | Writer → Fact Checker |
+| `parallel-research` | 4 | Coordinator → 2 Researchers (parallel) → Synthesizer |
+
+Deploy: `af workforce init --blueprint <id>`.
+
+**Rung 6: Vertical workforce blueprints — generic agents, attach your own MCP tools after deploy:**
 
 | Blueprint | Best for | Required slots | Optional slots |
 | --- | --- | --- | --- |
@@ -170,7 +225,38 @@ A **blueprint** is a pre-made multi-agent team (a workforce DAG: trigger → coo
 | `tutor` | Tutoring businesses + education professionals | ceo, cmo, engineer, researcher | general |
 | `freelancer` | Freelancers, consultants, independent professionals | ceo, cmo, engineer, researcher | general |
 
-### Quick Start
+### Quick Start — Rung 0 (simplest workflow)
+
+```bash
+# Dry-run — see the workflow create payload
+af workflow init --blueprint llm-hello --dry-run --json
+
+# Deploy
+af workflow init --blueprint llm-hello --json
+# → returns { workflow_id }
+
+# Run (pass the trigger's named input)
+af workflow run --workflow-id <id> --input '{"question":"What is a unicorn?"}' --json
+# → returns { id: run_id }
+af workflow run-status --workflow-run-id <run_id> --json
+# → poll until status=success; `.output.content` is the LLM's answer
+```
+
+### Quick Start — Rung 3 (agent + plugins, zero setup)
+
+```bash
+# Dry-run — prints the agent + plugin config
+af agent init --blueprint research-assistant --dry-run --json
+
+# Deploy — creates ONE agent with all plugins attached (~4 plugins for research-assistant)
+af agent init --blueprint research-assistant --json
+# → returns { agent_id, plugins: [...], _links.agent }
+
+# Smoke-test — runs the agent with a real query that exercises web_search
+af agent run --agent-id <id> --message "Latest news about X?" --json
+```
+
+### Quick Start — Rung 6 (multi-agent workforce)
 
 ```bash
 # Preview — shows which agents will be created and estimated node/edge counts
@@ -189,6 +275,10 @@ af workforce init --blueprint tutor --name "My Tutoring Team" --model agenticflo
 # Publish a public URL so your teammates can run it without platform auth:
 af workforce publish --workforce-id <id> --json
 ```
+
+### Blueprint vs Marketplace
+
+Blueprints are offline, versioned, CLI-shipped. The marketplace (`af marketplace *`, new in v1.8.0) is the live user/admin-curated catalog — three template kinds (`agent_template`, `workflow_template`, `mas_template`) unified under one endpoint. Browse: `af marketplace list --limit 50 --json`. Clone: `af marketplace try --id <item> --dry-run --json`. Full comparison: `af playbook marketplace-vs-blueprint` or load [reference/marketplace.md](./reference/marketplace.md).
 
 ### Custom business (no blueprint fits)
 

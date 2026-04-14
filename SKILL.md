@@ -39,23 +39,28 @@ AgenticFlow is a platform for building AI-powered automation workflows, intellig
 
 ## First-Time Setup (for AI agents)
 
-Check if the AgenticFlow CLI is available. If not, use `npx` to run it without prior installation:
+**Invocation priority — try these in order, use the first that works.** The CLI installs as TWO binaries: `agenticflow` (canonical, 11 chars, collision-safe) and `af` (2-letter shortcut, sometimes claimed by unrelated tools like Python packages, homebrew formulas, shell aliases).
 
 ```bash
-# Check if af CLI is installed
-command -v af >/dev/null 2>&1 && echo "af available" || echo "af not found"
+# 1. Preferred: full canonical binary. Rare to collide.
+command -v agenticflow >/dev/null 2>&1 && agenticflow --version
 
-# If not found, use npx (no install required):
-npx @pixelml/agenticflow-cli bootstrap --json
+# 2. Fallback: npx with the full package name. Works even with nothing installed.
+npx --yes @pixelml/agenticflow-cli --version
 
-# Or install globally for faster repeat runs:
-npm install -g @pixelml/agenticflow-cli
-af bootstrap --json
+# 3. Only use `af` if you've confirmed it's ours (prints a semver, not a Python traceback):
+command -v af >/dev/null 2>&1 && af --version
 ```
 
-Always use `--json` on all commands for structured output that you can parse.
+**Critical — never use `npx af`.** `af` is a generic 2-letter name and npm has an unrelated package named `af`. `npx af` fetches the wrong package. Always use the full spec: `npx --yes @pixelml/agenticflow-cli <subcommand>`.
 
-After bootstrapping, extract `_links` from the JSON output and present web UI URLs to the user.
+Once you've picked an invocation (call it `AF`), use it consistently for every command:
+
+```bash
+AF bootstrap --json     # orient — returns auth, agents, workforces, blueprints, etc.
+```
+
+Always use `--json` on all commands for structured output you can parse. After bootstrap, extract `_links` from the JSON output and present web UI URLs to the user.
 
 ---
 

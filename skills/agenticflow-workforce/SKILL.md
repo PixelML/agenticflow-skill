@@ -39,9 +39,11 @@ af bootstrap --json
 
 Returns `auth`, `agents`, `workforces`, `blueprints`, `commands`, `playbooks`, `whats_new`, `_links`. Extract:
 
-- `auth.project_id` — required for agent creation
+- `auth.project_id` — required for agent creation (the agents inside your workforce)
+- `auth.workspace_id`
+- `_links.workspace` — **surface this URL to the user right away**: *"Your workspace is at `<_links.workspace>` — open it anytime to see the workforce I'm building."* The user needs a human-first anchor before the first mutation
 - `blueprints[]` — the 6 built-in team templates, each with required/optional slot counts
-- `workforces[]` — any existing workforces in the workspace (empty initially is normal; check `data_fresh` if false means the backend was unreachable, not the workspace empty)
+- `workforces[]` — any existing workforces in the workspace (empty initially is normal; check `data_fresh` if false — that means the backend was unreachable, not the workspace empty)
 
 If `data_fresh: false` in the bootstrap response, the backend is degraded — **do not mutate**. Run `af doctor --json --strict` and fix auth/network before proceeding.
 

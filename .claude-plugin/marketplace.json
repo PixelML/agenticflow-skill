@@ -4,18 +4,28 @@
     "name": "PixelML"
   },
   "metadata": {
-    "description": "AgenticFlow developer tools for Claude Code — AI agents, multi-agent workforces, and MCP tool integrations via the `af` CLI."
+    "description": "AgenticFlow developer tools for Claude Code \u2014 AI agents, multi-agent workforces, and MCP tool integrations via the `af` CLI."
   },
   "plugins": [
     {
       "name": "agenticflow-plugin",
       "source": "./",
-      "description": "Build AI agents, deploy multi-agent workforces (trigger → coordinator → workers → output), inspect MCP clients before attach, and automate AgenticFlow platform operations — all via the `af` CLI.",
-      "version": "3.0.0",
-      "author": { "name": "PixelML" },
+      "description": "Build AI agents, deploy multi-agent workforces (trigger \u2192 coordinator \u2192 workers \u2192 output), inspect MCP clients before attach, and automate AgenticFlow platform operations \u2014 all via the `af` CLI.",
+      "version": "3.0.1",
+      "author": {
+        "name": "PixelML"
+      },
       "license": "MIT",
       "homepage": "https://github.com/PixelML/agenticflow-skill",
-      "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp"]
+      "keywords": [
+        "agenticflow",
+        "af",
+        "cli",
+        "agents",
+        "workforce",
+        "multi-agent",
+        "mcp"
+      ]
     }
   ]
 }

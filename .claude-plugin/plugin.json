@@ -1,8 +1,19 @@
 {
   "name": "agenticflow-plugin",
-  "description": "AgenticFlow developer tools for Claude Code — build AI agents, deploy multi-agent workforces, and automate operations against the AgenticFlow platform via the `af` CLI.",
-  "version": "3.0.0",
-  "author": { "name": "PixelML" },
+  "description": "AgenticFlow developer tools for Claude Code \u2014 build AI agents, deploy multi-agent workforces, and automate operations against the AgenticFlow platform via the `af` CLI.",
+  "version": "3.0.1",
+  "author": {
+    "name": "PixelML"
+  },
   "license": "MIT",
-  "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp", "pixelml"]
+  "keywords": [
+    "agenticflow",
+    "af",
+    "cli",
+    "agents",
+    "workforce",
+    "multi-agent",
+    "mcp",
+    "pixelml"
+  ]
 }

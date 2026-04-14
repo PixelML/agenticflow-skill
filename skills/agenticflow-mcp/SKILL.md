@@ -29,6 +29,16 @@ triggers:
 
 MCP (Model Context Protocol) clients are the tool-provider layer that lets an agent read or write external systems — Google Docs, Google Sheets, Slack, Notion, GitHub, Apify, Gmail, Pinterest, YouTube, and many more. A workspace usually has many MCP clients already configured; your job is to **pick the right one and verify it's safe before attaching** to an agent.
 
+## Orient first
+
+Before touching MCP clients, run:
+
+```bash
+af bootstrap --json
+```
+
+Extract `auth.workspace_id` + `_links.mcp` (the web UI URL for MCP management). **Surface `_links.mcp` to the user**: *"Your MCP connections live at `<_links.mcp>` — you can add or re-authenticate providers there if any inspections fail."* If `data_fresh: false`, the backend is degraded — don't mutate.
+
 ## The one pattern that matters: inspect before attach
 
 Not all MCP clients are equal. There are two major families, and one of them breaks on writes.

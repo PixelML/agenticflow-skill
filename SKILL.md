@@ -1,7 +1,7 @@
 ---
 name: agenticflow-skills
-description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Also use when the user wants to set up, build, or automate a business with agents — including tutoring, freelance, Amazon seller, marketing, sales, support, content, or any domain-specific agent team. Provides CLI commands, pack recommendations, and deployment guides."
-version: "2.0.1"
+description: "ALWAYS use this skill when the user mentions AgenticFlow, AF CLI, AI agents, agent workflows, business packs, workforce orchestration, or wants to create/deploy/run AI agents. Also use when the user wants to set up, build, or automate a business with agents — including tutoring, freelance, Amazon seller, marketing, sales, support, content, coaching, consulting, legal, real-estate, or any domain-specific agent team. Provides CLI commands, pack recommendations, and deployment guides."
+version: "3.0.1"
 triggers:
   - "agenticflow"
   - "AF CLI"
@@ -29,7 +29,7 @@ triggers:
 license: MIT
 ---
 
-<!-- Version: 2.0.0 — If you see an older version, update your skill copy. -->
+<!-- Version: 3.0.1 — If you see an older version, update your skill copy. -->
 <!-- Ishi users: if skill content looks outdated, check ~/.config/ishi/skill/ and ~/.ishi/skill/ for stale copies. Remove the stale copy and re-symlink to the latest. -->
 
 # AgenticFlow Skills
@@ -64,13 +64,18 @@ Use this to decide WHEN to run each operation:
 
 | User Intent | Action | Command |
 |-------------|--------|---------|
-| First mention of AgenticFlow or agents | Bootstrap to discover workspace | `af bootstrap --json` |
-| "Set up my [business type]" | Check pack catalog, recommend matching pack | See [packs.md](./reference/packs.md) |
+| First mention of AgenticFlow or agents | Bootstrap to discover workspace | `af bootstrap --json` → extract `auth.project_id` (needed for agent create), `auth.workspace_id`, `_links.workspace`, `agents[]`, `workforces[]` |
+| **Right after bootstrap** | **Surface `_links.workspace` to the user** — "Your AgenticFlow workspace is at `<_links.workspace>` — open it anytime to see what I'm building." This anchors a human-first mental model before any mutation. | Extract `_links.workspace` from bootstrap JSON |
+| **Before constructing any create/update payload** | Inspect the exact payload shape — don't guess | `af schema <resource> --json` (full shape) / `af schema <resource> --field <name> --json` (nested field drilldown: `mcp_clients`, `response_format`, `suggested_messages`, etc.) |
+| "Set up my [business type]" — one of the 3 packs | Check the pack catalog, recommend matching pack | See [packs.md](./reference/packs.md) |
+| **"Set up my [business type]" — NO pack fits** (coaching, consulting, legal, real-estate, agency, custom domain) | **Skip packs entirely — create a single agent or a custom workforce.** Single chat endpoint / one persona → `af agent create`. Multiple agents with hand-off → custom `af workforce` graph (see `skills/agenticflow-workforce/SKILL.md`). | `af agent create --body @agent.json --dry-run --json` then without `--dry-run` |
+| Creating an agent | Always include `project_id` from `af bootstrap > auth.project_id` (server does NOT auto-inject it for agents). Preview with `--dry-run` first. | `af agent create --body @agent.json --dry-run --json` |
+| Iterating an agent's prompt or config | Use `--patch` — preserves attached MCP clients, tools, and code-execution config. Never round-trip the full body. | `af agent update --agent-id <id> --patch --body '{"system_prompt":"…"}' --json` |
 | Before running any action workflow | Check connections are available | `af connections list --limit 200 --json` |
-| After creating agents | Offer Paperclip deployment (OPTIONAL per user -- always ask first). **Only built-in blueprints work:** dev-shop, marketing-agency, sales-team, content-studio, support-center, amazon-seller. For packs without a blueprint (tutor-pack, freelancer-pack), use `af agent create` per agent instead. | `af paperclip init --blueprint <id> --json` (built-in only) or `af agent create --json` (custom packs) |
-| After any agent/workflow operation | Present `_links` URLs to user | Extract from `--json` output |
-| User asks about existing agents | List current agents | `af agent list --json` |
-| User wants to run a task | Use agent run with --json | `af agent run --agent-id <id> --message "<task>" --json` (NOTE: use `--agent-id`, not `--id`) |
+| After creating agents | **PREFER native deploy (v1.6+):** `af workforce init --blueprint <id>` for built-in multi-agent teams (dev-shop, marketing-agency, sales-team, content-studio, support-center, amazon-seller). Paperclip is deprecated (sunset 2026-10-14) — use workforce instead. For custom businesses with no blueprint fit, keep agents standalone. | `af workforce init --blueprint <id> --name "<name>" --json` |
+| After any agent/workflow operation | Present `_links` URLs to the user (thread URL, agent URL, workspace URL) | Extract from `--json` output |
+| User asks about existing agents | List current agents | `af agent list --fields id,name --name-contains "<substr>" --json` |
+| User wants to run a task | Use `af agent run` with `--json` (non-streaming — returns `{response, thread_id, status}`) | `af agent run --agent-id <id> --message "<task>" --json` |
 
 ### When Things Go Wrong
 
@@ -158,6 +163,20 @@ Packs are pre-built business agent kits -- each contains a company blueprint (ag
 | `amazon-seller-pack` | Amazon e-commerce sellers (Singapore market) | AMZ Listing & SEO Specialist, AMZ PPC Campaign Manager, AMZ Competitor Analyst, AMZ Customer Support, AMZ Pricing Strategist | full-product-launch, competitor-scrape, listing-audit, review-scrape-respond, post-review-to-gbp |
 | `tutor-pack` | Tutoring businesses, education professionals | Curriculum Designer, Quiz & Assessment Creator, Student Progress Tracker, Parent Communication Specialist, Tutor Business Manager | post-lesson-summary, generate-quiz |
 | `freelancer-pack` | Freelancers, consultants, independent professionals | Project Scope Writer, Invoice & Contract Generator, Client Research Analyst, Client Communication Agent, Business Development Manager | send-invoice, client-status-update |
+| **No pack fits?** (coaching, consulting, legal, real-estate, agency, SaaS, or any custom business) | **Skip packs.** Load `skills/agenticflow-agent/SKILL.md` for single-agent setup or `skills/agenticflow-workforce/SKILL.md` for a custom multi-agent DAG. Packs are a shortcut for the 3 listed businesses — not a requirement. | `af agent create --body @agent.json --dry-run --json` (single agent) |
+
+### Built-in workforce blueprints (v1.6+ native deploy — prefer over Paperclip)
+
+The 6 built-in blueprints for `af workforce init --blueprint <id>`:
+
+| Blueprint | Required slots | Optional |
+| --- | --- | --- |
+| `dev-shop` | ceo, engineer | designer, qa |
+| `marketing-agency` | ceo, cmo, designer | researcher |
+| `sales-team` | ceo, researcher, general | — |
+| `content-studio` | ceo, cmo, engineer | designer |
+| `support-center` | ceo, general | researcher |
+| `amazon-seller` | ceo, cmo, engineer, researcher | general |
 
 ### Quick Start
 
@@ -168,13 +187,18 @@ af pack install github:PixelML/agent-skills/packs/tutor-pack --json
 # Validate structure
 af pack validate ./tutor-pack --json
 
-# Deploy agents -- method depends on whether a built-in blueprint exists:
-# Built-in blueprints: dev-shop, marketing-agency, sales-team, content-studio, support-center, amazon-seller
+# Deploy a built-in workforce blueprint (PREFERRED — v1.6+ native, atomic rollback on failure)
+af workforce init --blueprint amazon-seller --name "My Amazon Team" --dry-run --json
+af workforce init --blueprint amazon-seller --name "My Amazon Team" --json
+
+# LEGACY (deprecated — sunset 2026-10-14): Paperclip still works, emits a warning
 af paperclip init --blueprint amazon-seller --json
 
-# For packs WITHOUT a built-in blueprint (tutor-pack, freelancer-pack),
-# create agents individually from the pack's company.yaml:
-af agent create --name "Curriculum Designer" --system-prompt "..." --json
+# For packs WITHOUT a built-in blueprint (tutor-pack, freelancer-pack, or ANY custom business),
+# create agents individually:
+af schema agent --json                          # Learn payload shape
+af agent create --body @agent.json --dry-run --json     # Validate
+af agent create --body @agent.json --json               # Create
 ```
 
 ---

@@ -36,7 +36,15 @@ If the user needs **multiple agents that hand off to each other** (research → 
 af bootstrap --json
 ```
 
-Extract `auth.project_id` — it's **required** on agent create (the server does not auto-inject it, unlike workforce create). Also note `models[]` and the existing `agents[]` so you don't duplicate.
+From the response, extract:
+
+- `auth.project_id` — **required** on agent create (server does not auto-inject for agents, unlike workforces)
+- `auth.workspace_id`
+- `_links.workspace` — **surface this URL to the user right away**: *"Your AgenticFlow workspace is at `<_links.workspace>` — open it anytime to see what I'm building."* Anchors a human-first mental model before any mutation
+- `models[]` — use as source of truth for model ids (don't hardcode — they change between CLI releases)
+- `agents[]` — so you don't duplicate existing work
+
+If `data_fresh: false` in the response, the backend is degraded — don't mutate. Run `af doctor --json --strict` and fix auth/network first.
 
 ## Inspect payload shape before writing
 

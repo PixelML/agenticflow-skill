@@ -1,12 +1,22 @@
 {
   "name": "agenticflow-plugin",
-  "version": "3.0.0",
-  "description": "AgenticFlow developer tools for OpenAI Codex — build AI agents, deploy multi-agent workforces, and automate operations against the AgenticFlow platform via the `af` CLI.",
-  "author": { "name": "PixelML" },
+  "version": "3.0.1",
+  "description": "AgenticFlow developer tools for OpenAI Codex \u2014 build AI agents, deploy multi-agent workforces, and automate operations against the AgenticFlow platform via the `af` CLI.",
+  "author": {
+    "name": "PixelML"
+  },
   "homepage": "https://agenticflow.ai",
   "repository": "https://github.com/PixelML/agenticflow-skill",
   "license": "MIT",
-  "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp"],
+  "keywords": [
+    "agenticflow",
+    "af",
+    "cli",
+    "agents",
+    "workforce",
+    "multi-agent",
+    "mcp"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "AgenticFlow",
@@ -14,7 +24,10 @@
     "longDescription": "Operate the AgenticFlow platform end-to-end from your editor: run `af bootstrap --json` to orient, deploy a pre-built multi-agent team with `af workforce init --blueprint <id> --json`, iterate surgically with `af agent update --patch`, inspect MCP tool providers with `af mcp-clients inspect` before attaching them, and validate payload shapes with `af schema <resource> --field <name>`. Ships with 3 flagship skills (workforce, agent, mcp) plus a reference library covering CLI setup, packs, glossary, and troubleshooting.",
     "developerName": "PixelML",
     "category": "Productivity",
-    "capabilities": ["Read", "Execute"],
+    "capabilities": [
+      "Read",
+      "Execute"
+    ],
     "brandColor": "#4F46E5",
     "websiteURL": "https://agenticflow.ai",
     "defaultPrompt": [

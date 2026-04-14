@@ -11,7 +11,7 @@
       "name": "agenticflow-plugin",
       "source": "./",
       "description": "Build AI agents, deploy multi-agent workforces (trigger \u2192 coordinator \u2192 workers \u2192 output), inspect MCP clients before attach, and automate AgenticFlow platform operations \u2014 all via the `af` CLI.",
-      "version": "3.0.1",
+      "version": "4.0.0",
       "author": {
         "name": "PixelML"
       },

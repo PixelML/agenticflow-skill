@@ -47,7 +47,7 @@ Returns `auth`, `agents`, `workforces`, `blueprints`, `commands`, `playbooks`, `
 
 If `data_fresh: false` in the bootstrap response, the backend is degraded — **do not mutate**. Run `af doctor --json --strict` and fix auth/network before proceeding.
 
-## The 6 built-in blueprints
+## The 8 built-in blueprints
 
 | Blueprint | Required slots | Optional |
 | --- | --- | --- |
@@ -57,6 +57,10 @@ If `data_fresh: false` in the bootstrap response, the backend is degraded — **
 | `content-studio` | ceo, cmo, engineer | designer |
 | `support-center` | ceo, general | researcher |
 | `amazon-seller` | ceo, cmo, engineer, researcher | general |
+| `tutor` | ceo, cmo, engineer, researcher | general |
+| `freelancer` | ceo, cmo, engineer, researcher | general |
+
+> **Heads-up:** the `tutor` and `freelancer` blueprints replace the legacy `af pack install tutor-pack` / `freelancer-pack` flow as of CLI v1.7.0. `af pack *` still works but is deprecated (sunset 2026-10-14).
 
 ## One-command deploy (v1.6+)
 

@@ -1,5 +1,44 @@
 # Changelog
 
+## 4.0.0 — 2026-04-14
+
+Concept consolidation — **"pack" is gone**.
+
+Before this release AgenticFlow had 3 concepts a new user had to learn:
+
+- **Pack** (bundle you install: 3 existed — amazon-seller-pack, tutor-pack, freelancer-pack)
+- **Blueprint** (workforce template: 6 existed)
+- **Playbook** (guide you read: 14)
+
+With `amazon-seller` existing as BOTH a pack AND a blueprint, and `tutor-pack` / `freelancer-pack` having no blueprint at all, the overlap was confusing — round-5 fresh-subagent tests showed users trying `--blueprint coaching` (which doesn't exist) instead of realizing packs were a shortcut for only 3 verticals.
+
+Now there are **2 concepts**:
+
+- **Blueprint** (8 of them now — includes `tutor` and `freelancer` absorbed from the legacy packs)
+- **Playbook** (14)
+
+### Changed
+- Root `SKILL.md` "Packs" section removed; replaced with unified "Blueprints" section listing all 8
+- `reference/packs.md` renamed → `reference/blueprints.md`; content rewritten with every blueprint's required + optional slots, suggested marketplace templates, deploy command, full response shape, and the fallback rule for custom businesses that don't fit a blueprint
+- `skills/agenticflow-workforce/SKILL.md` blueprint table updated 6 → 8
+- Root `SKILL.md` Decision Policy + Quick Navigation now reference Blueprints (and blueprints.md), not Packs
+- `triggers[]` in root SKILL.md frontmatter: added `blueprint`; removed `paperclip` and `agent pack` / `business pack` (pack concept sunset)
+- All 8 plugin manifests bumped 3.0.1 → 4.0.0
+- Root `SKILL.md` frontmatter: `version: "3.0.1"` → `"4.0.0"`
+
+### Deprecated
+- `af pack install` / `validate` / `run` / `list` / `uninstall` — emits per-subcommand stderr warning, sunset 2026-10-14. Use `af workforce init --blueprint <id>` instead.
+
+### Migration map
+| Legacy | v4.0.0 |
+| --- | --- |
+| `af pack install github:PixelML/agent-skills/packs/amazon-seller-pack` | `af workforce init --blueprint amazon-seller --name "<name>" --json` |
+| `af pack install github:.../tutor-pack` | `af workforce init --blueprint tutor --name "<name>" --json` |
+| `af pack install github:.../freelancer-pack` | `af workforce init --blueprint freelancer --name "<name>" --json` |
+
+### Companion release
+Ships alongside `@pixelml/agenticflow-cli@1.7.0` — the new `tutor` and `freelancer` blueprints live in the CLI; this skill repo teaches AIs how to use them.
+
 ## 3.0.1 — 2026-04-14
 
 Friction fixes from round-5 clean-subagent test (minimal user prompt, "build an agent for my FlowUp Coaching business"). All fixes docs-only — no CLI version required.

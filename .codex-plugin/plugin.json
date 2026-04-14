@@ -1,0 +1,28 @@
+{
+  "name": "agenticflow-plugin",
+  "version": "3.0.0",
+  "description": "AgenticFlow developer tools for OpenAI Codex — build AI agents, deploy multi-agent workforces, and automate operations against the AgenticFlow platform via the `af` CLI.",
+  "author": { "name": "PixelML" },
+  "homepage": "https://agenticflow.ai",
+  "repository": "https://github.com/PixelML/agenticflow-skill",
+  "license": "MIT",
+  "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AgenticFlow",
+    "shortDescription": "Build AI agents and multi-agent workforces via the `af` CLI.",
+    "longDescription": "Operate the AgenticFlow platform end-to-end from your editor: run `af bootstrap --json` to orient, deploy a pre-built multi-agent team with `af workforce init --blueprint <id> --json`, iterate surgically with `af agent update --patch`, inspect MCP tool providers with `af mcp-clients inspect` before attaching them, and validate payload shapes with `af schema <resource> --field <name>`. Ships with 3 flagship skills (workforce, agent, mcp) plus a reference library covering CLI setup, packs, glossary, and troubleshooting.",
+    "developerName": "PixelML",
+    "category": "Productivity",
+    "capabilities": ["Read", "Execute"],
+    "brandColor": "#4F46E5",
+    "websiteURL": "https://agenticflow.ai",
+    "defaultPrompt": [
+      "Set up an AI agent that answers customer questions about my SaaS product",
+      "Deploy a 5-agent Amazon Singapore seller team with the amazon-seller blueprint",
+      "Build a research-then-write multi-agent workforce with a researcher and a writer",
+      "Attach a Google Sheets MCP client to my agent so it can log each result",
+      "Iterate on an agent's system prompt without touching its attached tools"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "agenticflow-ai-toolkit",
+  "owner": {
+    "name": "PixelML"
+  },
+  "metadata": {
+    "description": "AgenticFlow developer tools for Cursor — AI agents, multi-agent workforces, and MCP tool integrations via the `af` CLI."
+  },
+  "plugins": [
+    {
+      "name": "agenticflow-plugin",
+      "source": "./",
+      "description": "Build AI agents, deploy multi-agent workforces (trigger → coordinator → workers → output), inspect MCP clients before attach, and automate AgenticFlow platform operations — all via the `af` CLI.",
+      "version": "3.0.0",
+      "author": { "name": "PixelML" },
+      "license": "MIT",
+      "homepage": "https://github.com/PixelML/agenticflow-skill",
+      "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp"]
+    }
+  ]
+}

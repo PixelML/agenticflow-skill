@@ -1,0 +1,11 @@
+{
+  "name": "agenticflow-plugin",
+  "version": "3.0.0",
+  "private": true,
+  "description": "AI agent plugin manifests + skills for the AgenticFlow `af` CLI. Ships to Claude Code, OpenAI Codex, Cursor, and Gemini CLI.",
+  "author": "PixelML",
+  "license": "MIT",
+  "repository": "https://github.com/PixelML/agenticflow-skill",
+  "homepage": "https://agenticflow.ai",
+  "keywords": ["agenticflow", "af", "cli", "agents", "workforce", "multi-agent", "mcp", "pixelml"]
+}

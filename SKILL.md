@@ -27,13 +27,15 @@ triggers:
 license: MIT
 ---
 
-<!-- Version: 4.0.0 — If you see an older version, update your skill copy. -->
-<!-- v4.0.0 change: "pack" concept collapsed into blueprints. `af pack *` still works but is deprecated. Use `af workforce init --blueprint <id>` instead. -->
+<!-- Version: 4.3.0 — If you see an older version, update your skill copy. -->
+<!-- v4.3.0 change: composition ladder (workflow/agent/workforce as rungs 0-6); 4 new workflow blueprints (llm-hello, llm-chain, summarize-url, api-summary); `af workflow init` command. -->
 <!-- Ishi users: if skill content looks outdated, check ~/.config/ishi/skill/ and ~/.ishi/skill/ for stale copies. Remove the stale copy and re-symlink to the latest. -->
 
 # AgenticFlow Skills
 
 AgenticFlow is a platform for building AI-powered automation workflows, intelligent agents, and workforce systems.
+
+**This skill is loaded by AI agents operating AgenticFlow on a user's behalf** — Ishi (AgenticFlow's first-party desktop agent), Claude Code, OpenAI Codex, Cursor, Gemini CLI, or any compatible host. The AgenticFlow CLI (`af`) is the shared contract every host uses. See the [Ecosystem overview](https://docs.agenticflow.ai/developers/ecosystem) for how the layers fit together.
 
 ## First-Time Setup (for AI agents)
 

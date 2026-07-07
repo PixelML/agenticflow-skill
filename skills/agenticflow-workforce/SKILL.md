@@ -4,7 +4,7 @@ description: "Deploy and operate a multi-agent AgenticFlow workforce — a DAG o
 compatibility: Claude Code, Claude Desktop, Codex, Cursor, Gemini CLI
 metadata:
   author: PixelML
-  version: "3.0.0"
+  version: "3.1.0"
   license: MIT
 triggers:
   - "workforce"
@@ -47,10 +47,11 @@ Returns `auth`, `agents`, `workforces`, `blueprints`, `commands`, `playbooks`, `
 
 If `data_fresh: false` in the bootstrap response, the backend is degraded — **do not mutate**. Run `af doctor --json --strict` and fix auth/network before proceeding.
 
-## The 8 built-in blueprints
+## Built-in blueprints
 
 | Blueprint | Required slots | Optional |
 | --- | --- | --- |
+| `autonomous-desk` ⭐ | planner, researcher, critic, editor | — |
 | `dev-shop` | ceo, engineer | designer, qa |
 | `marketing-agency` | ceo, cmo, designer | researcher |
 | `sales-team` | ceo, researcher, general | — |
@@ -73,7 +74,30 @@ af workforce init --blueprint <slug> --name "<name>" --json
 
 `init` creates the workforce + one real agent per required slot + the wired graph — in a single atomic call. On failure, every resource is rolled back automatically; inspect `details.rolled_back_agents` and `details.rolled_back_workforce` in the error.
 
-Use `--include-optional-slots` to fill every slot, not just required ones. Use `--model <id>` (e.g. `agenticflow/gemini-2.0-flash`) to override the default model for all auto-created agents.
+Use `--include-optional-slots` to fill every slot, not just required ones. Use `--model <id>` (e.g. `agenticflow/gemini-2.0-flash`) to override the default model for all auto-created agents. (Slots that a blueprint pins to a specific model — e.g. the desk's JSON routers — keep their pinned model regardless of `--model`.)
+
+## The high-autonomy pattern: `autonomous-desk` ⭐
+
+When the ask is a **mission with built-in quality control** ("research X and make sure it's verified", "self-correcting team", "plan → execute → review"), deploy the desk:
+
+```bash
+af workforce init --blueprint autonomous-desk --name "<name>" --json
+```
+
+Topology: `plan → route → execute → critic QA gate → auto-revision → editor → output`. The planner and critic return structured JSON that drives real condition gates; rejected drafts loop through a revision pass automatically — component failures and thin drafts become revisions, not shipped garbage.
+
+To give the desk a deterministic execution route (a deployed workflow it can send suitable missions through — cheap repeatable baseline, agent judgment spent only on the delta):
+
+```bash
+af workflow update --workflow-id <wf_id> --body '{... "public_runnable": true ...}' --json   # REQUIRED
+af workforce init --blueprint autonomous-desk \
+  --tool-workflow-id <wf_id> \
+  --tool-workflow-purpose "stock watchlist brief for a ticker" \
+  --tool-workflow-input '{"ticker": "{{nodes.agent_planner.output.structured_output.workflow_input_primary}}"}' \
+  --json
+```
+
+The attached workflow **must** be `public_runnable: true` or its invocations fail with "Workflow is not public runnable".
 
 ## Custom workforce (no blueprint fits)
 
@@ -99,6 +123,15 @@ If the user's ask is a precise custom pipeline that no blueprint matches (e.g. a
    ```
 
 Edge `connection_type` is one of `next_step`, `condition`, `ai_condition`. Agent nodes **require** a real `agent_id` in `input`.
+
+**Before hand-authoring ANY graph, read [graph-building.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/workforce/graph-building.md)** (or `af playbook mas-graph-building`). The non-obvious, field-verified rules in one place:
+
+- Node refs need the `.output` hop — `{{nodes.<name>.output.last_message}}`, `{{nodes.<name>.output.structured_output.<field>}}`. **Wrong refs render as empty strings, not errors** — the run "succeeds" with hollow prompts. Smoke-run once and check `node_start.node_input` in the event stream.
+- Cross-branch state: `state_modifier` writes `variables.<x>`, readers use `{{variables.<x>}}`.
+- Condition-node outgoing edges: `connection_type: "condition"` + `{branch_index: N}`; `-1` = default branch (always wire one).
+- Structured-output agents need the `{name, strict, schema}` wrapper AND `"additionalProperties": false` on every object level; pin them to `agenticflow/gpt-4o-mini`-class models.
+- Whole-workflow invocation = `plugin` node wrapping `call_other_workflow` (`workflow_input` is a JSON *string*; target workflow must be `public_runnable`); result at `{{nodes.<n>.output.output.workflow_output.content}}`.
+- `deploy` diffs nodes by name and can't change a node's type in place — rename the node to change type.
 
 ## Run + publish
 
@@ -143,11 +176,21 @@ Both return `{"schema":"agenticflow.delete.v1","deleted":true,"id":"...","resour
 
 All API errors return `{schema: "agenticflow.error.v1", code, message, hint, details}`. Read `hint` first — it points at the recovery command (e.g. `af <resource> list` on a 404). For 422s, inspect `details.payload.detail` for field-level errors.
 
-`workforce run` occasionally returns a backend `Failed to retrieve user info for user_id: api_key:...` 400 — this is a known server-side issue with API-key auth, not a CLI bug.
+`workforce run` occasionally returns a backend `Failed to retrieve user info for user_id: ...` 400 — this is a known server-side issue with API-key auth, not a CLI bug. **Working fallback:** publish the workforce and run through the public endpoint, which doesn't do the user lookup:
+
+```bash
+af workforce publish --workforce-id <id> --json    # → run_url
+curl -X POST "https://api.agenticflow.ai/v1/workforce/public/<public_key>/run" \
+  -H 'Content-Type: application/json' \
+  -d '{"trigger_data":{"message":"..."},"stream":true}'
+```
+
+The web UI (browser session auth) is also unaffected.
 
 ## Reference
 
 - [cli-setup.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/cli-setup.md) — install + auth
+- [graph-building.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/workforce/graph-building.md) — field-verified MAS graph rules (templating, gates, state, workflow-in-workforce)
 - [packs.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/packs.md) — blueprint details
 - [troubleshooting.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/troubleshooting.md)
 - [glossary.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/glossary.md)

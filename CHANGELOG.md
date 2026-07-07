@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.4.0 — 2026-07-07
+
+Autonomous desk + field-verified MAS graph rules.
+
+Live production verification of the full composition (workflow-in-workforce, structured-output routing, QA-gated self-revision) surfaced a set of non-obvious graph rules. They are now encoded in three places so no agent has to rediscover them: the `autonomous-desk` CLI blueprint (applies them), the `mas-graph-building` CLI playbook (explains them), and this skill (routes to both).
+
+### Added
+- `reference/workforce/graph-building.md` — the field-verified MAS graph rulebook: `.output` templating hop + silent empty-string failure mode, condition/`branch_index` edges, `state_modifier` branch merging, structured-output schema contract (`{name, strict, schema}` wrapper + `additionalProperties: false` everywhere), workflow invocation via `plugin`/`call_other_workflow` (JSON-string input, `public_runnable` requirement), rename-to-change-node-type, `event_type`/`event_data` stream keys.
+- `agenticflow-workforce` SKILL.md: `autonomous-desk` ⭐ blueprint section (plan → route → execute → critic gate → auto-revision → editor), `--tool-workflow-id/-purpose/-input` recipe, hand-authoring checklist, public-endpoint fallback for the API-key user-info 400.
+
+### Changed
+- `agenticflow-workforce` skill version 3.0.0 → 3.1.0.
+
 ## 4.3.0 — 2026-04-14
 
 Composition ladder — align with platform primitives.

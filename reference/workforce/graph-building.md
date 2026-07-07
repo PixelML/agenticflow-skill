@@ -133,6 +133,33 @@ Use a `plugin` node wrapping the `call_other_workflow` engine node:
   `POST https://api.agenticflow.ai/v1/workforce/public/<key>/run` with
   `{"trigger_data": {...}, "stream": true}`.
 
+## 8. Loop nodes (batch iteration)
+
+Loop bodies are nested subgraphs: body nodes carry `parent_node_name: <loop_node>`.
+
+- The body needs **≥ 2 nodes with ≥ 1 internal edge** (a lone child fails the engine's edge
+  check — pair your worker with a small `state_modifier`).
+- Body **entry** = an edge from the loop node to the first child (the engine rewrites it to START
+  inside the subgraph). Body **exit** = an edge from the last child back to the loop node
+  (rewritten to END). `af workforce validate` flags exactly these edges as `NO_CYCLES` —
+  expected and cosmetic for loop bodies; the engine handles them specially.
+- Array loops: `loop_arrays: [{"variable_name": "target", "array": "{{nodes.planner.output.structured_output.targets}}"}]`.
+  Each iteration exposes `{{loop_item.<variable_name>}}` and `{{loop_iteration}}`.
+- The body **cannot see root-graph nodes**. Pass global context via the loop's `variables` seed
+  (substituted against global state when the loop parses its input), read it as
+  `{{variables.<x>}}` inside the body.
+- Collect results with `loop_output: {"briefs": "{{nodes.<body_node>.output.last_message}}"}` —
+  evaluated per iteration against the body sub-state, appended into lists, read downstream at
+  `{{nodes.<loop_node>.output.loop_results.<key>}}`.
+- **Deploy note:** the bulk schema endpoint resolves `parent_node_name` against pre-existing
+  nodes only, so a child created in the same pass as its parent silently loses the link
+  (surfacing as "Workforce has no nodes" at run time, from the empty nested graph). Fix: run
+  `af workforce deploy` with the same body **twice** — the second pass re-links.
+  `af workforce init` does this automatically.
+- One-command version: `af workforce init --blueprint batch-research-desk --json` — planner
+  splits a multi-target mission into `targets[]`, the loop researches each target, an editor
+  composes the comparative digest.
+
 ## The desk pattern (reference topology)
 
 ```

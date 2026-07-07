@@ -4,7 +4,7 @@ description: "Deploy and operate a multi-agent AgenticFlow workforce — a DAG o
 compatibility: Claude Code, Claude Desktop, Codex, Cursor, Gemini CLI
 metadata:
   author: PixelML
-  version: "3.1.0"
+  version: "3.2.0"
   license: MIT
 triggers:
   - "workforce"
@@ -52,6 +52,7 @@ If `data_fresh: false` in the bootstrap response, the backend is degraded — **
 | Blueprint | Required slots | Optional |
 | --- | --- | --- |
 | `autonomous-desk` ⭐ | planner, researcher, critic, editor | — |
+| `batch-research-desk` | planner, researcher, editor | — |
 | `dev-shop` | ceo, engineer | designer, qa |
 | `marketing-agency` | ceo, cmo, designer | researcher |
 | `sales-team` | ceo, researcher, general | — |
@@ -98,6 +99,14 @@ af workforce init --blueprint autonomous-desk \
 ```
 
 The attached workflow **must** be `public_runnable: true` or its invocations fail with "Workflow is not public runnable".
+
+For **multi-target missions** ("brief me on each of these N competitors/tickers/prospects"), use the loop-topology desk instead:
+
+```bash
+af workforce init --blueprint batch-research-desk --json
+```
+
+Planner splits the mission into `targets[]`, a loop node runs the researcher once per target, the editor composes the comparative digest. Loop-node rules (body subgraphs, entry/exit edges, `{{loop_item.*}}` templating, the double-deploy requirement for parented nodes) are in [graph-building.md](https://github.com/PixelML/agenticflow-skill/blob/main/reference/workforce/graph-building.md) §8.
 
 ## Custom workforce (no blueprint fits)
 

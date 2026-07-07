@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.5.0 — 2026-07-07
+
+Batch topology — the loop node, decoded and encoded.
+
+### Added
+- `reference/workforce/graph-building.md` §8: loop-node rules (body subgraphs need ≥2 nodes + internal edge, loop→child entry / child→loop exit edges, `{{loop_item.*}}` + loop `variables` seed + `loop_output` collection, NO_CYCLES warnings are cosmetic for loop bodies, double-deploy for parented nodes).
+- `agenticflow-workforce` SKILL.md: `batch-research-desk` blueprint (planner splits targets → loop researches each → editor digest).
+
+### Changed
+- `agenticflow-workforce` skill version 3.1.0 → 3.2.0.
+
 ## 4.4.0 — 2026-07-07
 
 Autonomous desk + field-verified MAS graph rules.
